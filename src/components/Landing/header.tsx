@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {Navbar, Nav, NavDropdown} from "react-bootstrap";
-const LandingHeader = (props) => {
+const LandingHeader = () => {
 
     return (
         <header>

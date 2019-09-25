@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import {bindActionCreators} from "redux";
+import {bindActionCreators, Dispatch} from "redux";
 import {listEmbassy} from "../../actions/landing_actions";
 import {connect} from "react-redux";
+import {AppState} from "../../reducers";
 
 class Login extends Component {
 
@@ -14,11 +15,11 @@ class Login extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppState) => ({
     list: state.landing.embassyList,
 });
 
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = (dispatch: Dispatch) => (
     bindActionCreators({listEmbassy}, dispatch)
 );
 

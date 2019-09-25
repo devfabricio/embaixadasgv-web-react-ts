@@ -1,10 +1,6 @@
 import React, {Component} from 'react'
 import LocationSearchInput from "../Layout/LocationSearchInput";
-import { makeStyles } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Select from '@material-ui/core/Select';
+import {createStyles, makeStyles, Theme, WithStyles} from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -12,12 +8,39 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import Toast from "../Layout/Toast";
-import {bindActionCreators} from "redux";
+import {bindActionCreators, Dispatch} from "redux";
+import {AppState} from "../../reducers";
 import {registerEmbassy, clearRegisterState, listSponsors} from "../../actions/landing_actions";
 import {connect} from "react-redux";
 import {geocodeByAddress} from "react-places-autocomplete";
+import {EmbassySponsor} from "../../models/EmbassySponsor";
 
-class RegisterEmbassy extends Component {
+const styles = (theme: Theme) => createStyles ({
+    progress: {
+        margin: theme.spacing(2),
+    },
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    }
+});
+
+
+interface RegisterEmbassyProps extends WithStyles<typeof styles>{
+    registerEmbassy: Function;
+    clearRegisterState: Function;
+    listSponsors: Function;
+    sponsors: Array<EmbassySponsor>;
+}
+
+class RegisterEmbassy extends Component<RegisterEmbassyProps> {
 
     state = {
         leaderName: "",
@@ -43,17 +66,17 @@ class RegisterEmbassy extends Component {
         this.props.listSponsors()
     }
 
-    setLocation = (resultPlace) => {
+    setLocation = (resultPlace: google.maps.GeocoderResult) => {
         console.log(resultPlace.address_components)
         let self = this;
-        resultPlace.address_components.forEach(function (value, i) {
-            if(value.types[0] == "locality" || value.types[0] == "administrative_area_level_2") {
+        resultPlace.address_components.forEach(function (value: google.maps.GeocoderAddressComponent, i: number) {
+            if(value.types[0] === "locality" || value.types[0] === "administrative_area_level_2") {
                 self.setState({
                     ...self.state,
                     embassyCity : value.long_name
                 })
             }
-            if(value.types[0] == "administrative_area_level_1") {
+            if(value.types[0] === "administrative_area_level_1") {
                 self.setState({
                     ...self.state,
                     embassyState : value.long_name,
@@ -73,11 +96,11 @@ class RegisterEmbassy extends Component {
         });
     };
 
-    handleLocationChange = address => {
+    handleLocationChange = (address: string) => {
         this.setState({ address });
     };
 
-    handleLocationSelect = address => {
+    handleLocationSelect = (address: string) => {
         this.setState({ address })
         geocodeByAddress(address)
             .then(results => {
@@ -86,28 +109,28 @@ class RegisterEmbassy extends Component {
             .catch(error => console.error('Error', error));
     };
 
-     handleToastClose = (event, reason) => {
+     handleToastClose = () => {
          this.setState({
              ...this.state,
              open: false,
          });
     };
 
-    handleRadioChange = (event) => {
+    handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         this.setState({
             ...this.state,
             hasSponsor: event.target.value
         })
     };
 
-    handleSelectChange = (event) => {
+    handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         this.setState({
             ...this.state,
             embassySponsor: event.target.value
         })
     };
 
-    handleSubmitClick = (event) =>{
+    handleSubmitClick = (event: React.FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
 
         let leaderName = this.state.leaderName;
@@ -193,28 +216,10 @@ class RegisterEmbassy extends Component {
         let showButton = true;
 
         let sponsors = this.props.sponsors;
-
         if(this.state.loading) {
             showProgress = true;
             showButton = false;
         }
-
-        const classes = makeStyles(theme => ({
-            progress: {
-                margin: theme.spacing(2),
-            },
-            root: {
-                display: 'flex',
-                flexWrap: 'wrap',
-            },
-            formControl: {
-                margin: theme.spacing(1),
-                minWidth: 120,
-            },
-            selectEmpty: {
-                marginTop: theme.spacing(2),
-            }
-        }));
 
         return (
             <div className="page-content">
@@ -291,7 +296,7 @@ class RegisterEmbassy extends Component {
                             </div>
                             <div className="form-group form-action col-md-12">
                                 {showButton ? <button id={"bt-form"} className="btn btn-primary">Enviar</button> : null }
-                                {showProgress ? <CircularProgress size={30} id={"progress-form"} className={classes.progress} /> : null}
+                                {showProgress ? <CircularProgress size={30} id={"progress-form"} className={this.props.classes.progress} /> : null}
                                 <Toast open={this.state.open}
                                        message={this.state.toastMessage}
                                        variant={this.state.toastVariant}
@@ -304,12 +309,12 @@ class RegisterEmbassy extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppState) => ({
     registered: state.landing.embassyRegistered,
     sponsors: state.landing.sponsorsList
 });
 
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = (dispatch: Dispatch) => (
     bindActionCreators({registerEmbassy, clearRegisterState, listSponsors}, dispatch)
 );
 

@@ -84,7 +84,14 @@ const useStyles2 = makeStyles(theme => ({
     },
 }));
 
-export default function Toast(props) {
+interface ToastInterface {
+    open: boolean;
+    variant: string;
+    message: string;
+    handleToastClose: () => Void;
+}
+
+export default function Toast(props: ToastInterface) {
     return (
         <div>
             <Snackbar

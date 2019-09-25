@@ -1,9 +1,21 @@
+import Embassy from "../models/Embassy";
+import DocumentData = firebase.firestore.DocumentData;
+import {EmbassySponsor} from "../models/EmbassySponsor";
+
 interface Action {
     type: string
     payload: any
 }
 
-export default function (state={}, action: Action) {
+interface StoreState {
+    embassyRegistered?: boolean,
+    embassyList?: Array<Embassy>
+    policy_privacy?: DocumentData,
+    sponsorsList?: Array<EmbassySponsor>
+}
+
+export default function (state: StoreState = {}, action: Action) {
+
     switch (action.type) {
         case 'ON_REGISTER':
             return {...state, embassyRegistered: action.payload};

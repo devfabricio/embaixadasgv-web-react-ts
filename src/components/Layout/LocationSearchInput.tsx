@@ -1,7 +1,15 @@
 import React from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 
-const LocationSearchInput = (props) => {
+interface Props {
+    address: string
+    handleLocationChange: (address: string) => void
+    handleLocationSelect: (address: string) => void
+    setLocation: (resultPlace: google.maps.GeocoderResult) => void
+    submitted: boolean
+}
+
+const LocationSearchInput = (props: Props) => {
 
     const searchOptions = {
         types: ['(cities)']

@@ -1,12 +1,19 @@
 import LandingHeader from "./header";
 import LandingFooter from "./footer";
 import React, {Component} from "react";
-import {bindActionCreators} from "redux";
+import {bindActionCreators, Dispatch} from "redux";
 import {getPolicyPrivacy} from "../../actions/landing_actions";
 import {connect} from "react-redux";
 import {Parser} from "html-to-react"
+import {AppState} from "../../reducers";
+import DocumentData = firebase.firestore.DocumentData;
 
-class PrivacyPage extends Component {
+interface Props {
+    policy_privacy: DocumentData;
+    getPolicyPrivacy: () => void;
+}
+
+class PrivacyPage extends Component<Props> {
 
     componentDidMount() {
         this.props.getPolicyPrivacy()
@@ -29,11 +36,11 @@ class PrivacyPage extends Component {
 
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppState) => ({
     policy_privacy: state.landing.policy_privacy,
 });
 
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = (dispatch: Dispatch) => (
     bindActionCreators({getPolicyPrivacy}, dispatch)
 );
 

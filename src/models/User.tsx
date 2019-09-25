@@ -1,123 +1,341 @@
 import {UserInterface} from "../interface/UserInterface";
+import Embassy from "./Embassy";
 
 export default class User implements UserInterface{
 
-    id: string;
-    name: string;
-    email: string;
-    status: string;
-    gender: string | null;
-    description: string | null;
-    birthdate: string | null;
-    occupation: string | null;
-    city: string | null;
-    state: string | null;
-    state_short: string | null;
-    profile_img: string | null;
-    verified: string | null;
-    facebook: string | null;
-    twitter: string | null;
-    instagram: string | null;
-    linkedin: string | null;
-    whatsapp: string | null;
-    youtube: string | null;
-    behance: string | null;
-    github: string | null;
-    website: string | null;
-    leader: boolean | null;
-    sponsor: boolean | null;
-    manager: boolean | null;
-    embassy_id: string | null;
+    private _behance: string | null;
+    private _birthdate: string | null;
+    private _city: string | null;
+    private _description: string | null;
+    private _email: string;
+    private _embassy: Embassy | null;
+    private _embassy_id: string | null;
+    private _facebook: string | null;
+    private _gender: string | null;
+    private _github: string | null;
+    private _id: string;
+    private _instagram: string | null;
+    private _leader: boolean;
+    private _linkedin: string | null;
+    private _manager: boolean;
+    private _name: string;
+    private _occupation: string | null;
+    private _profile_img: string | null;
+    private _sponsor: boolean;
+    private _state: string | null;
+    private _state_short: string | null;
+    private _status: string | null;
+    private _twitter: string | null;
+    private _verified: string | null;
+    private _website: string | null;
+    private _whatsapp: string | null;
+    private _youtube: string | null;
 
     constructor() {
-        this.id = "";
-        this.name = "";
-        this.email = "";
-        this.status = "";
-        this.gender = null;
-        this.description = null;
-        this.birthdate = null;
-        this.occupation = null;
-        this.city = null;
-        this.state = null;
-        this.state_short = null;
-        this.profile_img = null;
-        this.verified = null;
-        this.facebook = null;
-        this.twitter = null;
-        this.instagram = null;
-        this.linkedin = null;
-        this.whatsapp = null;
-        this.youtube = null;
-        this.behance = null;
-        this.github =  null;
-        this.website = null;
-        this.leader = null;
-        this.sponsor = null;
-        this.manager = null;
-        this.embassy_id = null;
-        this.embassy = null;
+        this._id = "";
+        this._name = "";
+        this._email = "";
+        this._status = null;
+        this._gender = null;
+        this._description = null;
+        this._birthdate = null;
+        this._occupation = null;
+        this._city = null;
+        this._state = null;
+        this._state_short = null;
+        this._profile_img = null;
+        this._verified = null;
+        this._facebook = null;
+        this._twitter = null;
+        this._instagram = null;
+        this._linkedin = null;
+        this._whatsapp = null;
+        this._youtube = null;
+        this._behance = null;
+        this._github =  null;
+        this._website = null;
+        this._leader = false;
+        this._sponsor = false;
+        this._manager = false;
+        this._embassy_id = null;
+        this._embassy = null;
     }
 
-    toObject = (user) => {
-        this.id = user.id ? user.id : "";
-        this.name = user.name ? user.name : "";
-        this.email = user.email ? user.email : "";
-        this.status = user.status ? user.status : "";
-        this.gender = user.gender ? user.gender : null;
-        this.description = user.description ? user.description : null;
-        this.birthdate = user.birthdate ? user.birthdate : null;
-        this.occupation = user.occupation ? user.occupation : null;
-        this.city = user.city ? user.city : null;
-        this.state = user.state ? user.state : null;
-        this.state_short = user.state_short ? user.state_short : null;
-        this.profile_img = user.profile_img ? user.profile_img : null;
-        this.verified = user.verified ? user.verified : null;
-        this.facebook = user.facebook ? user.facebook : null;
-        this.twitter = user.twitter ? user.twitter : null;
-        this.instagram = user.instagram ? user.instagram : null;
-        this.linkedin = user.linkedin ? user.linkedin : null;
-        this.whatsapp = user.whatsapp ? user.whatsapp : null;
-        this.youtube = user.youtube ? user.youtube : null;
-        this.behance = user.behance ? user.behance : null;
-        this.github = user.github ? user.github : null;
-        this.website = user.website ? user.website : null;
-        this.leader = user.leader ? user.leader : null;
-        this.sponsor = user.sponsor ? user.sponsor : null;
-        this.manager = user.manager ? user.manager : null;
-        this.embassy_id = user.embassy_id ? user.embassy_id : null;
-        this.embassy = user.embassy ? user.embassy : null;
+    get behance(): string | null {
+        return this._behance;
+    }
+
+    set behance(value: string | null) {
+        this._behance = value;
+    }
+
+    get birthdate(): string | null {
+        return this._birthdate;
+    }
+
+    set birthdate(value: string | null) {
+        this._birthdate = value;
+    }
+
+    get city(): string | null {
+        return this._city;
+    }
+
+    set city(value: string | null) {
+        this._city = value;
+    }
+
+    get description(): string | null {
+        return this._description;
+    }
+
+    set description(value: string | null) {
+        this._description = value;
+    }
+
+    get email(): string {
+        return this._email;
+    }
+
+    set email(value: string) {
+        this._email = value;
+    }
+
+    get embassy(): Embassy | null {
+        return this._embassy;
+    }
+
+    set embassy(value: Embassy | null) {
+        this._embassy = value;
+    }
+
+    get embassy_id(): string | null {
+        return this._embassy_id;
+    }
+
+    set embassy_id(value: string | null) {
+        this._embassy_id = value;
+    }
+
+    get facebook(): string | null {
+        return this._facebook;
+    }
+
+    set facebook(value: string | null) {
+        this._facebook = value;
+    }
+
+    get gender(): string | null {
+        return this._gender;
+    }
+
+    set gender(value: string | null) {
+        this._gender = value;
+    }
+
+    get github(): string | null {
+        return this._github;
+    }
+
+    set github(value: string | null) {
+        this._github = value;
+    }
+
+    get id(): string {
+        return this._id;
+    }
+
+    set id(value: string) {
+        this._id = value;
+    }
+
+    get instagram(): string | null {
+        return this._instagram;
+    }
+
+    set instagram(value: string | null) {
+        this._instagram = value;
+    }
+
+    get leader(): boolean {
+        return this._leader;
+    }
+
+    set leader(value: boolean) {
+        this._leader = value;
+    }
+
+    get linkedin(): string | null {
+        return this._linkedin;
+    }
+
+    set linkedin(value: string | null) {
+        this._linkedin = value;
+    }
+
+    get manager(): boolean {
+        return this._manager;
+    }
+
+    set manager(value: boolean) {
+        this._manager = value;
+    }
+
+    get name(): string {
+        return this._name;
+    }
+
+    set name(value: string) {
+        this._name = value;
+    }
+
+    get occupation(): string | null {
+        return this._occupation;
+    }
+
+    set occupation(value: string | null) {
+        this._occupation = value;
+    }
+
+    get profile_img(): string | null {
+        return this._profile_img;
+    }
+
+    set profile_img(value: string | null) {
+        this._profile_img = value;
+    }
+
+    get sponsor(): boolean {
+        return this._sponsor;
+    }
+
+    set sponsor(value: boolean) {
+        this._sponsor = value;
+    }
+
+    get state(): string | null {
+        return this._state;
+    }
+
+    set state(value: string | null) {
+        this._state = value;
+    }
+
+    get state_short(): string | null {
+        return this._state_short;
+    }
+
+    set state_short(value: string | null) {
+        this._state_short = value;
+    }
+
+    get status(): string | null {
+        return this._status;
+    }
+
+    set status(value: string | null) {
+        this._status = value;
+    }
+
+    get twitter(): string | null {
+        return this._twitter;
+    }
+
+    set twitter(value: string | null) {
+        this._twitter = value;
+    }
+
+    get verified(): string | null {
+        return this._verified;
+    }
+
+    set verified(value: string | null) {
+        this._verified = value;
+    }
+
+    get website(): string | null {
+        return this._website;
+    }
+
+    set website(value: string | null) {
+        this._website = value;
+    }
+
+    get whatsapp(): string | null {
+        return this._whatsapp;
+    }
+
+    set whatsapp(value: string | null) {
+        this._whatsapp = value;
+    }
+
+    get youtube(): string | null {
+        return this._youtube;
+    }
+
+    set youtube(value: string | null) {
+        this._youtube = value;
+    }
+
+    toObject = (user: UserInterface) => {
+        this._id = user.id ? user.id : "";
+        this._name = user.name ? user.name : "";
+        this._email = user.email ? user.email : "";
+        this._status = user.status ? user.status : "";
+        this._gender = user.gender ? user.gender : "";
+        this._description = user.description ? user.description : "";
+        this._birthdate = user.birthdate ? user.birthdate : "";
+        this._occupation = user.occupation ? user.occupation : null;
+        this._city = user.city ? user.city : null;
+        this._state = user.state ? user.state : null;
+        this._state_short = user.state_short ? user.state_short : null;
+        this._profile_img = user.profile_img ? user.profile_img : null;
+        this._verified = user.verified ? user.verified : null;
+        this._facebook = user.facebook ? user.facebook : null;
+        this._twitter = user.twitter ? user.twitter : null;
+        this._instagram = user.instagram ? user.instagram : null;
+        this._linkedin = user.linkedin ? user.linkedin : null;
+        this._whatsapp = user.whatsapp ? user.whatsapp : null;
+        this._youtube = user.youtube ? user.youtube : null;
+        this._behance = user.behance ? user.behance : null;
+        this._github = user.github ? user.github : null;
+        this._website = user.website ? user.website : null;
+        this._leader = user.leader ? user.leader : false;
+        this._sponsor = user.sponsor ? user.sponsor : false;
+        this._manager = user.manager ? user.manager : false;
+        this._embassy_id = user.embassy_id ? user.embassy_id : null;
+        this._embassy = user.embassy ? user.embassy : null;
     };
 
-    toMap = () => {
+    toMap = (): UserInterface => {
         return {
-            id: this.id,
-            name: this.name,
-            email: this.email,
-            status: this.status,
-            gender: this.gender,
-            description: this.description,
-            birthdate: this.birthdate,
-            occupation: this.occupation,
-            city: this.city,
-            state: this.state,
-            state_short: this.state_short,
-            profile_img: this.profile_img,
-            verified: this.verified,
-            facebook: this.facebook,
-            twitter: this.twitter,
-            instagram: this.instagram,
-            linkedin: this.linkedin,
-            whatsapp: this.whatsapp,
-            youtube: this.youtube,
-            behance: this.behance,
-            github: this.github,
-            website: this.website,
-            leader: this.leader,
-            manager: this.manager,
-            sponsor: this.sponsor,
-            embassy_id: this.embassy_id,
-            embassy: this.embassy
+            id: this._id,
+            name: this._name,
+            email: this._email,
+            status: this._status,
+            gender: this._gender,
+            description: this._description,
+            birthdate: this._birthdate,
+            occupation: this._occupation,
+            city: this._city,
+            state: this._state,
+            state_short: this._state_short,
+            profile_img: this._profile_img,
+            verified: this._verified,
+            facebook: this._facebook,
+            twitter: this._twitter,
+            instagram: this._instagram,
+            linkedin: this._linkedin,
+            whatsapp: this._whatsapp,
+            youtube: this._youtube,
+            behance: this._behance,
+            github: this._github,
+            website: this._website,
+            leader: this._leader,
+            manager: this._manager,
+            sponsor: this._sponsor,
+            embassy_id: this._embassy_id,
+            embassy: this._embassy
         }
     }
 }

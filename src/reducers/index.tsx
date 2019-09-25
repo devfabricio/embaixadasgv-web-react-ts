@@ -6,5 +6,5 @@ const rootReducer = combineReducers({
     auth,
     landing
 });
-
 export default rootReducer;
+export type AppState = ReturnType<typeof rootReducer>

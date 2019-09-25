@@ -5,7 +5,7 @@ import RegisterEmbassy from "./registerEmbassy";
 import LandingFooter from "./footer";
 import { Helmet } from "react-helmet";
 
-const LandingPage = (props) => {
+const LandingPage = () => {
 
         return (<div className={"wrap landing"}>
             <LandingHeader/>

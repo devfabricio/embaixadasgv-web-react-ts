@@ -3,7 +3,7 @@ import LandingFooter from "./footer";
 import React from "react";
 import { Helmet } from "react-helmet";
 
-const AboutPage = (props) => {
+const AboutPage = () => {
 
     return (<div className={"wrap landing"}>
         <Helmet>
@@ -44,7 +44,7 @@ const AboutPage = (props) => {
                 <p>Confira agora um vídeo do Flávio Augusto falando um pouco sobre a Embaixada GV:</p>
                 <div className="embed-responsive embed-responsive-16by9 video-embassy">
                     <iframe src="https://www.youtube.com/embed/tbohLUsfAOk" width="1280" height="720" frameBorder="0"
-                            allowFullScreen="allowfullscreen"/>
+                            allowFullScreen={true}/>
                 </div>
             </div>
         </div>

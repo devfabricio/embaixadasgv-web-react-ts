@@ -4,7 +4,7 @@ import React from "react";
 import EmbassyList from "./list_embassies";
 import { Helmet } from "react-helmet";
 
-const ListPage = (props) => {
+const ListPage = () => {
 
     return (<div className={"wrap landing"}>
         <LandingHeader/>

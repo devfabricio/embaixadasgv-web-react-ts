@@ -3,10 +3,7 @@ import LandingFooter from "./footer";
 import React, {Component} from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Toast from "../Layout/Toast";
-import {makeStyles} from "@material-ui/core";
-import {bindActionCreators} from "redux";
-import {registerEmbassy} from "../../actions/landing_actions";
-import {connect} from "react-redux";
+import {createStyles, makeStyles, Theme, WithStyles} from "@material-ui/core";
 import { Helmet } from "react-helmet";
 
 // Load the AWS SDK for Node.js
@@ -17,8 +14,17 @@ AWS.config.update({
     accessKeyId: 'AKIAINUC74TNVUYUYL3Q',
     secretAccessKey: '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'});
 
+const styles = (theme: Theme) => createStyles ({
+    progress: {
+        margin: theme.spacing(2),
+    }
+});
 
-class ContactPage extends Component {
+interface Props extends WithStyles<typeof styles>{
+
+}
+
+class ContactPage extends Component<Props> {
 
     state = {
         name: '',
@@ -84,7 +90,7 @@ class ContactPage extends Component {
         let self = this;
         // Handle promise's fulfilled/rejected states
         sendPromise.then(
-            function(data) {
+            function() {
                 self.setState({
                     ...self.state,
                     name: '',
@@ -97,12 +103,12 @@ class ContactPage extends Component {
                     showProgress: false,
                 });
             }).catch(
-            function(err) {
+            function(err: Error) {
                 console.error(err, err.stack);
             });
     };
 
-    handleToastClose = (event, reason) => {
+    handleToastClose = () => {
         this.setState({
             ...this.state,
             open: false
@@ -171,7 +177,7 @@ class ContactPage extends Component {
                             </div>
                             <div className="form-group form-action col-md-12">
                                 {this.state.showButton  ? <button id={"bt-form"} className="btn btn-primary">Enviar</button> : null }
-                                {this.state.showProgress ? <CircularProgress id={"progress-form"} size={30} className={classes.progress} /> : null}
+                                {this.state.showProgress ? <CircularProgress id={"progress-form"} size={30} className={this.props.classes.progress} /> : null}
                                 <Toast open={this.state.open}
                                        message={"E-mail enviado com sucesso!"}
                                        variant={"success"}
@@ -185,12 +191,5 @@ class ContactPage extends Component {
         </div>)
     }
 }
-const mapStateToProps = (state) => ({
-    registered: state.landing.embassyRegistered,
-});
 
-const mapDispatchToProps = (dispatch) => (
-    bindActionCreators({registerEmbassy}, dispatch)
-);
-
-export default connect (mapStateToProps, mapDispatchToProps) (ContactPage)
+export default ContactPage

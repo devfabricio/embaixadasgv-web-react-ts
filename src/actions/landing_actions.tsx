@@ -1,7 +1,9 @@
 import {myFirebase} from "../utils/firebase";
 import {Dispatch} from "redux";
+import Embassy from "../models/Embassy";
+import {EmbassySponsor} from "../models/EmbassySponsor";
 
-export function registerEmbassy(embassy, callback) {
+export function registerEmbassy(embassy: Embassy, callback: Function) {
     return (dispatch: Dispatch) => {
         myFirebase.firestore().collection("embassy")
             .add(embassy)
@@ -24,7 +26,7 @@ export function clearRegisterState() {
 
 export function listEmbassy() {
 
-    let list = [];
+    let list: Array<Embassy> = [];
     let embassyRef = myFirebase.firestore().collection("embassy");
     return (dispatch: Dispatch) => {
         embassyRef.where("status", "==", "active")
@@ -32,13 +34,17 @@ export function listEmbassy() {
             .then(querySnapshot => {
                 console.log("Não achou nenhuma");
                 querySnapshot.forEach((doc) => {
-                    list.push(doc.data());
+                    let embassy = new Embassy()
+                    embassy.toObject(doc.data())
+                    list.push(embassy);
                 });
                 embassyRef.where("status", "==", "released")
                     .get()
                     .then(query => {
                         query.forEach((doc) => {
-                            list.push(doc.data());
+                            let embassy = new Embassy()
+                            embassy.toObject(doc.data())
+                            list.push(embassy);
                         });
                         dispatch({
                             type: 'ON_LIST',
@@ -53,7 +59,7 @@ export function listEmbassy() {
 
 export function listSponsors() {
 
-    let list = []
+    let list: Array<EmbassySponsor> = []
 
     return (dispatch: Dispatch) => {
         myFirebase.firestore().collection("sponsors")
@@ -61,9 +67,10 @@ export function listSponsors() {
             .get()
             .then(
                 querySnapshot => {
-
                     querySnapshot.forEach(doc => {
-                        list.push(doc.data())
+                        let embassySponsor = new EmbassySponsor()
+                        embassySponsor.toObject(doc.data())
+                        list.push(embassySponsor)
                     });
 
                     dispatch({

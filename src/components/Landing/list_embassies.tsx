@@ -1,11 +1,25 @@
 import React, {Component} from 'react'
-import {bindActionCreators} from "redux";
+import {bindActionCreators, Dispatch} from "redux";
 import {listEmbassy} from "../../actions/landing_actions";
 import {connect} from "react-redux";
-import {makeStyles} from "@material-ui/core";
+import {createStyles, makeStyles, Theme, WithStyles} from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {AppState} from "../../reducers";
+import {EmbassySponsor} from "../../models/EmbassySponsor";
+import Embassy from "../../models/Embassy";
 
-class EmbassyList extends Component {
+const styles = (theme: Theme) => createStyles ({
+    progress: {
+        margin: theme.spacing(2),
+    }
+});
+
+interface Props extends WithStyles<typeof styles>{
+    list: Array<Embassy>;
+    listEmbassy: () => void;
+}
+
+class EmbassyList extends Component<Props> {
 
     state = {
         embassyList: [],
@@ -15,7 +29,7 @@ class EmbassyList extends Component {
         this.props.listEmbassy();
     }
 
-    filterEmbassies = (query) => {
+    filterEmbassies = (query: string) => {
         if(!!this.props.list) {
             let filter = this.props.list.filter((item) => {
 
@@ -32,13 +46,7 @@ class EmbassyList extends Component {
 
     render() {
 
-        const classes = makeStyles(theme => ({
-            progress: {
-                margin: theme.spacing(2),
-            },
-        }));
-
-        let list = [];
+        let list: Array<Embassy> = [];
         let showProgress = false;
 
         if(!!this.props.list) {
@@ -63,7 +71,7 @@ class EmbassyList extends Component {
                            placeholder="Pesquise por nome, líder, bairro ou cidade" />
                 </div>
                 <div className={"progress-list"}>
-                    {showProgress ? <CircularProgress id={"progress-form"} size={30} className={classes.progress} /> : null}
+                    {showProgress ? <CircularProgress id={"progress-form"} size={30} className={this.props.classes.progress} /> : null}
                 </div>
                 <ul className={"list-group list-group-flush"}>
                     {list.map((embassy, i) => (
@@ -91,11 +99,11 @@ class EmbassyList extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppState) => ({
     list: state.landing.embassyList,
 });
 
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = (dispatch: Dispatch) => (
     bindActionCreators({listEmbassy}, dispatch)
 );
 

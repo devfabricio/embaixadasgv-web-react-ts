@@ -1,5 +1,5 @@
 import React from 'react'
-const LandingTop = (props) => {
+const LandingTop = () => {
 
     return (
         <div className="top container">

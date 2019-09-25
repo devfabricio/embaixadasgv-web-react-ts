@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import React from "react";
 import { Helmet } from "react-helmet";
 
-const FoundPage = (props) => {
+const FoundPage = () => {
 
     return (<div className={"wrap landing"}>
         <Helmet>
