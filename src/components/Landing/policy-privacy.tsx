@@ -4,12 +4,12 @@ import React, {Component} from "react";
 import {bindActionCreators, Dispatch} from "redux";
 import {getPolicyPrivacy} from "../../actions/landing_actions";
 import {connect} from "react-redux";
-import {Parser} from "html-to-react"
+import Markdown from 'markdown-to-jsx'
 import {AppState} from "../../reducers";
-import DocumentData = firebase.firestore.DocumentData;
+import firebase from 'firebase';
 
 interface Props {
-    policy_privacy: DocumentData;
+    policy_privacy: firebase.firestore.DocumentData;
     getPolicyPrivacy: () => void;
 }
 
@@ -27,7 +27,10 @@ class PrivacyPage extends Component<Props> {
             <LandingHeader/>
             <div className={"policy-privacy"}>
                 <div className={"container"}>
-                    {policy_privacy ? Parser().parse(policy_privacy.value) : null}
+                    <Markdown>
+                        {policy_privacy ? policy_privacy.value : null}
+                    </Markdown>
+
                 </div>
             </div>
             <LandingFooter/>

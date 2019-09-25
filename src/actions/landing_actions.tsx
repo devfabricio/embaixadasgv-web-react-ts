@@ -6,8 +6,9 @@ import {EmbassySponsor} from "../models/EmbassySponsor";
 export function registerEmbassy(embassy: Embassy, callback: Function) {
     return (dispatch: Dispatch) => {
         myFirebase.firestore().collection("embassy")
-            .add(embassy)
+            .add(embassy.toMap())
             .then(document => {
+                console.log(embassy)
                 callback();
                 dispatch({
                     type: 'ON_REGISTER',
@@ -42,10 +43,11 @@ export function listEmbassy() {
                     .get()
                     .then(query => {
                         query.forEach((doc) => {
-                            let embassy = new Embassy()
-                            embassy.toObject(doc.data())
+                            let embassy = new Embassy();
+                            embassy.toObject(doc.data());
                             list.push(embassy);
                         });
+                        console.log(list);
                         dispatch({
                             type: 'ON_LIST',
                             payload: list})

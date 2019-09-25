@@ -1,4 +1,5 @@
-import DocumentData = firebase.firestore.DocumentData;
+import firebase from 'firebase';
+import {Invitation} from "../models/Invitation";
 
 interface Action {
     type: string
@@ -7,7 +8,7 @@ interface Action {
 
 interface StoreState {
     validatedCode?: boolean;
-    invitation?: DocumentData
+    invitation?: Invitation
 }
 
 export default function (state: StoreState = {}, action: Action) {

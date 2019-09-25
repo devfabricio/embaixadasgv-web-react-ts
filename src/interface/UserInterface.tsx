@@ -34,3 +34,12 @@ export interface UserInterface {
     embassy_id: string | null;
     embassy: Embassy | null;
 }
+
+export interface BasicUserInterface {
+    id: string;
+    name: string;
+    profile_img: string | null;
+    occupation: string | null;
+    embassy_id: string | null;
+    verified: string | null;
+}

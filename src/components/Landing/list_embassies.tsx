@@ -7,14 +7,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import {AppState} from "../../reducers";
 import {EmbassySponsor} from "../../models/EmbassySponsor";
 import Embassy from "../../models/Embassy";
+import withStyles from "@material-ui/core/styles/withStyles";
 
-const styles = (theme: Theme) => createStyles ({
-    progress: {
-        margin: theme.spacing(2),
-    }
-});
-
-interface Props extends WithStyles<typeof styles>{
+interface Props {
     list: Array<Embassy>;
     listEmbassy: () => void;
 }
@@ -44,7 +39,15 @@ class EmbassyList extends Component<Props> {
         }
     };
 
+    styles = (theme: Theme) => createStyles ({
+        progress: {
+            margin: theme.spacing(2),
+        }
+    });
+
     render() {
+
+        withStyles(this.styles)
 
         let list: Array<Embassy> = [];
         let showProgress = false;
@@ -71,7 +74,7 @@ class EmbassyList extends Component<Props> {
                            placeholder="Pesquise por nome, líder, bairro ou cidade" />
                 </div>
                 <div className={"progress-list"}>
-                    {showProgress ? <CircularProgress id={"progress-form"} size={30} className={this.props.classes.progress} /> : null}
+                    {showProgress ? <CircularProgress id={"progress-form"} size={30} /> : null}
                 </div>
                 <ul className={"list-group list-group-flush"}>
                     {list.map((embassy, i) => (

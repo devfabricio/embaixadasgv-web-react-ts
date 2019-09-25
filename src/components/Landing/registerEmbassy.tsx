@@ -14,35 +14,41 @@ import {registerEmbassy, clearRegisterState, listSponsors} from "../../actions/l
 import {connect} from "react-redux";
 import {geocodeByAddress} from "react-places-autocomplete";
 import {EmbassySponsor} from "../../models/EmbassySponsor";
+import Embassy from "../../models/Embassy";
+import User from "../../models/User";
 
-const styles = (theme: Theme) => createStyles ({
-    progress: {
-        margin: theme.spacing(2),
-    },
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    }
-});
+type variants = "error" | "info" | "success" | "warning"
 
-
-interface RegisterEmbassyProps extends WithStyles<typeof styles>{
+interface RegisterEmbassyProps{
     registerEmbassy: Function;
     clearRegisterState: Function;
     listSponsors: Function;
     sponsors: Array<EmbassySponsor>;
 }
 
-class RegisterEmbassy extends Component<RegisterEmbassyProps> {
+interface RegisterEmbassyStates {
+    leaderName: string,
+    leaderLastname: string
+    leaderEmail: string,
+    leaderPhone: string,
+    embassyName: string
+    embassyCity: string
+    embassyState: string
+    embassySponsorIndex: number | null
+    hasSponsor: string
+    address: string
+    embassyShortState: string
+    submitted: boolean
+    loading: boolean
+    registered: boolean
+    open: boolean
+    toastMessage: string
+    toastVariant: variants
+}
 
-    state = {
+class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassyStates> {
+
+    state: Readonly<RegisterEmbassyStates> = {
         leaderName: "",
         leaderLastname: "",
         leaderEmail: "",
@@ -50,7 +56,7 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps> {
         embassyName: "",
         embassyCity: "",
         embassyState: "",
-        embassySponsor: null,
+        embassySponsorIndex: null,
         hasSponsor: "no",
         address: "",
         embassyShortState: "",
@@ -59,15 +65,13 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps> {
         registered: false,
         open: false,
         toastMessage: "",
-        toastVariant: "info",
+        toastVariant: "info"
     };
 
     componentDidMount() {
         this.props.listSponsors()
     }
-
     setLocation = (resultPlace: google.maps.GeocoderResult) => {
-        console.log(resultPlace.address_components)
         let self = this;
         resultPlace.address_components.forEach(function (value: google.maps.GeocoderAddressComponent, i: number) {
             if(value.types[0] === "locality" || value.types[0] === "administrative_area_level_2") {
@@ -126,7 +130,7 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps> {
     handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         this.setState({
             ...this.state,
-            embassySponsor: event.target.value
+            embassySponsorIndex: parseInt(event.target.value)
         })
     };
 
@@ -142,7 +146,7 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps> {
         let email = this.state.leaderEmail;
         let phone = this.state.leaderPhone;
         let hasSponsor = this.state.hasSponsor;
-        let embassySponsor = this.state.embassySponsor;
+        let embassySponsor: number | null = this.state.embassySponsorIndex;
 
         if(leaderName === "" || leaderLastname === "" || name === "" || email === "" || phone === "") {
             this.setState({
@@ -177,24 +181,36 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps> {
             return
         }
 
+        let embassy = new Embassy();
+        let leaderUser = new User();
+        leaderUser.name = leaderName+' '+leaderLastname;
+
+
         if(hasSponsor === "no") {
             embassySponsor = null
+        } else {
+            let sponsorObj = new EmbassySponsor();
+            if(embassySponsor != null) {
+                let sponsorUser = new User();
+                sponsorUser.name = this.props.sponsors[embassySponsor].name;
+                sponsorUser.email = this.props.sponsors[embassySponsor].email;
+                sponsorObj.name = this.props.sponsors[embassySponsor].name;
+                sponsorObj.email = this.props.sponsors[embassySponsor].email;
+                sponsorObj.user = sponsorUser.toBasicMap()
+                embassy.embassySponsor = sponsorObj.toMap();
+            }
         }
-            this.props.registerEmbassy({
-                leader: {
-                    name: leaderName+' '+leaderLastname
-                },
-                id: "",
-                name: name,
-                city: city,
-                state: state,
-                state_short: state_short,
-                email: email,
-                phone: phone,
-                status: "awaiting",
-                embassySponsor: embassySponsor ? this.props.sponsors[embassySponsor] : null,
-                approved: false,
-        }, this.registerSuccess);
+
+        embassy.name = name;
+        embassy.city = city;
+        embassy.state = state;
+        embassy.state_short = state_short;
+        embassy.email = email;
+        embassy.phone = phone;
+        embassy.status = "awaiting";
+        embassy.leader = leaderUser.toBasicMap();
+
+        this.props.registerEmbassy(embassy, this.registerSuccess);
 
         this.setState({
             ...this.state,
@@ -296,11 +312,11 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps> {
                             </div>
                             <div className="form-group form-action col-md-12">
                                 {showButton ? <button id={"bt-form"} className="btn btn-primary">Enviar</button> : null }
-                                {showProgress ? <CircularProgress size={30} id={"progress-form"} className={this.props.classes.progress} /> : null}
+                                {showProgress ? <CircularProgress size={30} id={"progress-form"} /> : null}
                                 <Toast open={this.state.open}
                                        message={this.state.toastMessage}
                                        variant={this.state.toastVariant}
-                                       handleToastClose={this.handleToastClose}/>
+                                       handleToastClose={this.handleToastClose} />
                             </div>
                         </form>
                     </div>

@@ -1,4 +1,4 @@
-import {UserInterface} from "../interface/UserInterface";
+import {BasicUserInterface, UserInterface} from "../interface/UserInterface";
 import Embassy from "./Embassy";
 
 export default class User implements UserInterface{
@@ -336,6 +336,17 @@ export default class User implements UserInterface{
             sponsor: this._sponsor,
             embassy_id: this._embassy_id,
             embassy: this._embassy
+        }
+    };
+
+    toBasicMap = (): BasicUserInterface => {
+        return {
+            id: this._id,
+            name: this._name,
+            profile_img: this._profile_img,
+            occupation: this._occupation,
+            embassy_id: this._embassy_id,
+            verified: this._verified
         }
     }
 }

@@ -1,13 +1,14 @@
 import {EmbassySponsorInterface} from "../interface/EmbassySponsorInterface";
 import User from "./User";
-import DocumentData = firebase.firestore.DocumentData;
+import firebase from 'firebase';
+import {BasicUserInterface} from "../interface/UserInterface";
 
 export class EmbassySponsor implements EmbassySponsorInterface {
 
     private _id: string;
     private _email: string;
     private _name: string;
-    private _user: User;
+    private _user: BasicUserInterface;
     private _user_id: string;
 
     constructor() {
@@ -15,7 +16,7 @@ export class EmbassySponsor implements EmbassySponsorInterface {
         this._email = "";
         this._name = "";
         this._user_id = "";
-        this._user = new User();
+        this._user = new User().toBasicMap();
     }
 
     get id(): string {
@@ -42,11 +43,11 @@ export class EmbassySponsor implements EmbassySponsorInterface {
         this._name = value;
     }
 
-    get user(): User {
+    get user(): BasicUserInterface {
         return this._user;
     }
 
-    set user(value: User) {
+    set user(value: BasicUserInterface) {
         this._user = value;
     }
 
@@ -58,7 +59,7 @@ export class EmbassySponsor implements EmbassySponsorInterface {
         this._user_id = value;
     }
 
-    toObject = (embassySponsor: DocumentData) => {
+    toObject = (embassySponsor: firebase.firestore.DocumentData) => {
         this._id = !!embassySponsor.id && embassySponsor.id;
         this._email = !!embassySponsor.email && embassySponsor.email ;
         this._name = !!embassySponsor.name && embassySponsor.name ;

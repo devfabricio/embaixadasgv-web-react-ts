@@ -1,6 +1,7 @@
-import Embassy from "../models/Embassy";
-import DocumentData = firebase.firestore.DocumentData;
 import {EmbassySponsor} from "../models/EmbassySponsor";
+import Embassy from "../models/Embassy";
+import firebase from 'firebase';
+
 
 interface Action {
     type: string
@@ -10,7 +11,7 @@ interface Action {
 interface StoreState {
     embassyRegistered?: boolean,
     embassyList?: Array<Embassy>
-    policy_privacy?: DocumentData,
+    policy_privacy?: firebase.firestore.DocumentData,
     sponsorsList?: Array<EmbassySponsor>
 }
 

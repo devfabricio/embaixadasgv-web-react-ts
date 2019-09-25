@@ -2,7 +2,6 @@ import LandingHeader from "./header";
 import LandingFooter from "./footer";
 import React from "react";
 import EmbassyList from "./list_embassies";
-import { Helmet } from "react-helmet";
 
 const ListPage = () => {
 

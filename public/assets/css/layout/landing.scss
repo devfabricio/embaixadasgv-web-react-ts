@@ -1,0 +1,341 @@
+.landing {
+  background: $colorPrimary;
+  display: table;
+  position: absolute;
+  height: 100%;
+  text-align: left;
+  width: 100%;
+  h2, h3, h4 {
+    color: $colorPrimary;
+    text-transform: uppercase;
+    font-family: $title-font;
+    font-weight: bold;
+  }
+  a {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  p{
+    font-family: $text-font;
+    a {
+      color: $colorLink;
+      font-weight: bold;
+    }
+  }
+  header {
+    width: 100%;
+     .container {
+      overflow: hidden;
+    }
+  }
+  .logo {
+    float: left;
+    img {
+      height: 30px;
+      margin-top: 22px;
+    }
+  }
+
+  nav {
+    background: none !important;
+    display: block;
+    float: right;
+    margin: 22px 0;
+    text-align: right;
+    padding: 0;
+    button {
+      border: none;
+      margin-top: -12px;
+      margin-bottom: 8px;
+    }
+    ul {
+      margin: 0;
+    }
+    li {
+      display: inline;
+      margin-left: 24px;
+    }
+    a {
+      font-family: $title-font;
+      font-size: 12px;
+      color: #cfd7e0;
+      text-transform: uppercase;
+      font-weight: bold;
+      &:hover {
+        color: $backgroundGrey;
+        text-decoration: none;
+      }
+    }
+  }
+  .top {
+    margin-top: 64px;
+    overflow: hidden;
+    h1 {
+      font-family: $title-font;
+    }
+    h1,p {
+      color: $backgroundGrey;
+    }
+    .phone-image {
+      float: left;
+    }
+    .highlight-text{
+      padding: 64px 0 0 32px;
+      float: right;
+      .bt-getongp {
+        background: $backgroundGrey;
+        border-radius: 10px;
+        display: inline-block;
+        margin-top: 16px;
+      }
+      p {
+        margin-bottom: 4px;
+      }
+    }
+    @media screen and (max-width: $break-large) {
+      margin-top: 16px;
+      .highlight-text {
+        padding: 0 16px 64px 16px;
+      }
+    }
+  }
+  .page-content {
+    background: $backgroundGrey;
+    padding: 64px 0;
+    width: 100%;
+  }
+  .register-leader{
+    .form-group {
+      padding: 0 8px !important;
+    }
+    p{
+      color: $colorText;
+    }
+    input[type="text"],  input[type="email"]{
+      color: $colorText;
+      font-family: $text-font;
+      font-size: 16px;
+      height: 45px;
+      border-radius: 0.15rem;
+      width: 100%;
+    }
+
+    select.select-sponsor {
+      color: $colorText;
+      font-family: $text-font;
+      font-size: 16px;
+      height: 45px;
+      margin: -15px 0 20px;
+    }
+
+    .MuiRadio-colorPrimary.Mui-checked {
+      color: $colorLink !important;
+    }
+
+    .MuiFormLabel-root.Mui-focused {
+      color: $colorLink !important;
+    }
+    #bt-form {
+      background: $colorRed;
+      border-radius: 0.15rem;
+      border: none;
+      height: 45px;
+      width: 100%;
+    }
+    .form-action {
+      text-align: center;
+    }
+  }
+  .autocomplete-dropdown-container {
+    position: absolute;
+    z-index: 99999;
+    text-align: left;
+    width: 100%;
+
+  }
+  .suggestion-item {
+    background: #33658A !important;
+    color: #FAFAFA;
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  .suggestion-item--active {
+    background: #448CBF !important;
+    color: #FAFAFA;
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .autocomplete-loading {
+    background: $backgroundGrey;
+    color: $colorText;
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  .MuiCircularProgress-root {
+    margin-top: 10px;
+    .MuiCircularProgress-svg {
+      color: $colorAccent;
+    }
+  }
+  .embassy-list {
+    background: $backgroundGrey;
+    min-height: 790px;
+    padding: 60px 0;
+    width: 100%;
+    li {
+      background: $backgroundGrey;
+      height: 90px;
+      @media screen and (max-width: $break-large) {
+        height: auto;
+      }
+      img {
+        width: 60px;
+        float: left;
+        margin-right: 16px;
+        border-radius: 50%;
+      }
+      img.leader-img {
+        width: 40px;
+        margin-top: 10px;
+        margin-right: 8px;
+        @media screen and (max-width: $break-large) {
+          margin-left: 12px;
+        }
+      }
+    }
+    .list-group-item:first-child {
+      border-top: 0;
+    }
+    input[type="search"] {
+
+    }
+    .progress-list {
+      text-align: center;
+    }
+    .embassy-name {
+      color: $colorText;
+      display: block;
+      margin-bottom: -5px;
+      margin-top: 8px;
+    }
+    .embassy-city {
+      color: $colorSubText;
+      font-size: 14px;
+    }
+    .leader-contact {
+      display: block;
+      color: $colorText;
+      font-size: 14px;
+    }
+    .leader-name {
+      color: $colorText;
+      font-size: 14px;
+      line-height: 60px;
+    }
+  }
+
+  .about-embassy {
+    background: $backgroundGrey;
+    min-height: 790px;
+    padding: 60px 0;
+    width: 100%;
+    h4 {
+      margin-bottom: 16px;
+    }
+    .pillars{
+      text-align: center;
+      margin: 60px 0;
+      .pillar-item {
+        padding: 0 50px;
+        text-align: center;
+      }
+      img {
+        width: 160px;
+      }
+      span {
+        color: $colorText;
+        display: block;
+        font-family: $text-font;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 14px;
+        margin-top: 20px;
+      }
+    }
+    .video-embassy {
+      margin-top: 16px;
+    }
+  }
+  .found-embassy {
+    background: $backgroundGrey;
+    min-height: 790px;
+    padding: 60px 0;
+    width: 100%;
+  }
+
+  .contact-embassy {
+    background: $backgroundGrey;
+    min-height: 790px;
+    padding: 60px 0;
+    width: 100%;
+    #bt-form {
+      background: $colorRed;
+      border-radius: 0.15rem;
+      border: none;
+      height: 45px;
+      width: 100%;
+    }
+    textarea {
+      min-height: 120px;
+    }
+    .form-action {
+      text-align: center;
+    }
+  }
+
+  .policy-privacy {
+    background: $backgroundGrey;
+    min-height: 790px;
+    padding: 60px 0;
+    width: 100%;
+    h1 {
+      color: $colorPrimary;
+      font-weight: bold;
+    }
+    h2 {
+      color: $colorText;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    h3 {
+      color: $colorText;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    h4 {
+      color: $colorText;
+      font-size: 1.0rem;
+      font-weight: bold;
+      margin-top: 16px;
+    }
+  }
+}
+
+footer {
+  background: $backgroundGreyStrong;
+  border-top: 1px solid #e4e4e4;
+  padding: 20px 16px 20px 16px;
+  p {
+    color: $colorText;
+    font-size: 14px;
+    margin: 0;
+    text-align: center;
+  }
+  a {
+    color: $colorLink;
+  }
+}
+
+

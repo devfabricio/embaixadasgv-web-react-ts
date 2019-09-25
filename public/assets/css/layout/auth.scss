@@ -1,0 +1,66 @@
+html{
+  min-height:100%;/* make sure it is at least as tall as the viewport */
+  position:relative;
+}
+body{
+  height:100%; /* force the BODY element to match the height of the HTML element */
+}
+
+.wrap-auth {
+  background: $colorPrimary;
+  position:absolute;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  overflow:hidden;
+  z-index:-1; /* Remove this line if it's not going to be a background! */
+
+  .form {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    h4 {
+      color: $backgroundGrey;
+      font-family: $title-font;
+      font-weight: bold;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    p {
+      color: $backgroundGrey;
+      font-family: $text-font;
+      text-align: center;
+    }
+
+    a {
+      color: $colorAccent;
+    }
+
+    input[type="text"],  input[type="email"],  input[type="number"]{
+      border: none;
+      color: $colorText;
+      font-family: $text-font;
+      font-size: 16px;
+      height: 45px;
+      border-radius: 0.15rem;
+      width: 100%;
+    }
+
+    #bt-form {
+      background: $colorRed;
+      border-radius: 0.15rem;
+      border: none;
+      font-family: $title-font;
+      font-weight: bold;
+      height: 45px;
+      text-transform: uppercase;
+      width: 100%;
+    }
+  }
+}

@@ -1,7 +1,9 @@
-import {EmbassyInterface} from "../interface/EmbassyInterface";
+import {BasicEmbassyInterface, EmbassyInterface} from "../interface/EmbassyInterface";
 import {EmbassySponsor} from "./EmbassySponsor";
 import User from "./User";
-import DocumentData = firebase.firestore.DocumentData;
+import firebase from 'firebase';
+import {BasicUserInterface} from "../interface/UserInterface";
+import {EmbassySponsorInterface} from "../interface/EmbassySponsorInterface";
 
 export default class Embassy implements EmbassyInterface {
     private _approved_by_id: string;
@@ -10,10 +12,10 @@ export default class Embassy implements EmbassyInterface {
     private _cover_img: string;
     private _cover_img_file_name: string;
     private _email: string;
-    private _embassySponsor: EmbassySponsor;
+    private _embassySponsor: EmbassySponsorInterface;
     private _embassySponsor_id: string;
     private _id: string;
-    private _leader: User;
+    private _leader: BasicUserInterface;
     private _leader_id: string;
     private _name: string;
     private _neighborhood: string;
@@ -30,10 +32,10 @@ export default class Embassy implements EmbassyInterface {
         this._cover_img = "";
         this._cover_img_file_name = "";
         this._email = "";
-        this._embassySponsor = new EmbassySponsor();
+        this._embassySponsor = new EmbassySponsor().toMap();
         this._embassySponsor_id = "";
         this._id = "";
-        this._leader = new User();
+        this._leader = new User().toBasicMap();
         this._leader_id = "";
         this._name = "";
         this._neighborhood = "";
@@ -91,11 +93,11 @@ export default class Embassy implements EmbassyInterface {
         this._email = value;
     }
 
-    get embassySponsor(): EmbassySponsor {
+    get embassySponsor(): EmbassySponsorInterface {
         return this._embassySponsor;
     }
 
-    set embassySponsor(value: EmbassySponsor) {
+    set embassySponsor(value: EmbassySponsorInterface) {
         this._embassySponsor = value;
     }
 
@@ -115,11 +117,11 @@ export default class Embassy implements EmbassyInterface {
         this._id = value;
     }
 
-    get leader(): User {
+    get leader(): BasicUserInterface {
         return this._leader;
     }
 
-    set leader(value: User) {
+    set leader(value: BasicUserInterface) {
         this._leader = value;
     }
 
@@ -179,25 +181,25 @@ export default class Embassy implements EmbassyInterface {
         this._status = value;
     }
 
-    toObject = (embassy: DocumentData) => {
+    toObject = (embassy: firebase.firestore.DocumentData) => {
 
-        this._approved_by_id = !!embassy.approved_by_id && embassy.approved_by_id;
-        this._approved_by_name = !!embassy.approved_by_name && embassy.approved_by_name;
-        this._city = !!embassy.city && embassy.city;
-        this._cover_img = !!embassy.cover_img && embassy.cover_img;
-        this._cover_img_file_name = !!embassy.cover_img_file_name && embassy.cover_img_file_name;
-        this._email = !!embassy.email && embassy.email;
-        this._embassySponsor = !!embassy.embassySponsor && embassy.embassySponsor;
-        this._embassySponsor_id = !!embassy.embassySponsor_id && embassy.embassySponsor_id;
-        this._id = !!embassy.id && embassy.id;
-        this._leader = !!embassy.leader && embassy.leader;
-        this._leader_id = !!embassy.leader_id && embassy.leader_id;
-        this._name = !!embassy.name && embassy.name;
-        this._neighborhood = !!embassy.neighborhood && embassy.neighborhood;
-        this._phone = !!embassy.phone && embassy.phone;
-        this._state = !!embassy.state && embassy.state;
-        this._state_short = !!embassy.state_short && embassy.state_short;
-        this._status = !!embassy.status && embassy.status;
+        this._approved_by_id = !!embassy.approved_by_id ? embassy.approved_by_id : null;
+        this._approved_by_name = !!embassy.approved_by_name ? embassy.approved_by_name : null;
+        this._city = !!embassy.city ? embassy.city : null;
+        this._cover_img = !!embassy.cover_img ? embassy.cover_img : null;
+        this._cover_img_file_name = !!embassy.cover_img_file_name ? embassy.cover_img_file_name : null;
+        this._email = !!embassy.email ? embassy.email : null;
+        this._embassySponsor = !!embassy.embassySponsor ? embassy.embassySponsor : null;
+        this._embassySponsor_id = !!embassy.embassySponsor_id ? embassy.embassySponsor_id : null;
+        this._id = !!embassy.id ? embassy.id : null;
+        this._leader = !!embassy.leader ? embassy.leader : null;
+        this._leader_id = !!embassy.leader_id ? embassy.leader_id : null;
+        this._name = !!embassy.name ? embassy.name : null;
+        this._neighborhood = !!embassy.neighborhood ? embassy.neighborhood : null;
+        this._phone = !!embassy.phone ? embassy.phone : null;
+        this._state = !!embassy.state ? embassy.state : null;
+        this._state_short = !!embassy.state_short ? embassy.state_short : null;
+        this._status = !!embassy.status ? embassy.status : null;
     };
 
     toMap = (): EmbassyInterface => {
@@ -220,5 +222,14 @@ export default class Embassy implements EmbassyInterface {
             embassySponsor: this._embassySponsor,
             embassySponsor_id: this._embassySponsor_id
         }
-    }
+    };
+
+    toBasicMap = (): BasicEmbassyInterface => {
+        return {
+            id: this._id,
+            name: this._name,
+            city: this._city,
+            state_short: this._state_short,
+        }
+    };
 }

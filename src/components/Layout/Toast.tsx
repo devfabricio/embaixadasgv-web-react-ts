@@ -12,6 +12,17 @@ import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/core/styles';
+import {SvgIcon} from "@material-ui/core";
+import {SvgIconProps} from "@material-ui/core/SvgIcon";
+
+type variants = "error" | "info" | "success" | "warning"
+
+interface SnackProps {
+    className?: string;
+    message: string;
+    onClose: () => void;
+    variant: variants;
+}
 
 const variantIcon = {
     success: CheckCircleIcon,
@@ -46,7 +57,7 @@ const useStyles1 = makeStyles(theme => ({
     },
 }));
 
-function MySnackbarContentWrapper(props) {
+function MySnackbarContentWrapper(props: SnackProps) {
     const classes = useStyles1();
     const { className, message, onClose, variant, ...other } = props;
     const Icon = variantIcon[variant];
@@ -86,9 +97,9 @@ const useStyles2 = makeStyles(theme => ({
 
 interface ToastInterface {
     open: boolean;
-    variant: string;
+    variant: variants;
     message: string;
-    handleToastClose: () => Void;
+    handleToastClose: () => void;
 }
 
 export default function Toast(props: ToastInterface) {

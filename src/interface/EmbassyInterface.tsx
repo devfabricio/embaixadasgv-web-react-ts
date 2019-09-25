@@ -1,18 +1,7 @@
 import User from "../models/User";
 import {EmbassySponsor} from "../models/EmbassySponsor";
-
-export interface EmbassyRegister {
-    id: string;
-    name: string;
-    city: string;
-    state: string;
-    state_short: string;
-    email: string;
-    phone: string;
-    status: string;
-    embassySponsor: EmbassySponsor;
-    approved: boolean;
-}
+import {BasicUserInterface} from "./UserInterface";
+import {EmbassySponsorInterface} from "./EmbassySponsorInterface";
 
 export interface EmbassyInterface {
     id: string;
@@ -29,7 +18,14 @@ export interface EmbassyInterface {
     approved_by_id: string;
     approved_by_name: string;
     leader_id: string;
-    leader: User;
+    leader: BasicUserInterface;
     embassySponsor_id: string;
-    embassySponsor: EmbassySponsor
+    embassySponsor: EmbassySponsorInterface
+}
+
+export interface BasicEmbassyInterface {
+    id: string;
+    name: string;
+    city: string;
+    state_short: string;
 }

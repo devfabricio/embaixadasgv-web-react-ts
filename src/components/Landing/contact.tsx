@@ -38,7 +38,7 @@ class ContactPage extends Component<Props> {
         registered: false,
     };
 
-    submitForm = (e) => {
+    submitForm = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         this.setState({

@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
-import {bindActionCreators} from "redux";
+import {UserCredentials} from "../../interface/UserInterface";
+import Embassy from "../../models/Embassy";
+import User from "../../models/User";
+import {bindActionCreators, Dispatch} from "redux";
 import {submitCode, registerUser} from "../../actions/auth_actions";
 import {Link} from 'react-router-dom'
 import {connect} from "react-redux";
@@ -7,11 +10,36 @@ import LocationSearchInput from "../Layout/LocationSearchInput";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Toast from "../Layout/Toast";
 import {makeStyles} from "@material-ui/core";
-import User from "../../model/User";
+import {AppState} from "../../reducers";
+import firebase from 'firebase';
+import {Invitation} from "../../models/Invitation";
 
-class Register extends Component {
+type variants = "error" | "info" | "success" | "warning"
 
-    state = {
+interface States {
+    name: string
+    email: string
+    password: string
+    confirmPassword: string
+    code: string
+    codeSubmitted: boolean
+    loading: boolean
+    registered: boolean
+    open: boolean
+    toastMessage: string
+    toastVariant: variants
+}
+
+interface Props {
+    validatedCode: boolean;
+    invitation: Invitation;
+    submitCode: (code: string, callback: ()=> void) => void
+    registerUser: (credentials: UserCredentials, user: User, callback: () => void) => void
+}
+
+class Register extends Component<Props, States> {
+
+    state: Readonly<States> = {
         name: "",
         email: "",
         password: "",
@@ -39,7 +67,7 @@ class Register extends Component {
         })
     };
 
-    handleSubmitCode = (e) => {
+    handleSubmitCode = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         this.setState({
             ...this.state,
@@ -48,7 +76,14 @@ class Register extends Component {
         this.props.submitCode(this.state.code, this.codeSubmitted)
     };
 
-    handleSubmitRegister = (e) => {
+    handleToastClose = () => {
+        this.setState({
+            ...this.state,
+            open: false,
+        });
+    };
+
+    handleSubmitRegister = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         let name = this.state.name;
@@ -69,15 +104,13 @@ class Register extends Component {
 
         if(this.props.invitation !== null) {
             let invitation = this.props.invitation;
-            let embassy = invitation.embassy_receiver;
+            let embassy = new Embassy();
+            embassy.toObject(invitation.embassy_receiver);
 
             let user = new User();
             user.name = name;
             user.email = email;
-            user.embassy = {
-                id: embassy.id,
-                name: embassy.name
-            };
+            user.embassy = embassy;
             user.embassy_id = embassy.id;
             user.leader = invitation.isLeader;
 
@@ -99,23 +132,6 @@ class Register extends Component {
 
     render() {
 
-        const classes = makeStyles(theme => ({
-            progress: {
-                margin: theme.spacing(2),
-            },
-            root: {
-                display: 'flex',
-                flexWrap: 'wrap',
-            },
-            formControl: {
-                margin: theme.spacing(1),
-                minWidth: 120,
-            },
-            selectEmpty: {
-                marginTop: theme.spacing(2),
-            }
-        }));
-
         let showProgress = false;
         let showButton = true;
 
@@ -126,7 +142,7 @@ class Register extends Component {
 
         let validatedCode = false;
 
-        if(!!this.props.validatedCode) {
+        if(this.props.validatedCode) {
             validatedCode = true
         }
 
@@ -147,7 +163,7 @@ class Register extends Component {
                             </div>
                             <div className="form-group form-action col-md-12">
                                 {showButton ? <button id={"bt-form"} className="btn btn-primary">Enviar</button> : null }
-                                {showProgress ? <CircularProgress size={30} id={"progress-form"} className={classes.progress} /> : null}
+                                {showProgress ? <CircularProgress size={30} id={"progress-form"}  /> : null}
                                 <Toast open={this.state.open}
                                        message={this.state.toastMessage}
                                        variant={this.state.toastVariant}
@@ -184,7 +200,7 @@ class Register extends Component {
                             </div>
                             <div className="form-group form-action col-md-12">
                                 {showButton ? <button id={"bt-form"} className="btn btn-primary">Registrar</button> : null }
-                                {showProgress ? <CircularProgress size={30} id={"progress-form"} className={classes.progress} /> : null}
+                                {showProgress ? <CircularProgress size={30} id={"progress-form"}  /> : null}
                                 <Toast open={this.state.open}
                                        message={this.state.toastMessage}
                                        variant={this.state.toastVariant}
@@ -202,12 +218,12 @@ class Register extends Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppState) => ({
     validatedCode: state.auth.validatedCode,
     invitation: state.auth.invitation
 });
 
-const mapDispatchToProps = (dispatch) => (
+const mapDispatchToProps = (dispatch: Dispatch) => (
     bindActionCreators({submitCode, registerUser}, dispatch)
 );
 
