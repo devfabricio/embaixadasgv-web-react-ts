@@ -12,14 +12,12 @@ export function submitCode(code: string, callback: (success: boolean) => void) {
             .get()
             .then(document => {
                 if(document.exists) {
-                    let invitation = new Invitation();
-                    let data = document.data();
                     callback(true);
                     dispatch({
                         type: 'ON_SUBMIT_CODE',
                         payload: {
                             validated: true,
-                            invitation: !!data ? invitation.toObject(data) : null
+                            invitation: document.data()
                         }});
                 } else {
                     console.log("Documento não existe!")

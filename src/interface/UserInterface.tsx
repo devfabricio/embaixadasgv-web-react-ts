@@ -1,4 +1,5 @@
 import Embassy from "../models/Embassy";
+import {BasicEmbassyInterface} from "./EmbassyInterface";
 
 export interface UserCredentials {
     email: string;
@@ -32,7 +33,7 @@ export interface UserInterface {
     sponsor: boolean;
     manager: boolean;
     embassy_id: string | null;
-    embassy: Embassy | null;
+    embassy: BasicEmbassyInterface | null;
 }
 
 export interface BasicUserInterface {

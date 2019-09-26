@@ -21285,7 +21285,7 @@ body {
 .wrap-auth .form a {
   color: #6699CC;
 }
-.wrap-auth .form input[type=text], .wrap-auth .form input[type=email], .wrap-auth .form input[type=number] {
+.wrap-auth .form input[type=text], .wrap-auth .form input[type=email], .wrap-auth .form input[type=number], .wrap-auth .form input[type=password] {
   border: none;
   color: #4D4D4F;
   font-family: "opensans";
@@ -21302,6 +21302,35 @@ body {
   font-weight: bold;
   height: 45px;
   text-transform: uppercase;
+  width: 100%;
+}
+
+.complete-register {
+  background: #011e40;
+}
+.complete-register header {
+  width: 100%;
+}
+.complete-register header .container {
+  overflow: hidden;
+}
+.complete-register .logo {
+  float: left;
+}
+.complete-register .logo img {
+  height: 30px;
+  margin-top: 22px;
+}
+.complete-register .content {
+  background: #F3F4F6;
+  width: 100%;
+}
+.complete-register .img-avatar {
+  height: 250px;
+  width: 250px;
+  margin: 0 auto;
+}
+.complete-register .img-avatar img {
   width: 100%;
 }
 

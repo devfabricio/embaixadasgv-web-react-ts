@@ -1,5 +1,6 @@
 import {BasicUserInterface, UserInterface} from "../interface/UserInterface";
 import Embassy from "./Embassy";
+import {BasicEmbassyInterface} from "../interface/EmbassyInterface";
 
 export default class User implements UserInterface{
 
@@ -8,7 +9,7 @@ export default class User implements UserInterface{
     private _city: string | null;
     private _description: string | null;
     private _email: string;
-    private _embassy: Embassy | null;
+    private _embassy: BasicEmbassyInterface | null;
     private _embassy_id: string | null;
     private _facebook: string | null;
     private _gender: string | null;
@@ -101,11 +102,11 @@ export default class User implements UserInterface{
         this._email = value;
     }
 
-    get embassy(): Embassy | null {
+    get embassy(): BasicEmbassyInterface | null {
         return this._embassy;
     }
 
-    set embassy(value: Embassy | null) {
+    set embassy(value: BasicEmbassyInterface | null) {
         this._embassy = value;
     }
 

@@ -42,7 +42,7 @@ body{
       color: $colorAccent;
     }
 
-    input[type="text"],  input[type="email"],  input[type="number"]{
+    input[type="text"],  input[type="email"],  input[type="number"],  input[type="password"]{
       border: none;
       color: $colorText;
       font-family: $text-font;

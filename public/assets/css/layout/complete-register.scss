@@ -1,0 +1,30 @@
+.complete-register {
+  background: $colorPrimary;
+  header {
+    width: 100%;
+    .container {
+      overflow: hidden;
+    }
+  }
+  .logo {
+    float: left;
+    img {
+      height: 30px;
+      margin-top: 22px;
+    }
+  }
+
+  .content {
+    background: $backgroundGreyStrong;
+    width: 100%;
+  }
+
+  .img-avatar {
+    height: 250px;
+    width: 250px;
+    margin: 0 auto;
+    img {
+      width: 100%;
+    }
+  }
+}

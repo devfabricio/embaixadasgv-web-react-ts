@@ -8,7 +8,7 @@ interface Action {
 
 interface StoreState {
     validatedCode?: boolean;
-    invitation?: Invitation
+    invitation?: firebase.firestore.DocumentData
 }
 
 export default function (state: StoreState = {}, action: Action) {

@@ -1,18 +1,15 @@
 import React, {Component} from 'react'
 import {UserCredentials} from "../../interface/UserInterface";
-import Embassy from "../../models/Embassy";
 import User from "../../models/User";
 import {bindActionCreators, Dispatch} from "redux";
 import {submitCode, registerUser} from "../../actions/auth_actions";
 import {Link} from 'react-router-dom'
 import {connect} from "react-redux";
-import LocationSearchInput from "../Layout/LocationSearchInput";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Toast from "../Layout/Toast";
-import {makeStyles} from "@material-ui/core";
 import {AppState} from "../../reducers";
-import firebase from 'firebase';
 import {Invitation} from "../../models/Invitation";
+import firebase from "firebase"
 
 type variants = "error" | "info" | "success" | "warning"
 
@@ -32,7 +29,7 @@ interface States {
 
 interface Props {
     validatedCode: boolean;
-    invitation: Invitation;
+    invitation: firebase.firestore.DocumentData;
     submitCode: (code: string, callback: (success: boolean)=> void) => void
     registerUser: (credentials: UserCredentials, user: User, callback: () => void) => void
 }
@@ -75,7 +72,14 @@ class Register extends Component<Props, States> {
     registerSuccess = () => {
         this.setState({
             ...this.state,
-            loading: false
+            loading: false,
+            toastMessage: "Cadastro realizado com sucesso!",
+            toastVariant: "success",
+            open: true,
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: ""
         })
     };
 
@@ -114,10 +118,22 @@ class Register extends Component<Props, States> {
             return
         }
 
-        if(this.props.invitation !== null) {
-            let invitation = this.props.invitation;
-            let embassy = new Embassy();
-            embassy.toObject(invitation.embassy_receiver);
+        if(!!this.props.invitation) {
+            let invitationData = this.props.invitation;
+            let invitation = new Invitation()
+            invitation.toObject(invitationData)
+            let embassy = invitation.embassy_receiver;
+
+            if(invitation.email_receiver !== email) {
+                this.setState({
+                    ...this.state,
+                    toastMessage: "O e-mail cadastrado precisa ser o mesmo em que você recebeu o convite!",
+                    toastVariant: "warning",
+                    loading: false,
+                    open: true
+                });
+                return
+            }
 
             let user = new User();
             user.name = name;
@@ -130,7 +146,6 @@ class Register extends Component<Props, States> {
                 email: email,
                 password: password
             };
-
             this.props.registerUser(credentials, user, this.registerSuccess)
         }
 
@@ -157,6 +172,8 @@ class Register extends Component<Props, States> {
         if(this.props.validatedCode) {
             validatedCode = true
         }
+
+        console.log(this.props.invitation)
 
         return (
             <div className={"wrap-auth"}>

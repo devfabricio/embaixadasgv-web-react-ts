@@ -71,6 +71,7 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
     componentDidMount() {
         this.props.listSponsors()
     }
+
     setLocation = (resultPlace: google.maps.GeocoderResult) => {
         let self = this;
         resultPlace.address_components.forEach(function (value: google.maps.GeocoderAddressComponent, i: number) {
