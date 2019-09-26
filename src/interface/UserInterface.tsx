@@ -18,7 +18,7 @@ export interface UserInterface {
     state: string | null;
     state_short: string | null;
     profile_img: string | null;
-    verified: string | null;
+    verified: boolean;
     facebook: string | null;
     twitter: string | null;
     instagram: string | null;
@@ -41,5 +41,5 @@ export interface BasicUserInterface {
     profile_img: string | null;
     occupation: string | null;
     embassy_id: string | null;
-    verified: string | null;
+    verified: boolean;
 }

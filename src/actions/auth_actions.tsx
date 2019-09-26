@@ -4,7 +4,7 @@ import {UserCredentials} from "../interface/UserInterface";
 import User from "../models/User";
 import {Invitation} from "../models/Invitation";
 
-export function submitCode(code: string, callback: Function) {
+export function submitCode(code: string, callback: (success: boolean) => void) {
     let invitationsRef = myFirebase.firestore().collection(firebaseCollections.APP_INVITATIONS);
 
     return (dispatch: Dispatch) => {
@@ -12,9 +12,9 @@ export function submitCode(code: string, callback: Function) {
             .get()
             .then(document => {
                 if(document.exists) {
-                    let invitation = new Invitation()
-                    let data = document.data()
-                    callback();
+                    let invitation = new Invitation();
+                    let data = document.data();
+                    callback(true);
                     dispatch({
                         type: 'ON_SUBMIT_CODE',
                         payload: {
@@ -24,6 +24,9 @@ export function submitCode(code: string, callback: Function) {
                 } else {
                     console.log("Documento não existe!")
                 }
+            })
+            .catch(error => {
+                callback(false);
             })
     }
 }

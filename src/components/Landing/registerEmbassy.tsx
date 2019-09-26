@@ -194,9 +194,10 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
                 let sponsorUser = new User();
                 sponsorUser.name = this.props.sponsors[embassySponsor].name;
                 sponsorUser.email = this.props.sponsors[embassySponsor].email;
+                sponsorObj.id = this.props.sponsors[embassySponsor].id;
                 sponsorObj.name = this.props.sponsors[embassySponsor].name;
                 sponsorObj.email = this.props.sponsors[embassySponsor].email;
-                sponsorObj.user = sponsorUser.toBasicMap()
+                sponsorObj.user = sponsorUser.toBasicMap();
                 embassy.embassySponsor = sponsorObj.toMap();
             }
         }
@@ -210,8 +211,6 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
         embassy.status = "awaiting";
         embassy.leader = leaderUser.toBasicMap();
 
-        this.props.registerEmbassy(embassy, this.registerSuccess);
-
         this.setState({
             ...this.state,
             loading: true,
@@ -224,6 +223,8 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
             leaderPhone: "",
             address: "",
         });
+
+        this.props.registerEmbassy(embassy, this.registerSuccess);
     };
 
     render() {

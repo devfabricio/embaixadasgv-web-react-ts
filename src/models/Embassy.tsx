@@ -12,13 +12,13 @@ export default class Embassy implements EmbassyInterface {
     private _cover_img: string;
     private _cover_img_file_name: string;
     private _email: string;
-    private _embassySponsor: EmbassySponsorInterface;
-    private _embassySponsor_id: string;
+    private _embassySponsor: EmbassySponsorInterface | null;
+    private _embassySponsor_id: string  | null;
     private _id: string;
     private _leader: BasicUserInterface;
     private _leader_id: string;
     private _name: string;
-    private _neighborhood: string;
+    private _neighborhood: string | null;
     private _phone: string;
     private _state: string;
     private _state_short: string;
@@ -32,13 +32,13 @@ export default class Embassy implements EmbassyInterface {
         this._cover_img = "";
         this._cover_img_file_name = "";
         this._email = "";
-        this._embassySponsor = new EmbassySponsor().toMap();
-        this._embassySponsor_id = "";
+        this._embassySponsor = null;
+        this._embassySponsor_id = null;
         this._id = "";
         this._leader = new User().toBasicMap();
         this._leader_id = "";
         this._name = "";
-        this._neighborhood = "";
+        this._neighborhood =  null;
         this._phone = "";
         this._state = "";
         this._state_short = "";
@@ -93,22 +93,6 @@ export default class Embassy implements EmbassyInterface {
         this._email = value;
     }
 
-    get embassySponsor(): EmbassySponsorInterface {
-        return this._embassySponsor;
-    }
-
-    set embassySponsor(value: EmbassySponsorInterface) {
-        this._embassySponsor = value;
-    }
-
-    get embassySponsor_id(): string {
-        return this._embassySponsor_id;
-    }
-
-    set embassySponsor_id(value: string) {
-        this._embassySponsor_id = value;
-    }
-
     get id(): string {
         return this._id;
     }
@@ -133,20 +117,36 @@ export default class Embassy implements EmbassyInterface {
         this._leader_id = value;
     }
 
+    get embassySponsor(): EmbassySponsorInterface | null {
+        return this._embassySponsor;
+    }
+
+    set embassySponsor(value: EmbassySponsorInterface | null) {
+        this._embassySponsor = value;
+    }
+
+    get embassySponsor_id(): string | null {
+        return this._embassySponsor_id;
+    }
+
+    set embassySponsor_id(value: string | null) {
+        this._embassySponsor_id = value;
+    }
+
+    get neighborhood(): string | null {
+        return this._neighborhood;
+    }
+
+    set neighborhood(value: string | null) {
+        this._neighborhood = value;
+    }
+
     get name(): string {
         return this._name;
     }
 
     set name(value: string) {
         this._name = value;
-    }
-
-    get neighborhood(): string {
-        return this._neighborhood;
-    }
-
-    set neighborhood(value: string) {
-        this._neighborhood = value;
     }
 
     get phone(): string {

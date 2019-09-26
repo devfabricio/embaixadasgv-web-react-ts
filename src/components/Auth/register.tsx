@@ -33,7 +33,7 @@ interface States {
 interface Props {
     validatedCode: boolean;
     invitation: Invitation;
-    submitCode: (code: string, callback: ()=> void) => void
+    submitCode: (code: string, callback: (success: boolean)=> void) => void
     registerUser: (credentials: UserCredentials, user: User, callback: () => void) => void
 }
 
@@ -53,11 +53,23 @@ class Register extends Component<Props, States> {
         toastVariant: "info"
     };
 
-    codeSubmitted = () => {
-        this.setState({
-            ...this.state,
-            loading: false
-        })
+    codeSubmitted = (success: boolean) => {
+
+        if(success) {
+            this.setState({
+                ...this.state,
+                loading: false
+            })
+        } else {
+            this.setState({
+                ...this.state,
+                code: "",
+                toastMessage: "Código inválido! Por favor tente novamente.",
+                toastVariant: "warning",
+                loading: false,
+                open: true
+            });
+        }
     };
 
     registerSuccess = () => {
@@ -148,6 +160,7 @@ class Register extends Component<Props, States> {
 
         return (
             <div className={"wrap-auth"}>
+                <div className={"container"}>
                 <div className={"form col-md-4"}>
                     <h4>REGISTRE-SE</h4>
                     {!validatedCode &&
@@ -164,10 +177,6 @@ class Register extends Component<Props, States> {
                             <div className="form-group form-action col-md-12">
                                 {showButton ? <button id={"bt-form"} className="btn btn-primary">Enviar</button> : null }
                                 {showProgress ? <CircularProgress size={30} id={"progress-form"}  /> : null}
-                                <Toast open={this.state.open}
-                                       message={this.state.toastMessage}
-                                       variant={this.state.toastVariant}
-                                       handleToastClose={this.handleToastClose}/>
                             </div>
                         </form>
                     </div>}
@@ -201,10 +210,6 @@ class Register extends Component<Props, States> {
                             <div className="form-group form-action col-md-12">
                                 {showButton ? <button id={"bt-form"} className="btn btn-primary">Registrar</button> : null }
                                 {showProgress ? <CircularProgress size={30} id={"progress-form"}  /> : null}
-                                <Toast open={this.state.open}
-                                       message={this.state.toastMessage}
-                                       variant={this.state.toastVariant}
-                                       handleToastClose={this.handleToastClose}/>
                             </div>
 
                             <div className={"col-md-12"}>
@@ -213,6 +218,11 @@ class Register extends Component<Props, States> {
                         </form>
                     </div>}
                 </div>
+                </div>
+                <Toast open={this.state.open}
+                       message={this.state.toastMessage}
+                       variant={this.state.toastVariant}
+                       handleToastClose={this.handleToastClose}/>
             </div>
         )
     }

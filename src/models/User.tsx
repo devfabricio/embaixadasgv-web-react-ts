@@ -26,7 +26,7 @@ export default class User implements UserInterface{
     private _state_short: string | null;
     private _status: string | null;
     private _twitter: string | null;
-    private _verified: string | null;
+    private _verified: boolean;
     private _website: string | null;
     private _whatsapp: string | null;
     private _youtube: string | null;
@@ -44,7 +44,7 @@ export default class User implements UserInterface{
         this._state = null;
         this._state_short = null;
         this._profile_img = null;
-        this._verified = null;
+        this._verified = false;
         this._facebook = null;
         this._twitter = null;
         this._instagram = null;
@@ -245,11 +245,11 @@ export default class User implements UserInterface{
         this._twitter = value;
     }
 
-    get verified(): string | null {
+    get verified(): boolean {
         return this._verified;
     }
 
-    set verified(value: string | null) {
+    set verified(value: boolean) {
         this._verified = value;
     }
 
@@ -290,7 +290,7 @@ export default class User implements UserInterface{
         this._state = user.state ? user.state : null;
         this._state_short = user.state_short ? user.state_short : null;
         this._profile_img = user.profile_img ? user.profile_img : null;
-        this._verified = user.verified ? user.verified : null;
+        this._verified = user.verified ? user.verified : false;
         this._facebook = user.facebook ? user.facebook : null;
         this._twitter = user.twitter ? user.twitter : null;
         this._instagram = user.instagram ? user.instagram : null;

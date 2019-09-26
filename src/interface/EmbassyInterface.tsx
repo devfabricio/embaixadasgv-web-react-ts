@@ -7,7 +7,7 @@ export interface EmbassyInterface {
     id: string;
     name: string;
     city: string;
-    neighborhood: string;
+    neighborhood: string | null;
     state: string;
     state_short: string;
     cover_img: string;
@@ -19,8 +19,8 @@ export interface EmbassyInterface {
     approved_by_name: string;
     leader_id: string;
     leader: BasicUserInterface;
-    embassySponsor_id: string;
-    embassySponsor: EmbassySponsorInterface
+    embassySponsor_id: string | null;
+    embassySponsor: EmbassySponsorInterface | null;
 }
 
 export interface BasicEmbassyInterface {
