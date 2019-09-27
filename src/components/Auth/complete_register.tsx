@@ -19,6 +19,7 @@ import {clearRegisterState, listSponsors, registerEmbassy} from "../../actions/l
 import {connect} from "react-redux";
 import Dropzone from 'react-dropzone'
 import CropImage from "../Layout/CropImage";
+import TransitionsModal from "../Layout/TransitionModal";
 
 type variants = "error" | "info" | "success" | "warning"
 
@@ -39,6 +40,7 @@ interface States {
     embassyState: string
     embassySponsorIndex: number | null
     imgSrc: string | null
+    imgSrcToCrop: string | null
     hasSponsor: string
     address: string
     embassyShortState: string
@@ -46,6 +48,7 @@ interface States {
     loading: boolean
     registered: boolean
     open: boolean
+    openModal: boolean
     toastMessage: string
     toastVariant: variants
 }
@@ -62,6 +65,7 @@ class CompleteRegister extends Component<Props, States> {
         embassyState: "",
         embassySponsorIndex: null,
         imgSrc: null,
+        imgSrcToCrop: null,
         hasSponsor: "no",
         address: "",
         embassyShortState: "",
@@ -69,6 +73,7 @@ class CompleteRegister extends Component<Props, States> {
         loading: false,
         registered: false,
         open: false,
+        openModal: false,
         toastMessage: "",
         toastVariant: "info"
     };
@@ -138,6 +143,14 @@ class CompleteRegister extends Component<Props, States> {
             ...this.state,
             embassySponsorIndex: parseInt(event.target.value)
         })
+    };
+
+    setCroppedImage = (img: string) => {
+        this.setState({
+            ...this.state,
+            imgSrc : img,
+            openModal: false
+        });
     };
 
     handleSubmitClick = (event: React.FormEvent<HTMLFormElement>) =>{
@@ -241,7 +254,8 @@ class CompleteRegister extends Component<Props, States> {
 
                 self.setState({
                     ...self.state,
-                    imgSrc: e.target.result
+                    imgSrcToCrop: e.target.result,
+                    openModal: true
                 });
                 console.log(e.target.result)
             };
@@ -274,7 +288,6 @@ class CompleteRegister extends Component<Props, States> {
                             <form className="row" id={"register-user-form"} onSubmit={(e) => this.handleSubmitClick(e)} autoComplete={"off"}>
                                 <input type="hidden" value="anything" />
                                 <div className={"form-group col-md-12"}>
-                                    <CropImage />
                                     <Dropzone onDrop={acceptedFiles => {
                                         this.readURL(acceptedFiles[0]);
                                         console.log(acceptedFiles)
@@ -283,8 +296,8 @@ class CompleteRegister extends Component<Props, States> {
                                             <section>
                                                 <div {...getRootProps()}>
                                                     <input {...getInputProps()} />
-                                                    <div className={"img-avatar"} style={{background: !!this.state.imgSrc ? this.state.imgSrc : undefined}}>
-                                                        {!this.state.imgSrc && <img style={{borderRadius:!!this.state.imgSrc ? "50%" : 0}} src={"assets/images/user_add_photo.png"} />}
+                                                    <div className={"img-avatar"} >
+                                                        <img style={{borderRadius:!!this.state.imgSrc ? "50%" : 0}} src={!!this.state.imgSrc ? this.state.imgSrc : "assets/images/user_add_photo.png"} />
                                                     </div>
                                                     <p>Drag 'n' drop some files here, or click to select files</p>
                                                 </div>
@@ -348,6 +361,9 @@ class CompleteRegister extends Component<Props, States> {
                                 </div>
                             </form>
                         </div>
+                        <TransitionsModal open={this.state.openModal}>
+                            <CropImage source={!!this.state.imgSrcToCrop ? this.state.imgSrcToCrop : null} setCroppedImage={this.setCroppedImage}/>
+                        </TransitionsModal>
                     </div>
                 </div>
             </div>

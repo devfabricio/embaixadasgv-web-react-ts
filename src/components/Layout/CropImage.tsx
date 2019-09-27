@@ -1,16 +1,63 @@
-import React, { useState, useCallback } from 'react'
+import React, {useState, useCallback, ChangeEvent, SetStateAction} from 'react'
 import ReactDOM from 'react-dom'
 import Cropper from 'react-easy-crop'
 import Slider from '@material-ui/lab/Slider'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import getCroppedImg from './crop'
+import {makeStyles} from "@material-ui/core";
 
 const dogImg =
     'https://img.huffingtonpost.com/asset/5ab4d4ac2000007d06eb2c56.jpeg?cache=sih0jwle4e&ops=1910_1000'
 
+const useStyles = makeStyles(theme => ({
+    cropContainer: {
+        position: 'relative',
+        width: '100%',
+        height: 200,
+        background: '#333',
+        [theme.breakpoints.up('sm')]: {
+            height: 400,
+        },
+    },
+    cropButton: {
+        flexShrink: 0,
+        marginLeft: 16,
+    },
+    controls: {
+        padding: 16,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        [theme.breakpoints.up('sm')]: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+    },
+    sliderContainer: {
+        display: 'flex',
+        flex: '1',
+        alignItems: 'center',
+    },
+    sliderLabel: {
+        [theme.breakpoints.down('xs')]: {
+            minWidth: 65,
+        },
+    },
+    slider: {
+        padding: '22px 0px',
+        marginLeft: 16,
+        [theme.breakpoints.up('sm')]: {
+            flexDirection: 'row',
+            alignItems: 'center',
+            margin: '0 16px',
+        },
+    },
+}))
 
-const CropImage = ({ classes }) => {
+const CropImage = (props: any) => {
 
+    const classes = useStyles();
     //https://codesandbox.io/s/q8q1mnr01w
 
     const [crop, setCrop] = useState({ x: 0, y: 0 })
@@ -25,13 +72,14 @@ const CropImage = ({ classes }) => {
 
     const showCroppedImage = useCallback(async () => {
         try {
-            /*const croppedImage = await getCroppedImg(
-                dogImg,
+            const croppedImage = await getCroppedImg(
+                props.source,
                 croppedAreaPixels,
                 rotation
-            );*/
+            );
             console.log('donee', { croppedImage })
-            setCroppedImage(croppedImage)
+            props.setCroppedImage(croppedImage)
+            //
         } catch (e) {
             console.error(e)
         }
@@ -45,13 +93,11 @@ const CropImage = ({ classes }) => {
         <div>
             <div className={classes.cropContainer}>
                 <Cropper
-                    image={dogImg}
+                    image={props.source}
                     crop={crop}
-                    rotation={rotation}
                     zoom={zoom}
-                    aspect={4 / 3}
+                    aspect={1 / 1}
                     onCropChange={setCrop}
-                    onRotationChange={setRotation}
                     onCropComplete={onCropComplete}
                     onZoomChange={setZoom}
                 />
@@ -70,24 +116,7 @@ const CropImage = ({ classes }) => {
                         max={3}
                         step={0.1}
                         aria-labelledby="Zoom"
-                        onChange={(e, zoom) => setZoom(zoom)}
-                    />
-                </div>
-                <div className={classes.sliderContainer}>
-                    <Typography
-                        variant="overline"
-                        classes={{ root: classes.sliderLabel }}
-                    >
-                        Rotation
-                    </Typography>
-                    <Slider
-                        value={rotation}
-                        min={0}
-                        max={360}
-                        step={1}
-                        aria-labelledby="Rotation"
-                        classes={{ container: classes.slider }}
-                        onChange={(e, rotation) => setRotation(rotation)}
+                        onChange={(e, zoom: any) => setZoom(zoom)}
                     />
                 </div>
                 <Button
