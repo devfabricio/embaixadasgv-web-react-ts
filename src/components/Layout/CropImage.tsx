@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
             margin: '0 16px',
         },
     },
-}))
+}));
 
 const CropImage = (props: any) => {
 
@@ -77,7 +77,7 @@ const CropImage = (props: any) => {
                 croppedAreaPixels,
                 rotation
             );
-            console.log('donee', { croppedImage })
+            console.log('donee', croppedImage)
             props.setCroppedImage(croppedImage)
             //
         } catch (e) {
@@ -87,7 +87,7 @@ const CropImage = (props: any) => {
 
     const onClose = useCallback(() => {
         setCroppedImage(null)
-    }, [])
+    }, []);
 
     return (
         <div>

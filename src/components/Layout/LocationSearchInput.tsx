@@ -1,5 +1,6 @@
 import React from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
+import FormField from "./TextInput";
 
 interface Props {
     address: string
@@ -24,13 +25,12 @@ const LocationSearchInput = (props: Props) => {
             >
                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                     <div style={{position:"relative"}}>
-                        <input
+                        <FormField placeholder={"Buscar cidade ..."} inputProps={
                             {...getInputProps({
-                                placeholder: 'Buscar cidade ...',
-                                className: 'location-search-input form-control',
-                                autoComplete: "new-city"
-                            })}
-                            required={true} />
+                            placeholder: 'Buscar cidade ...',
+                            className: 'location-search-input form-control',
+                            autoComplete: "new-city"
+                        })}} type={"location"} />
                         <div className="autocomplete-dropdown-container">
                             {loading && <div className={"autocomplete-loading"}>Carregando...</div>}
                             {suggestions.map(suggestion => {

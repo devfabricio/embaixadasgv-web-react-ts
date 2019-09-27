@@ -20,6 +20,9 @@ import {connect} from "react-redux";
 import Dropzone from 'react-dropzone'
 import CropImage from "../Layout/CropImage";
 import TransitionsModal from "../Layout/TransitionModal";
+import InputMask from 'react-input-mask';
+import MaterialInput from '@material-ui/core/Input'
+import FormField from "../Layout/TextInput";
 
 type variants = "error" | "info" | "success" | "warning"
 
@@ -264,6 +267,37 @@ class CompleteRegister extends Component<Props, States> {
 
     render () {
 
+        let form = [
+            {attr: {
+                type: "date",
+                placeholder:"Data de nascimento",
+                mask:"99/99/9999",
+                value: this.state.leaderPhone,
+                onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, leaderPhone: e.target.value})
+                }
+            },
+            {attr: {
+                    type: "location",
+                    placeholder:"Buscar cidade...",
+                    address: this.state.address,
+                    searchOptions: {
+                        types: ['(cities)']
+                    },
+                    handleLocationChange: this.handleLocationChange,
+                    handleLocationSelect: this.handleLocationSelect,
+                    setLocation: this.setLocation,
+                    submitted: this.state.submitted
+                }
+            },
+            {attr: {
+                    type: "text",
+                    placeholder:"Área de atuação",
+                    value: this.state.leaderPhone,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, leaderPhone: e.target.value})
+                }
+            }
+    ];
+
         let showProgress = false;
         let showButton = true;
 
@@ -294,12 +328,11 @@ class CompleteRegister extends Component<Props, States> {
                                     }}>
                                         {({getRootProps, getInputProps}) => (
                                             <section>
-                                                <div {...getRootProps()}>
+                                                <div style={{outline:0}} {...getRootProps()}>
                                                     <input {...getInputProps()} />
                                                     <div className={"img-avatar"} >
-                                                        <img style={{borderRadius:!!this.state.imgSrc ? "50%" : 0}} src={!!this.state.imgSrc ? this.state.imgSrc : "assets/images/user_add_photo.png"} />
+                                                        <img style={{cursor: "pointer", borderRadius:!!this.state.imgSrc ? "50%" : 0}} src={!!this.state.imgSrc ? this.state.imgSrc : "assets/images/user_add_photo.png"} />
                                                     </div>
-                                                    <p>Drag 'n' drop some files here, or click to select files</p>
                                                 </div>
                                             </section>
                                         )}
@@ -324,33 +357,12 @@ class CompleteRegister extends Component<Props, States> {
                                         </RadioGroup>
                                     </FormControl>
                                 </div>
-
-                                <div className="form-group col-md-12">
-                                    <input autoComplete={"new-embassy_name"} className="form-control" type="text"
-                                           placeholder="Data de nascimento"
-                                           value={this.state.embassyName}
-                                           onChange={(e) => this.setState({...this.state, embassyName: e.target.value})} required={true}/>
-                                </div>
-                                <div className="form-group col-md-12">
-                                    <LocationSearchInput
-                                        address={this.state.address}
-                                        handleLocationChange={this.handleLocationChange}
-                                        handleLocationSelect={this.handleLocationSelect}
-                                        setLocation={this.setLocation}
-                                        submitted={this.state.submitted}/>
-                                </div>
-                                <div className="form-group col-md-12">
-                                    <input autoComplete={"new-embassy_name"} className="form-control" type="text"
-                                           placeholder="Área de atuação"
-                                           value={this.state.embassyName}
-                                           onChange={(e) => this.setState({...this.state, embassyName: e.target.value})} required={true}/>
-                                </div>
-                                <div className="form-group col-md-12">
-                                    <input autoComplete={"new-embassy_name"} className="form-control" type="text"
-                                           placeholder="Uma breve biografia sobre mim"
-                                           value={this.state.embassyName}
-                                           onChange={(e) => this.setState({...this.state, embassyName: e.target.value})} required={true}/>
-                                </div>
+                                {form.map((field, i) => {
+                                   return (
+                                       <div className="col-md-12">
+                                           <FormField key={i} {...field.attr} />
+                                       </div>)
+                                })}
                                 <div className="form-group form-action col-md-12">
                                     {showButton ? <button id={"bt-form"} className="btn btn-primary">Enviar</button> : null }
                                     {showProgress ? <CircularProgress size={30} id={"progress-form"} /> : null}
