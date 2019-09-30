@@ -13,6 +13,8 @@ import Login from "../components/Auth/index";
 import firebase from "firebase";
 const Routes = () => {
 
+        console.log(firebaseAuth.currentUser)
+
         if(firebaseAuth.currentUser === null) {
                 return (
                     <Switch>

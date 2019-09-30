@@ -53,9 +53,10 @@ export function registerUser(credentials: UserCredentials, user: User, callback:
 }
 
 export function loginUser(credentials: UserCredentials, callback: (success: boolean) => void) {
-
     let auth = firebaseAuth;
+
     return (dispatch: Dispatch) => {
+
         auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
             .then(function() {
                 // Existing and future Auth states are now persisted in the current
@@ -63,15 +64,7 @@ export function loginUser(credentials: UserCredentials, callback: (success: bool
                 // if a user forgets to sign out.
                 // ...
                 // New sign-in will be persisted with session persistence.
-                return auth.signInWithEmailAndPassword(credentials.email, credentials.password)
-                    .then((authentication) => {
-                        if(auth.currentUser !== null) {
-                            console.log(auth.currentUser);
-                        }
-                    })
-                    .catch((e: errorMessage) => {
-                        callback(false);
-                    })
+                return auth.signInWithEmailAndPassword(credentials.email, credentials.password);
             })
     }
 }
