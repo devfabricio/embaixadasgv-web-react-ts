@@ -5,7 +5,6 @@ import {connect} from "react-redux";
 import {createStyles, makeStyles, Theme, WithStyles} from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {AppState} from "../../reducers";
-import {EmbassySponsor} from "../../models/EmbassySponsor";
 import Embassy from "../../models/Embassy";
 import withStyles from "@material-ui/core/styles/withStyles";
 

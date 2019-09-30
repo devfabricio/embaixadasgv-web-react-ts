@@ -10,6 +10,7 @@ import Toast from "../Layout/Toast";
 import {AppState} from "../../reducers";
 import {Invitation} from "../../models/Invitation";
 import firebase from "firebase"
+import FormField from "../Layout/TextInput";
 
 type variants = "error" | "info" | "success" | "warning"
 
@@ -81,6 +82,7 @@ class Register extends Component<Props, States> {
             password: "",
             confirmPassword: ""
         })
+        return window.location.reload();
     };
 
     handleSubmitCode = (e: React.FormEvent<HTMLFormElement>) => {
@@ -159,6 +161,46 @@ class Register extends Component<Props, States> {
 
     render() {
 
+        let codeField = [
+            {attr: {
+                    type: "text",
+                    placeholder:"Código",
+                    value: this.state.code,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, code: e.target.value})
+                }
+            }];
+
+        let form = [
+            {attr: {
+                    type: "text",
+                    placeholder:"Nome",
+                    value: this.state.name,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, name: e.target.value})
+                }
+            },
+            {attr: {
+                    type: "email",
+                    placeholder:"E-mail",
+                    value: this.state.email,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, email: e.target.value})
+                }
+            },
+            {attr: {
+                    type: "password",
+                    placeholder:"Senha",
+                    value: this.state.password,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, password: e.target.value})
+                }
+            },
+            {attr: {
+                    type: "password",
+                    placeholder:"Confirmar senha",
+                    value: this.state.confirmPassword,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, confirmPassword: e.target.value})
+                }
+            }
+        ];
+
         let showProgress = false;
         let showButton = true;
 
@@ -185,12 +227,10 @@ class Register extends Component<Props, States> {
                         <p>Para se cadastrar você precisa receber um convite do líder da embaixada em que você pertence. Caso tenha recebido, insira abaixo o código de acesso, localizado no corpo do convite</p>
                         <form className="row" id={"submit-code-form"} onSubmit={(e) => this.handleSubmitCode(e)} autoComplete={"off"}>
                             <input type="hidden" value="anything" />
-                            <div className="form-group col-md-12">
-                                <input autoComplete={"new-invite_code"} className="form-control" type="number"
-                                       placeholder="Código"
-                                       value={this.state.code}
-                                       onChange={(e) => this.setState({...this.state, code: e.target.value})} required={true}/>
-                            </div>
+                            {codeField.map((field, i) => { return (
+                                    <div className="col-md-12">
+                                        <FormField key={i} {...field.attr} />
+                                    </div>)})}
                             <div className="form-group form-action col-md-12">
                                 {showButton ? <button id={"bt-form"} className="btn btn-primary">Enviar</button> : null }
                                 {showProgress ? <CircularProgress size={30} id={"progress-form"}  /> : null}
@@ -200,30 +240,12 @@ class Register extends Component<Props, States> {
                     {validatedCode && <div className={"submit-register"}>
                         <form className="row" id={"register-embassy-form"} onSubmit={(e) => this.handleSubmitRegister(e)} autoComplete={"off"}>
                             <input type="hidden" value="anything" />
-                            <div className="form-group col-md-12">
-                                <input autoComplete={"new-user_name"} className="form-control" type="text"
-                                       placeholder="Nome"
-                                       value={this.state.name}
-                                       onChange={(e) => this.setState({...this.state, name: e.target.value})} required={true}/>
-                            </div>
-                            <div className="form-group col-md-12">
-                                <input autoComplete={"new-user_email"} className="form-control" type="email"
-                                       placeholder="E-mail"
-                                       value={this.state.email}
-                                       onChange={(e) => this.setState({...this.state, email: e.target.value})} required={true}/>
-                            </div>
-                            <div className="form-group col-md-12">
-                                <input autoComplete={"new-user_password"} className="form-control" type="password"
-                                       placeholder="Senha"
-                                       value={this.state.password}
-                                       onChange={(e) => this.setState({...this.state, password: e.target.value})} required={true}/>
-                            </div>
-                            <div className="form-group col-md-12">
-                                <input autoComplete={"new-confirm_password"} className="form-control" type="password"
-                                       placeholder="Confirme a senha"
-                                       value={this.state.confirmPassword}
-                                       onChange={(e) => this.setState({...this.state, confirmPassword: e.target.value})} required={true}/>
-                            </div>
+                            {form.map((field, i) => {
+                                return (
+                                    <div className="col-md-12">
+                                        <FormField key={i} {...field.attr} />
+                                    </div>)
+                            })}
                             <div className="form-group form-action col-md-12">
                                 {showButton ? <button id={"bt-form"} className="btn btn-primary">Registrar</button> : null }
                                 {showProgress ? <CircularProgress size={30} id={"progress-form"}  /> : null}

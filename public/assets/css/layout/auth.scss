@@ -16,6 +16,14 @@ body{
   overflow:hidden;
   z-index:-1; /* Remove this line if it's not going to be a background! */
 
+  .logo {
+    margin-bottom: 32px;
+    text-align: center;
+    img {
+      width: 180px;
+    }
+  }
+
   .form {
     margin: 0;
     position: absolute;
@@ -35,6 +43,7 @@ body{
     p {
       color: $backgroundGrey;
       font-family: $text-font;
+      margin-top: 32px;
       text-align: center;
     }
 
@@ -44,7 +53,7 @@ body{
 
     input[type="text"],  input[type="email"],  input[type="number"],  input[type="password"]{
       border: none;
-      color: $colorText;
+      color: $backgroundGrey;
       font-family: $text-font;
       font-size: 16px;
       height: 45px;
@@ -58,9 +67,30 @@ body{
       border: none;
       font-family: $title-font;
       font-weight: bold;
-      height: 45px;
+      margin-top: 24px;
+      height: 50px;
       text-transform: uppercase;
       width: 100%;
+    }
+
+    label.MuiInputLabel-formControl {
+      color: $backgroundGrey;
+    }
+
+    label.MuiFormLabel-root.Mui-focused {
+      color: $colorAccent;
+    }
+
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border-bottom: 1px solid $backgroundGrey;
+    }
+
+    .MuiInput-underline:after {
+      border-bottom: 1px solid $colorAccent;
+    }
+
+    .MuiInput-underline:before {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.42);
     }
   }
 }

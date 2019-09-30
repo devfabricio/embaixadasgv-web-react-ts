@@ -5,6 +5,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import InputMask from "react-input-mask";
 import PlacesAutocomplete from "react-places-autocomplete";
+import FormLabel from "@material-ui/core/FormLabel";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import FormControl from "@material-ui/core/FormControl";
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -66,6 +71,34 @@ const FormField = (props: any) => {
                         className={classes.textField}
                         value={props.value}
                         onChange={props.onChange}
+                        margin="normal"
+                    />
+                </div>
+            )
+        case 'email' :
+            return (
+                <div className={classes.container}>
+                    <TextField
+                        id="standard-name"
+                        label={props.placeholder}
+                        className={classes.textField}
+                        value={props.value}
+                        onChange={props.onChange}
+                        type={"email"}
+                        margin="normal"
+                    />
+                </div>
+            )
+        case 'password' :
+            return (
+                <div className={classes.container}>
+                    <TextField
+                        id="standard-name"
+                        label={props.placeholder}
+                        className={classes.textField}
+                        value={props.value}
+                        onChange={props.onChange}
+                        type={"password"}
                         margin="normal"
                     />
                 </div>
@@ -132,6 +165,21 @@ const FormField = (props: any) => {
                     />}
                 </InputMask>
             </div>);
+        case 'radio' :
+            return (<FormControl component="fieldset">
+                    <FormLabel component="legend">{props.placeholder}</FormLabel>
+                    <RadioGroup aria-label="position" name="position" value={props.value} onChange={props.handleRadioChange} row>
+                        {props.options.map((option: {value: string, label: string}, i: number) => {
+                            return (<FormControlLabel
+                                value={option.value}
+                                control={<Radio color="primary" />}
+                                label={option.label}
+                                labelPlacement="end"
+                            />)
+                        })}
+                    </RadioGroup>
+                </FormControl>
+                );
         default:
             return (
                 <div className={classes.container}>

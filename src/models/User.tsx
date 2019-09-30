@@ -1,6 +1,7 @@
 import {BasicUserInterface, UserInterface} from "../interface/UserInterface";
 import Embassy from "./Embassy";
 import {BasicEmbassyInterface} from "../interface/EmbassyInterface";
+import firebase from "firebase";
 
 export default class User implements UserInterface{
 
@@ -278,7 +279,7 @@ export default class User implements UserInterface{
         this._youtube = value;
     }
 
-    toObject = (user: UserInterface) => {
+    toObject = (user: firebase.firestore.DocumentData) => {
         this._id = user.id ? user.id : "";
         this._name = user.name ? user.name : "";
         this._email = user.email ? user.email : "";

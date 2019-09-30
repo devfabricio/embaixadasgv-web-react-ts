@@ -21262,6 +21262,13 @@ body {
   z-index: -1;
   /* Remove this line if it's not going to be a background! */
 }
+.wrap-auth .logo {
+  margin-bottom: 32px;
+  text-align: center;
+}
+.wrap-auth .logo img {
+  width: 180px;
+}
 .wrap-auth .form {
   margin: 0;
   position: absolute;
@@ -21280,6 +21287,7 @@ body {
 .wrap-auth .form p {
   color: #FAFAFA;
   font-family: "opensans";
+  margin-top: 32px;
   text-align: center;
 }
 .wrap-auth .form a {
@@ -21287,7 +21295,7 @@ body {
 }
 .wrap-auth .form input[type=text], .wrap-auth .form input[type=email], .wrap-auth .form input[type=number], .wrap-auth .form input[type=password] {
   border: none;
-  color: #4D4D4F;
+  color: #FAFAFA;
   font-family: "opensans";
   font-size: 16px;
   height: 45px;
@@ -21300,9 +21308,25 @@ body {
   border: none;
   font-family: "roboto";
   font-weight: bold;
-  height: 45px;
+  margin-top: 24px;
+  height: 50px;
   text-transform: uppercase;
   width: 100%;
+}
+.wrap-auth .form label.MuiInputLabel-formControl {
+  color: #FAFAFA;
+}
+.wrap-auth .form label.MuiFormLabel-root.Mui-focused {
+  color: #6699CC;
+}
+.wrap-auth .form .MuiInput-underline:hover:not(.Mui-disabled):before {
+  border-bottom: 1px solid #FAFAFA;
+}
+.wrap-auth .form .MuiInput-underline:after {
+  border-bottom: 1px solid #6699CC;
+}
+.wrap-auth .form .MuiInput-underline:before {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.42);
 }
 
 .complete-register {
