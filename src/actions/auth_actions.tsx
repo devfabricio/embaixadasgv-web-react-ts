@@ -69,30 +69,28 @@ export function loginUser(credentials: UserCredentials, callback: (success: bool
     }
 }
 
-export function getCurrentUserDetails() {
-    let auth = firebaseAuth;
+export function getCurrentUserDetails(currentUser: any) {
     let userRef = myFirebase.firestore().collection(firebaseCollections.USERS);
 
     return (dispatch: Dispatch) => {
-        console.log(auth.currentUser)
-        if(auth.currentUser !== null) {
-            let currentUserId = auth.currentUser.uid
-            userRef.doc(currentUserId)
-                .get()
-                .then((doc) => {
-                    let data = doc.data();
-                    let user = new User();
-                    console.log(data)
-                    dispatch({
-                        type: 'ON_GET_USER_DETAILS',
-                        payload: {
-                            userDetails: !!data ? user.toObject(data) : null
-                        }});
-                })
-                .catch((e: errorMessage) => {
-                    console.log(e)
-                })
-        }
+        console.log(currentUser)
+        let currentUserId = currentUser.uid
+        userRef.doc(currentUserId)
+            .get()
+            .then((doc) => {
+                let data = doc.data();
+                let user = new User();
+                console.log(data)
+                dispatch({
+                    type: 'ON_GET_USER_DETAILS',
+                    payload: {
+                        userDetails: !!data ? user.toObject(data) : null
+                    }});
+            })
+            .catch((e: errorMessage) => {
+                console.log(e)
+            })
+
     }
 }
 

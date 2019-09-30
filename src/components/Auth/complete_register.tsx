@@ -12,13 +12,15 @@ import Dropzone from 'react-dropzone'
 import CropImage from "../Layout/CropImage";
 import TransitionsModal from "../Layout/TransitionModal";
 import FormField from "../Layout/TextInput";
+import firebase, {User as CurrentUser} from "firebase";
 
 type variants = "error" | "info" | "success" | "warning"
 
 interface Props{
     isCompleted: boolean
     user: User
-    getCurrentUserDetails: () => void
+    currentUser: null | CurrentUser
+    getCurrentUserDetails: (currentUser: any) => void
     setCurrentUserDetals: (user: User) => void
 }
 
@@ -67,7 +69,7 @@ class CompleteRegister extends Component<Props, States> {
     };
 
     componentDidMount() {
-        this.props.getCurrentUserDetails()
+        this.props.getCurrentUserDetails(this.props.currentUser)
     }
 
     setLocation = (resultPlace: google.maps.GeocoderResult) => {

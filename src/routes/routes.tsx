@@ -10,12 +10,16 @@ import ContactPage from "../components/Landing/contact";
 import PrivacyPage from "../components/Landing/policy-privacy";
 import CompleteRegister from "../components/Auth/complete_register";
 import Login from "../components/Auth/index";
-import firebase from "firebase";
-const Routes = () => {
+import firebase, {User} from "firebase";
 
-        console.log(firebaseAuth.currentUser)
+interface Props {
+    isLogged: boolean,
+    currentUser: User | null
+}
 
-        if(firebaseAuth.currentUser === null) {
+const Routes = (rootProps: Props) => {
+
+        if(!rootProps.isLogged) {
                 return (
                     <Switch>
                         <Route exact path={'/registrar'} component={Register} />
@@ -32,7 +36,7 @@ const Routes = () => {
                         <Route exact path={'/quero-fundar'} component={FoundPage} />
                         <Route exact path={'/contato'} component={ContactPage} />
                         <Route exact path={'/politicas-de-privacidade'} component={PrivacyPage} />
-                        <Route path={'/'} component={CompleteRegister} />
+                        <Route render={(props) => <CompleteRegister {...props} currentUser={rootProps.currentUser} />}/>
                     </Switch>
                 )}
         };
