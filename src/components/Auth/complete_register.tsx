@@ -205,6 +205,9 @@ class CompleteRegister extends Component<Props, States> {
 
     render () {
 
+        let user = !!this.props.user ? new User().toObject(this.props.user) : null;
+        console.log(user);
+
         let form = [
             {attr: {
                     type: "radio",

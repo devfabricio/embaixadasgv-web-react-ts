@@ -1,39 +1,48 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {BrowserRouter} from 'react-router-dom'
 import Routes from './routes/routes'
-import logo from './logo.svg';
 import './App.css';
 import {firebaseAuth} from "./utils/firebase";
 import {User} from "firebase";
+import {AppState} from "./reducers";
+import {bindActionCreators, Dispatch} from "redux";
+import {checkAuth} from "./actions/auth_actions";
+import {connect} from "react-redux";
 
-function App() {
+interface Props {
+    checkAuth: () => void
+    isLogged?: boolean
+    currentUser: User | null
+}
 
-    const [values, setValues] = React.useState({
-        isLogged: false,
-    });
+class App extends Component<Props> {
 
-    let currentUser: User | null = null;
-    let isLogged: boolean = false
+    componentDidMount(): void {
+        this.props.checkAuth()
+    }
 
-    firebaseAuth.onAuthStateChanged(function(user) {
-        console.log(user);
-        if(!!user)  {
-            currentUser = user;
-            isLogged = true;
-            setValues({isLogged: true})
+    render() {
+
+        if(this.props.isLogged !== undefined) {
+            return (
+                <BrowserRouter>
+                    <Routes isLogged={this.props.isLogged} currentUser={this.props.currentUser}/>
+                </BrowserRouter>
+            )
         } else {
-            currentUser = null;
-            isLogged = false;
-            setValues({isLogged: false})
+            return null
         }
-    });
-
-    return (
-        <BrowserRouter>
-            <Routes isLogged={isLogged} currentUser={currentUser}/>
-        </BrowserRouter>
-    )
+    }
 
 }
 
-export default App;
+const mapStateToProps = (state: AppState) => ({
+    isLogged: state.auth.isLogged,
+    currentUser: state.auth.currentUser
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => (
+    bindActionCreators({checkAuth}, dispatch)
+);
+
+export default connect (mapStateToProps, mapDispatchToProps) (App);

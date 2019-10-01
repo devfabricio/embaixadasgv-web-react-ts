@@ -6,6 +6,31 @@ import User from "../models/User";
 import {Invitation} from "../models/Invitation";
 import {errorMessage} from "aws-sdk/clients/datapipeline";
 
+
+export function checkAuth() {
+
+    return (dispatch: Dispatch) => {
+        firebaseAuth.onAuthStateChanged((user) => {
+            if(!!user)  {
+                dispatch({
+                    type: 'ON_CHECK_AUTH',
+                    payload: {
+                        isLogged: true,
+                        currentUser: user
+                    }});
+            } else {
+                dispatch({
+                    type: 'ON_CHECK_AUTH',
+                    payload: {
+                        isLogged: false,
+                        currentUser: null
+                    }});
+            }
+        });
+    };
+
+}
+
 export function submitCode(code: string, callback: (success: boolean) => void) {
     let invitationsRef = myFirebase.firestore().collection(firebaseCollections.APP_INVITATIONS);
 
@@ -78,13 +103,10 @@ export function getCurrentUserDetails(currentUser: any) {
         userRef.doc(currentUserId)
             .get()
             .then((doc) => {
-                let data = doc.data();
-                let user = new User();
-                console.log(data)
                 dispatch({
                     type: 'ON_GET_USER_DETAILS',
                     payload: {
-                        userDetails: !!data ? user.toObject(data) : null
+                        userDetails: doc.data()
                     }});
             })
             .catch((e: errorMessage) => {

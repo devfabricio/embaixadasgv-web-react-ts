@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import {Invitation} from "../models/Invitation";
+import {User as CurrentUser} from 'firebase'
 import User from "../models/User";
 
 interface Action {
@@ -8,7 +9,9 @@ interface Action {
 }
 
 interface StoreState {
-    validatedCode?: boolean;
+    currentUser?: CurrentUser
+    isLogged?: boolean
+    validatedCode?: boolean
     invitation?: firebase.firestore.DocumentData
     userDetails?: User
     isCompleted?: boolean
@@ -17,6 +20,8 @@ interface StoreState {
 export default function (state: StoreState = {}, action: Action) {
 
     switch (action.type) {
+        case 'ON_CHECK_AUTH':
+            return {...state, isLogged: action.payload.isLogged, currentUser: action.payload.currentUser};
         case 'ON_SUBMIT_CODE':
             return {...state, validatedCode: action.payload.validated, invitation: action.payload.invitation};
         case 'ON_GET_USER_DETAILS':
