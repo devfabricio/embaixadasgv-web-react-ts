@@ -10,21 +10,89 @@
     float: left;
     img {
       height: 30px;
-      margin-top: 22px;
+      margin: 22px 0;
     }
   }
 
   .content {
     background: $backgroundGreyStrong;
+    padding: 64px 0;
     width: 100%;
   }
 
   .img-avatar {
-    height: 250px;
-    width: 250px;
+    height: 180px;
+    width: 180px;
     margin: 0 auto;
     img {
       width: 100%;
     }
+  }
+
+  .MuiRadio-colorPrimary.Mui-checked {
+    color: $colorLink !important;
+  }
+
+  .MuiFormLabel-root.Mui-focused {
+    color: $colorLink !important;
+  }
+  form {
+
+    .radio-group {
+      display: block;
+      padding-left: 6px;
+      margin-bottom: -10px;
+      legend {
+        color: $colorText;
+        float: left;
+        padding: 12px 16px 10px 0;
+        width: auto;
+      }
+    }
+
+    span.MuiFormControlLabel-label {
+      color: $colorText;
+    }
+
+    .PrivateSwitchBase-root-29 {
+      padding-right: 5px;
+    }
+
+    label.MuiInputLabel-formControl {
+      color: $colorText;
+    }
+
+    label.MuiFormLabel-root.Mui-focused {
+      color: $colorAccent;
+    }
+
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border-bottom: 1px solid $colorLink;
+    }
+
+    .MuiInput-underline:after {
+      border-bottom: 1px solid $colorAccent;
+    }
+
+    .MuiInput-underline:before {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+    }
+
+    #bt-form {
+      background: $colorRed;
+      border-radius: 0.15rem;
+      border: none;
+      margin-top: 24px;
+      height: 45px;
+      width: 100%;
+    }
+  }
+  button.bt-logout {
+    background: none;
+    border: none;
+    color: #f3f4f6;
+    float: right;
+    font-weight: bold;
+    margin-top: 25px;
   }
 }

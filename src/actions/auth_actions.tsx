@@ -141,3 +141,13 @@ export function setCurrentUserDetals(user: User) {
         }
     }
 }
+
+export function logout() {
+    return (dispatch: Dispatch) => {
+        firebaseAuth.signOut()
+            .then(() => {
+                window.location.reload()
+            })
+    };
+
+}

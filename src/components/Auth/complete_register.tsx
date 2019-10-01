@@ -6,7 +6,7 @@ import {geocodeByAddress} from "react-places-autocomplete";
 import User from "../../models/User";
 import {AppState} from "../../reducers";
 import {bindActionCreators, Dispatch} from "redux";
-import {getCurrentUserDetails, setCurrentUserDetals} from "../../actions/auth_actions";
+import {getCurrentUserDetails, setCurrentUserDetals, logout} from "../../actions/auth_actions";
 import {connect} from "react-redux";
 import Dropzone from 'react-dropzone'
 import CropImage from "../Layout/CropImage";
@@ -22,6 +22,7 @@ interface Props{
     currentUser: null | CurrentUser
     getCurrentUserDetails: (currentUser: any) => void
     setCurrentUserDetals: (user: User) => void
+    logout: () => void
 }
 
 interface States {
@@ -211,7 +212,7 @@ class CompleteRegister extends Component<Props, States> {
         let form = [
             {attr: {
                     type: "radio",
-                    placeholder:"Sexo",
+                    placeholder:"Sexo: ",
                     value: this.state.userGender,
                     handleRadioChange: this.handleRadioChange,
                     options: [{value: "male", label: "Masculino"}, {value: "female", label: "Feminino"}]
@@ -277,6 +278,7 @@ class CompleteRegister extends Component<Props, States> {
                         <div className="logo">
                             <Link to={"/"}><img src="assets/images/logo.png" /></Link>
                         </div>
+                        <button className={"bt-logout"} onClick={(e) => {this.props.logout()}}>Sair</button>
                     </div>
                 </header>
                 <div className={"content"}>
@@ -333,7 +335,7 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => (
-    bindActionCreators({getCurrentUserDetails, setCurrentUserDetals}, dispatch)
+    bindActionCreators({getCurrentUserDetails, setCurrentUserDetals, logout}, dispatch)
 );
 
 export default connect (mapStateToProps, mapDispatchToProps) (CompleteRegister)

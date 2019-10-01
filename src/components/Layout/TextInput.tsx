@@ -167,17 +167,19 @@ const FormField = (props: any) => {
             </div>);
         case 'radio' :
             return (<FormControl component="fieldset">
-                    <FormLabel component="legend">{props.placeholder}</FormLabel>
-                    <RadioGroup aria-label="position" name="position" value={props.value} onChange={props.handleRadioChange} row>
-                        {props.options.map((option: {value: string, label: string}, i: number) => {
-                            return (<FormControlLabel
-                                value={option.value}
-                                control={<Radio color="primary" />}
-                                label={option.label}
-                                labelPlacement="end"
-                            />)
-                        })}
-                    </RadioGroup>
+                    <div className={"radio-group"}>
+                        <FormLabel component="legend">{props.placeholder}</FormLabel>
+                        <RadioGroup aria-label="position" name="position" value={props.value} onChange={props.handleRadioChange} row>
+                            {props.options.map((option: {value: string, label: string}, i: number) => {
+                                return (<FormControlLabel
+                                    value={option.value}
+                                    control={<Radio color="primary" />}
+                                    label={option.label}
+                                    labelPlacement="end"
+                                />)
+                            })}
+                        </RadioGroup>
+                    </div>
                 </FormControl>
                 );
         default:

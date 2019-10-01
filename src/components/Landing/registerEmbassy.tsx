@@ -16,6 +16,7 @@ import {geocodeByAddress} from "react-places-autocomplete";
 import {EmbassySponsor} from "../../models/EmbassySponsor";
 import Embassy from "../../models/Embassy";
 import User from "../../models/User";
+import FormField from "../Layout/TextInput";
 
 type variants = "error" | "info" | "success" | "warning"
 
@@ -248,25 +249,33 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
                         <form className="row" id={"register-embassy-form"} onSubmit={(e) => this.handleSubmitClick(e)} autoComplete={"off"}>
                             <input type="hidden" value="anything" />
                             <div className="form-group col-md-12">
-                                <input autoComplete={"new-embassy_name"} className="form-control" type="text"
+                                <FormField autoComplete={"new-embassy_name"}
+                                       type="text"
                                        placeholder="Nome da embaixada"
                                        value={this.state.embassyName}
-                                       onChange={(e) => this.setState({...this.state, embassyName: e.target.value})} required={true}/>
+                                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, embassyName: e.target.value})} required={true}/>
                             </div>
                             <div className="form-group col-md-6">
-                                <input autoComplete={"new-leader_name"} className="form-control" type="text"
+                                <FormField autoComplete={"new-leader_name"}
+                                       type="text"
                                        placeholder="Nome do líder"
                                        value={this.state.leaderName}
-                                       onChange={(e) => this.setState({...this.state, leaderName: e.target.value})} required={true}/>
+                                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, leaderName: e.target.value})} required={true}/>
                             </div>
                             <div className="form-group col-md-6">
-                                <input autoComplete={"new-leader_lastename"} className="form-control" type="text"
+                                <FormField autoComplete={"new-leader_lastename"}
+                                       type="text"
                                        placeholder="Sobrenome do líder"
                                        value={this.state.leaderLastname}
-                                       onChange={(e) => this.setState({...this.state, leaderLastname: e.target.value})} required={true}/>
+                                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, leaderLastname: e.target.value})} required={true}/>
                             </div>
                             <div className="form-group col-md-12">
-                                <LocationSearchInput
+                                <FormField
+                                    type={"location"}
+                                    searchOptions={{
+                                        types: ['(cities)']
+                                    }}
+                                    placeholder={"Buscar cidade..."}
                                     address={this.state.address}
                                     handleLocationChange={this.handleLocationChange}
                                     handleLocationSelect={this.handleLocationSelect}
@@ -274,16 +283,18 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
                                     submitted={this.state.submitted}/>
                             </div>
                             <div className="form-group col-md-6">
-                                <input autoComplete={"new-embassy_email"} className="form-control" type="email"
+                                <FormField autoComplete={"new-embassy_email"}
+                                       type="email"
                                        placeholder="E-mail do líder"
                                        value={this.state.leaderEmail}
-                                       onChange={(e) => this.setState({...this.state, leaderEmail: e.target.value})} required={true}/>
+                                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, leaderEmail: e.target.value})} required={true}/>
                             </div>
                             <div className="form-group col-md-6">
-                                <input autoComplete={"new-embassy_phone"} className="form-control" type="text"
-                                       placeholder="Telefone do líder"
-                                       value={this.state.leaderPhone}
-                                       onChange={(e) => this.setState({...this.state, leaderPhone: e.target.value})} required={true}/>
+                                <FormField autoComplete={"new-embassy_phone"}
+                                           type="text"
+                                           placeholder="Telefone do líder"
+                                           value={this.state.leaderPhone}
+                                           onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, leaderPhone: e.target.value})} required={true}/>
                             </div>
                             <div className="form-group col-md-12">
                                 <FormControl component="fieldset">

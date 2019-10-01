@@ -21027,7 +21027,6 @@ p {
   color: #4D4D4F;
   font-family: "opensans";
   font-size: 16px;
-  height: 45px;
   border-radius: 0.15rem;
   width: 100%;
 }
@@ -21043,6 +21042,21 @@ p {
 }
 .landing .register-leader .MuiFormLabel-root.Mui-focused {
   color: #33658A !important;
+}
+.landing .register-leader label.MuiInputLabel-formControl {
+  color: #4D4D4F;
+}
+.landing .register-leader label.MuiFormLabel-root.Mui-focused {
+  color: #6699CC;
+}
+.landing .register-leader .MuiInput-underline:hover:not(.Mui-disabled):before {
+  border-bottom: 1px solid #33658A;
+}
+.landing .register-leader .MuiInput-underline:after {
+  border-bottom: 1px solid #6699CC;
+}
+.landing .register-leader .MuiInput-underline:before {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
 }
 .landing .register-leader #bt-form {
   background: #CC2936;
@@ -21343,19 +21357,74 @@ body {
 }
 .complete-register .logo img {
   height: 30px;
-  margin-top: 22px;
+  margin: 22px 0;
 }
 .complete-register .content {
   background: #F3F4F6;
+  padding: 64px 0;
   width: 100%;
 }
 .complete-register .img-avatar {
-  height: 250px;
-  width: 250px;
+  height: 180px;
+  width: 180px;
   margin: 0 auto;
 }
 .complete-register .img-avatar img {
   width: 100%;
+}
+.complete-register .MuiRadio-colorPrimary.Mui-checked {
+  color: #33658A !important;
+}
+.complete-register .MuiFormLabel-root.Mui-focused {
+  color: #33658A !important;
+}
+.complete-register form .radio-group {
+  display: block;
+  padding-left: 6px;
+  margin-bottom: -10px;
+}
+.complete-register form .radio-group legend {
+  color: #4D4D4F;
+  float: left;
+  padding: 12px 16px 10px 0;
+  width: auto;
+}
+.complete-register form span.MuiFormControlLabel-label {
+  color: #4D4D4F;
+}
+.complete-register form .PrivateSwitchBase-root-29 {
+  padding-right: 5px;
+}
+.complete-register form label.MuiInputLabel-formControl {
+  color: #4D4D4F;
+}
+.complete-register form label.MuiFormLabel-root.Mui-focused {
+  color: #6699CC;
+}
+.complete-register form .MuiInput-underline:hover:not(.Mui-disabled):before {
+  border-bottom: 1px solid #33658A;
+}
+.complete-register form .MuiInput-underline:after {
+  border-bottom: 1px solid #6699CC;
+}
+.complete-register form .MuiInput-underline:before {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+}
+.complete-register form #bt-form {
+  background: #CC2936;
+  border-radius: 0.15rem;
+  border: none;
+  margin-top: 24px;
+  height: 45px;
+  width: 100%;
+}
+.complete-register button.bt-logout {
+  background: none;
+  border: none;
+  color: #f3f4f6;
+  float: right;
+  font-weight: bold;
+  margin-top: 25px;
 }
 
 /*# sourceMappingURL=style.css.map */
