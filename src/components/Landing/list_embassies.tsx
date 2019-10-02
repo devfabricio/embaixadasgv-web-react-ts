@@ -81,7 +81,7 @@ class EmbassyList extends Component<Props> {
                     {showProgress ? <CircularProgress id={"progress-form"} size={30} /> : null}
                 </div>
                 <ul className={"list-group list-group-flush"}>
-                    <span className={"embassyCount"}>{list.length+" embaixadas cadastradas"}</span>
+                    {list.length > 0 && <span className={"embassyCount"}>{list.length+" embaixadas cadastradas"}</span>}
                     {list.map((embassy, i) => (
                         <li key={i} className="list-group-item">
                             <div className={"row"}>
