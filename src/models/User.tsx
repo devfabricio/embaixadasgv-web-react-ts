@@ -1,6 +1,6 @@
 import {BasicUserInterface, UserInterface} from "../interface/UserInterface";
 import Embassy from "./Embassy";
-import {BasicEmbassyInterface} from "../interface/EmbassyInterface";
+import {BasicEmbassyInterface, EmbassyInterface} from "../interface/EmbassyInterface";
 import firebase from "firebase";
 
 export default class User implements UserInterface{
@@ -279,7 +279,7 @@ export default class User implements UserInterface{
         this._youtube = value;
     }
 
-    toObject = (user: firebase.firestore.DocumentData) => {
+    public toObject = (user: firebase.firestore.DocumentData) => {
         this._id = user.id ? user.id : "";
         this._name = user.name ? user.name : "";
         this._email = user.email ? user.email : "";
@@ -309,7 +309,7 @@ export default class User implements UserInterface{
         this._embassy = user.embassy ? user.embassy : null;
     };
 
-    toMap = (): UserInterface => {
+    public toMap = (): UserInterface => {
         return {
             id: this._id,
             name: this._name,
@@ -341,7 +341,7 @@ export default class User implements UserInterface{
         }
     };
 
-    toBasicMap = (): BasicUserInterface => {
+    public toBasicMap = (): BasicUserInterface => {
         return {
             id: this._id,
             name: this._name,

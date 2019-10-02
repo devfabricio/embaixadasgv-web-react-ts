@@ -9,6 +9,7 @@ import {bindActionCreators, Dispatch} from "redux";
 import {getCurrentUserDetails, setCurrentUserDetals, logout} from "../../actions/auth_actions";
 import {connect} from "react-redux";
 import Dropzone from 'react-dropzone'
+import uuid from "uuid/v4"
 import CropImage from "../Layout/CropImage";
 import TransitionsModal from "../Layout/TransitionModal";
 import FormField from "../Layout/TextInput";
@@ -17,11 +18,11 @@ import firebase, {User as CurrentUser} from "firebase";
 type variants = "error" | "info" | "success" | "warning"
 
 interface Props{
-    isCompleted: boolean
-    user: User
+    isCompleted: boolean | undefined
+    user: firebase.firestore.DocumentData
     currentUser: null | CurrentUser
     getCurrentUserDetails: (currentUser: any) => void
-    setCurrentUserDetals: (user: User) => void
+    setCurrentUserDetals: (user: User, blob: Blob | null, picname: string) => void
     logout: () => void
 }
 
@@ -34,8 +35,9 @@ interface States {
     userBirthday: string
     userOccupation: string
     userBiography: string
-    imgSrc: string | null
+    imgSrc: Blob | null
     imgSrcToCrop: string | null
+    picname: string
     address: string
     submitted: boolean
     loading: boolean
@@ -59,6 +61,7 @@ class CompleteRegister extends Component<Props, States> {
         userBiography: "",
         imgSrc: null,
         imgSrcToCrop: null,
+        picname: "",
         address: "",
         submitted: false,
         loading: false,
@@ -129,7 +132,8 @@ class CompleteRegister extends Component<Props, States> {
         })
     };
 
-    setCroppedImage = (img: string) => {
+    setCroppedImage = (img: Blob) => {
+        console.log("setCroppedImage", img);
         this.setState({
             ...this.state,
             imgSrc : img,
@@ -140,7 +144,7 @@ class CompleteRegister extends Component<Props, States> {
     handleSubmitClick = (event: React.FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
 
-        let profileImg = this.state.userProfileImg;
+        let blob = this.state.imgSrc;
         let gender = this.state.userGender;
         let birthday = this.state.userBirthday;
         let city = this.state.userCity;
@@ -171,7 +175,20 @@ class CompleteRegister extends Component<Props, States> {
             return
         }
 
-        let user = this.props.user;
+        if(blob === null) {
+            this.setState({
+                ...this.state,
+                toastMessage: "Você deve escolher uma foto de perfil",
+                toastVariant: "warning",
+                loading: false,
+                open: true
+            });
+            return
+        }
+
+
+        let user = new User();
+        user.toObject(this.props.user);
         user.gender = gender;
         user.birthdate = birthday;
         user.city = city;
@@ -185,17 +202,28 @@ class CompleteRegister extends Component<Props, States> {
             loading: true,
         });
 
-        this.props.setCurrentUserDetals(user);
+        this.props.setCurrentUserDetals(user, blob, this.state.picname);
     };
 
    readURL = (file: File) => {
             var reader = new FileReader();
             let self = this;
+            let filename = file.name;
+            let ext = filename.substr(filename.length - 3);
+
+            let picname = "";
+
+            if(ext === "peg") {
+                picname = uuid()+".jpg"
+            } else {
+                picname = uuid()+"."+ext
+            }
 
             reader.onload = function (e: any) {
 
                 self.setState({
                     ...self.state,
+                    picname: picname,
                     imgSrcToCrop: e.target.result,
                     openModal: true
                 });
@@ -206,8 +234,12 @@ class CompleteRegister extends Component<Props, States> {
 
     render () {
 
+        if(!!this.props.isCompleted) {
+            console.log(this.props.isCompleted)
+        }
+
         let user = !!this.props.user ? new User().toObject(this.props.user) : null;
-        console.log(user);
+        console.log(this.props.user);
 
         let form = [
             {attr: {
@@ -244,6 +276,13 @@ class CompleteRegister extends Component<Props, States> {
                     placeholder:"Área de atuação",
                     value: this.state.userOccupation,
                     onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, userOccupation: e.target.value})
+                }
+            },
+            {attr: {
+                    type: "textMultiline",
+                    placeholder:"Uma breve descrição sobre você",
+                    value: this.state.userBiography,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, userBiography: e.target.value})
                 }
             }
     ];
@@ -284,24 +323,26 @@ class CompleteRegister extends Component<Props, States> {
                 <div className={"content"}>
                     <div className={"container"}>
                         <div className="col-md-6 offset-md-3">
+                            <h4>Complete o cadastro</h4>
+                            <p>Para melhorar a sua experiência com a plataforma, é necessário que você preencha mais alguns dados sobre você. É rapidinho ;)</p>
                             <form className="row" id={"register-user-form"} onSubmit={(e) => this.handleSubmitClick(e)} autoComplete={"off"}>
                                 <input type="hidden" value="anything" />
                                 <div className={"form-group col-md-12"}>
                                     <Dropzone onDrop={acceptedFiles => {
                                         this.readURL(acceptedFiles[0]);
-                                        console.log(acceptedFiles)
                                     }}>
                                         {({getRootProps, getInputProps}) => (
                                             <section>
                                                 <div style={{outline:0}} {...getRootProps()}>
                                                     <input {...getInputProps()} />
                                                     <div className={"img-avatar"} >
-                                                        <img style={{cursor: "pointer", borderRadius:!!this.state.imgSrc ? "50%" : 0}} src={!!this.state.imgSrc ? this.state.imgSrc : "assets/images/user_add_photo.png"} />
+                                                        <img style={{cursor: "pointer", borderRadius:!!this.state.imgSrc ? "50%" : 0}} src={!!this.state.imgSrc ? String(this.state.imgSrc) : "assets/images/user_add_photo.png"} />
                                                     </div>
                                                 </div>
                                             </section>
                                         )}
                                     </Dropzone>
+                                    <p className={"drop-image"}>Clique <i className="fas fa-mouse-pointer" /> ou arraste <i className="far fa-hand-point-up"/> uma imagem para alterar a foto de perfil</p>
                                 </div>
                                 {form.map((field, i) => {
                                    return (

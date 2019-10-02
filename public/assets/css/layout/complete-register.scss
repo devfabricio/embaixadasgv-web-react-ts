@@ -14,8 +14,19 @@
     }
   }
 
+  h2, h3, h4 {
+    color: $colorPrimary;
+    font-family: $title-font;
+    font-weight: bold;
+  }
+
+  p {
+    font-size: 14px;
+    margin-bottom: 48px;
+  }
   .content {
     background: $backgroundGreyStrong;
+    text-align: center;
     padding: 64px 0;
     width: 100%;
   }
@@ -37,6 +48,15 @@
     color: $colorLink !important;
   }
   form {
+
+    p.drop-image {
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+      color: $colorSubText;
+      max-width: 200px;
+      margin: 0 auto 16px auto;
+    }
 
     .radio-group {
       display: block;
@@ -76,6 +96,32 @@
 
     .MuiInput-underline:before {
       border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+    }
+
+    .autocomplete-dropdown-container {
+      position: absolute;
+      z-index: 99999;
+      text-align: left;
+      width: 100%;
+    }
+    .suggestion-item {
+      background: #33658A !important;
+      color: #FAFAFA;
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+    .suggestion-item--active {
+      background: #448CBF !important;
+      color: #FAFAFA;
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+
+    .autocomplete-loading {
+      background: $backgroundGrey;
+      color: $colorText;
+      font-size: 14px;
+      padding: 8px 12px;
     }
 
     #bt-form {

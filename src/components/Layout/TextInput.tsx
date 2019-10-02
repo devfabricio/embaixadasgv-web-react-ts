@@ -75,6 +75,21 @@ const FormField = (props: any) => {
                     />
                 </div>
             )
+        case 'textMultiline' :
+            return (
+                <div className={classes.container}>
+                    <TextField
+                        label={props.placeholder}
+                        className={classes.textField}
+                        value={props.value}
+                        onChange={props.onChange}
+                        autoComplete={props.autoComplete}
+                        multiline
+                        rows="4"
+                        margin="normal"
+                    />
+                </div>
+            )
         case 'email' :
             return (
                 <div className={classes.container}>

@@ -21374,8 +21374,18 @@ body {
   height: 30px;
   margin: 22px 0;
 }
+.complete-register h2, .complete-register h3, .complete-register h4 {
+  color: #011e40;
+  font-family: "roboto";
+  font-weight: bold;
+}
+.complete-register p {
+  font-size: 14px;
+  margin-bottom: 48px;
+}
 .complete-register .content {
   background: #F3F4F6;
+  text-align: center;
   padding: 64px 0;
   width: 100%;
 }
@@ -21392,6 +21402,14 @@ body {
 }
 .complete-register .MuiFormLabel-root.Mui-focused {
   color: #33658A !important;
+}
+.complete-register form p.drop-image {
+  text-align: center;
+  font-weight: bold;
+  font-size: 14px;
+  color: #9E9E9E;
+  max-width: 200px;
+  margin: 0 auto 16px auto;
 }
 .complete-register form .radio-group {
   display: block;
@@ -21424,6 +21442,30 @@ body {
 }
 .complete-register form .MuiInput-underline:before {
   border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+}
+.complete-register form .autocomplete-dropdown-container {
+  position: absolute;
+  z-index: 99999;
+  text-align: left;
+  width: 100%;
+}
+.complete-register form .suggestion-item {
+  background: #33658A !important;
+  color: #FAFAFA;
+  font-size: 14px;
+  padding: 8px 12px;
+}
+.complete-register form .suggestion-item--active {
+  background: #448CBF !important;
+  color: #FAFAFA;
+  font-size: 14px;
+  padding: 8px 12px;
+}
+.complete-register form .autocomplete-loading {
+  background: #FAFAFA;
+  color: #4D4D4F;
+  font-size: 14px;
+  padding: 8px 12px;
 }
 .complete-register form #bt-form {
   background: #CC2936;

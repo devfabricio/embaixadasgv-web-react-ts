@@ -1,5 +1,6 @@
 import firebase from 'firebase';
-import {firebaseCollections, myFirebase, firebaseAuth} from "../utils/firebase";
+import {firebaseCollections, firebaseStorageRefs,
+    myFirebase, firebaseAuth, firebaseDatabase, firebaseStorage} from "../utils/firebase";
 import {Dispatch} from "redux";
 import {UserCredentials} from "../interface/UserInterface";
 import User from "../models/User";
@@ -67,7 +68,7 @@ export function registerUser(credentials: UserCredentials, user: User, callback:
                 if(auth.user !== null) {
                     user.id = auth.user.uid;
                     user.status = "registered";
-                    userRef.add(user.toMap())
+                    userRef.doc(user.id).set(user.toMap())
                         .then((docReference) => {
                             callback();
                             console.log("Registro feito com sucesso!")
@@ -100,9 +101,11 @@ export function getCurrentUserDetails(currentUser: any) {
     return (dispatch: Dispatch) => {
         console.log(currentUser)
         let currentUserId = currentUser.uid
+        console.log(currentUserId)
         userRef.doc(currentUserId)
             .get()
             .then((doc) => {
+                console.log(doc.data())
                 dispatch({
                     type: 'ON_GET_USER_DETAILS',
                     payload: {
@@ -116,28 +119,54 @@ export function getCurrentUserDetails(currentUser: any) {
     }
 }
 
-export function setCurrentUserDetals(user: User) {
+export function setCurrentUserDetals(user: User, blob: Blob | null, picname: string) {
     let auth = myFirebase.auth();
-    let userRef = myFirebase.firestore().collection(firebaseCollections.USERS);
+    let userRef = firebaseDatabase.collection(firebaseCollections.USERS);
+    let storageRef = firebaseStorage.ref().child(firebaseStorageRefs.USER_PROFILE+'/'+picname);
 
     if(auth.currentUser != null) {
 
         let currentUserId = auth.currentUser.uid
         user.id = currentUserId;
         user.status = "active";
-
         return (dispatch: Dispatch) => {
-
-            userRef.doc(currentUserId)
-                .set(user.toMap())
-                .then(() => {
-                    dispatch({
-                        type: 'ON_SET_USER_DETAILS',
-                        payload: {
-                            isCompleted: true,
-                        }});
-                })
-
+            if(blob !== null) {
+               getFileBlob(blob, (cb: Blob) =>{
+                   let uploadTask = storageRef.put(cb);
+                   uploadTask.on('state_changed', function(snapshot){
+                       // Observe state change events such as progress, pause, and resume
+                       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                       console.log('Upload is ' + progress + '% done');
+                       switch (snapshot.state) {
+                           case firebase.storage.TaskState.PAUSED: // or 'paused'
+                               console.log('Upload is paused');
+                               break;
+                           case firebase.storage.TaskState.RUNNING: // or 'running'
+                               console.log('Upload is running');
+                               break;
+                       }
+                   }, function(error) {
+                       // Handle unsuccessful uploads
+                   }, function() {
+                       // Handle successful uploads on complete
+                       // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                       uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                           console.log(user.toMap(), currentUserId, "uploadTask.snapshot.ref.getDownloadURL()")
+                           user.profile_img = downloadURL
+                           userRef.doc(currentUserId)
+                               .set(user.toMap())
+                               .then(() => {
+                                   dispatch({
+                                       type: 'ON_SET_USER_DETAILS',
+                                       payload: {
+                                           isCompleted: true,
+                                       }});
+                               })
+                       });
+                   });
+                });
+            }
         }
     }
 }
@@ -151,3 +180,13 @@ export function logout() {
     };
 
 }
+
+function getFileBlob (url: any, cb: any) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    xhr.responseType = "blob";
+    xhr.addEventListener('load', function() {
+        cb(xhr.response);
+    });
+    xhr.send();
+};

@@ -26,6 +26,15 @@ export const firebaseCollections = {
     APP_MESSAGES: "app_messages"
 };
 
+export const firebaseStorageRefs = {
+    USER_PROFILE : "images/user/profile",
+    POST_IMG : "images/post/article",
+    EVENT_COVER : "images/event/cover",
+    EMBASSY_PHOTO : "images/embassy/picture",
+    EMBASSY_COVER : "images/embassy/cover"
+};
+
 export const myFirebase = firebase.initializeApp(firebaseConfig);
 export const firebaseDatabase = firebase.firestore();
 export const firebaseAuth = firebase.auth();
+export const firebaseStorage = firebase.storage();
