@@ -53,6 +53,9 @@ class EmbassyList extends Component<Props> {
 
         if(!!this.props.list) {
             list = this.props.list
+            list.forEach((embassy, i) => {
+                console.log(embassy.status)
+            })
         } else {
             showProgress = true;
         }
@@ -60,6 +63,8 @@ class EmbassyList extends Component<Props> {
         if(this.state.embassyList.length > 0) {
             list = this.state.embassyList
         }
+
+
 
         return(
             <div className={"container"} >
@@ -76,6 +81,7 @@ class EmbassyList extends Component<Props> {
                     {showProgress ? <CircularProgress id={"progress-form"} size={30} /> : null}
                 </div>
                 <ul className={"list-group list-group-flush"}>
+                    <span className={"embassyCount"}>{list.length+" embaixadas cadastradas"}</span>
                     {list.map((embassy, i) => (
                         <li key={i} className="list-group-item">
                             <div className={"row"}>

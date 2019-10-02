@@ -66,11 +66,11 @@ const FormField = (props: any) => {
             return (
                 <div className={classes.container}>
                     <TextField
-                        id="standard-name"
                         label={props.placeholder}
                         className={classes.textField}
                         value={props.value}
                         onChange={props.onChange}
+                        autoComplete={props.autoComplete}
                         margin="normal"
                     />
                 </div>
@@ -79,11 +79,11 @@ const FormField = (props: any) => {
             return (
                 <div className={classes.container}>
                     <TextField
-                        id="standard-name"
                         label={props.placeholder}
                         className={classes.textField}
                         value={props.value}
                         onChange={props.onChange}
+                        autoComplete={props.autoComplete}
                         type={"email"}
                         margin="normal"
                     />
@@ -93,7 +93,6 @@ const FormField = (props: any) => {
             return (
                 <div className={classes.container}>
                     <TextField
-                        id="standard-name"
                         label={props.placeholder}
                         className={classes.textField}
                         value={props.value}
@@ -113,37 +112,39 @@ const FormField = (props: any) => {
                     >
                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                 <div className={classes.container}>
-                                    <TextField
-                                        id="standard-name"
-                                        label={props.placeholder}
-                                        className={classes.textField}
-                                        autoComplete={"new-city"}
-                                        margin="normal"
-                                        {...getInputProps({
-                                            placeholder: 'Buscar cidade ...'
-                                        })}
-                                    />
-                                    <div className="autocomplete-dropdown-container">
-                                        {loading && <div className={"autocomplete-loading"}>Carregando...</div>}
-                                        {suggestions.map(suggestion => {
-                                            const className = suggestion.active
-                                                ? 'suggestion-item--active'
-                                                : 'suggestion-item';
-                                            // inline style for demonstration purpose
-                                            const style = suggestion.active
-                                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
-                                            return (
-                                                <div
-                                                    {...getSuggestionItemProps(suggestion, {
-                                                        className,
-                                                        style,
-                                                    })}
-                                                >
-                                                    <span>{suggestion.description}</span>
-                                                </div>
-                                            );
-                                        })}
+                                    <div style={{position:"relative", width:"100%"}}>
+                                        <TextField
+                                            id="standard-name"
+                                            label={props.placeholder}
+                                            className={classes.textField}
+                                            autoComplete={"new-city"}
+                                            margin="normal"
+                                            {...getInputProps({
+                                                placeholder: 'Buscar cidade ...'
+                                            })}
+                                        />
+                                        <div className="autocomplete-dropdown-container">
+                                            {loading && <div className={"autocomplete-loading"}>Carregando...</div>}
+                                            {suggestions.map(suggestion => {
+                                                const className = suggestion.active
+                                                    ? 'suggestion-item--active'
+                                                    : 'suggestion-item';
+                                                // inline style for demonstration purpose
+                                                const style = suggestion.active
+                                                    ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                                                    : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                                                return (
+                                                    <div
+                                                        {...getSuggestionItemProps(suggestion, {
+                                                            className,
+                                                            style,
+                                                        })}
+                                                    >
+                                                        <span>{suggestion.description}</span>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
                                 </div>
 
@@ -158,6 +159,7 @@ const FormField = (props: any) => {
                     onChange={props.onChange} >
                     {(inputProps: any) => <TextField
                         {...inputProps}
+                        autoComplete={props.autoComplete}
                         id="standard-name"
                         label={props.placeholder}
                         className={classes.textField}

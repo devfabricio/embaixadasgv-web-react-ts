@@ -137,11 +137,16 @@
     }
 
     label.MuiInputLabel-formControl {
-      color: $colorText;
+      color: $colorSubText;
     }
 
     label.MuiFormLabel-root.Mui-focused {
       color: $colorAccent;
+    }
+
+    legend.MuiFormLabel-root {
+      color: $colorText;
+      margin-top: 8px;
     }
 
     .MuiInput-underline:hover:not(.Mui-disabled):before {
@@ -153,7 +158,15 @@
     }
 
     .MuiInput-underline:before {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+      border-bottom: 1px solid rgba(77, 77, 79, 0.42);
+    }
+
+    .MuiTextField-root {
+      margin-top: 0 !important;
+    }
+
+    .MuiFormControl-root {
+      margin:8px;
     }
 
     #bt-form {
@@ -227,6 +240,11 @@
     }
     .list-group-item:first-child {
       border-top: 0;
+    }
+    .embassyCount {
+      color: $colorText;
+      font-weight: bold;
+      margin: 16px 0;
     }
     input[type="search"] {
 

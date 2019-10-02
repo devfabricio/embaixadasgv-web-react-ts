@@ -39,18 +39,27 @@ export function listEmbassy() {
                     embassy.toObject(doc.data())
                     list.push(embassy);
                 });
-                embassyRef.where("status", "==", "released")
+                embassyRef.where("status", "==", "approved")
                     .get()
-                    .then(query => {
-                        query.forEach((doc) => {
+                    .then(queryApproved => {
+                        queryApproved.forEach((doc) => {
                             let embassy = new Embassy();
                             embassy.toObject(doc.data());
                             list.push(embassy);
                         });
-                        console.log(list);
-                        dispatch({
-                            type: 'ON_LIST',
-                            payload: list})
+                        embassyRef.where("status", "==", "released")
+                            .get()
+                            .then(query => {
+                                query.forEach((doc) => {
+                                    let embassy = new Embassy();
+                                    embassy.toObject(doc.data());
+                                    list.push(embassy);
+                                });
+                                console.log(list);
+                                dispatch({
+                                    type: 'ON_LIST',
+                                    payload: list})
+                            })
                     })
             })
             .catch(e => {
@@ -80,7 +89,6 @@ export function listSponsors() {
                         payload: list})
                 }
             )
-
     }
 }
 

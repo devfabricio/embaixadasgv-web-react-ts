@@ -21044,10 +21044,14 @@ p {
   color: #33658A !important;
 }
 .landing .register-leader label.MuiInputLabel-formControl {
-  color: #4D4D4F;
+  color: #9E9E9E;
 }
 .landing .register-leader label.MuiFormLabel-root.Mui-focused {
   color: #6699CC;
+}
+.landing .register-leader legend.MuiFormLabel-root {
+  color: #4D4D4F;
+  margin-top: 8px;
 }
 .landing .register-leader .MuiInput-underline:hover:not(.Mui-disabled):before {
   border-bottom: 1px solid #33658A;
@@ -21056,7 +21060,13 @@ p {
   border-bottom: 1px solid #6699CC;
 }
 .landing .register-leader .MuiInput-underline:before {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  border-bottom: 1px solid rgba(77, 77, 79, 0.42);
+}
+.landing .register-leader .MuiTextField-root {
+  margin-top: 0 !important;
+}
+.landing .register-leader .MuiFormControl-root {
+  margin: 8px;
 }
 .landing .register-leader #bt-form {
   background: #CC2936;
@@ -21131,6 +21141,11 @@ p {
 }
 .landing .embassy-list .list-group-item:first-child {
   border-top: 0;
+}
+.landing .embassy-list .embassyCount {
+  color: #4D4D4F;
+  font-weight: bold;
+  margin: 16px 0;
 }
 .landing .embassy-list .progress-list {
   text-align: center;
