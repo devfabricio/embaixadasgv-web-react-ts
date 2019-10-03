@@ -20910,6 +20910,34 @@ p {
   color: #4D4D4F;
 }
 
+.app-wrap header {
+  background: #011e40;
+  width: 100%;
+}
+.app-wrap header .container {
+  overflow: hidden;
+}
+.app-wrap .logo {
+  float: left;
+}
+.app-wrap .logo img {
+  height: 30px;
+  margin: 22px 0;
+}
+.app-wrap .bottom-navigation {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.app-wrap .bottom-navigation .MuiBottomNavigation-root {
+  border: 1px solid #efefef;
+}
+
+.app-content {
+  background: #F3F4F6;
+  border: 1px solid #efefef;
+}
+
 .landing {
   background: #011e40;
   display: table;

@@ -19,3 +19,33 @@ p {
   font-family: $text-font;
   color: $colorText;
 }
+
+.app-wrap {
+  header {
+    background: $colorPrimary;
+    width: 100%;
+    .container {
+      overflow: hidden;
+    }
+  }
+  .logo {
+    float: left;
+    img {
+      height: 30px;
+      margin: 22px 0;
+    }
+  }
+  .bottom-navigation {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    .MuiBottomNavigation-root {
+      border: 1px solid #efefef;
+    }
+  }
+}
+
+.app-content {
+  background: $backgroundGreyStrong;
+  border: 1px solid #efefef;
+}
