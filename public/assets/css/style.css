@@ -20922,6 +20922,10 @@ p {
 }
 .app-wrap .logo img {
   height: 30px;
+  margin: 16px;
+}
+.app-wrap .logo-toolbar-app {
+  height: 30px;
   margin: 22px 0;
 }
 .app-wrap .bottom-navigation {
@@ -20936,6 +20940,10 @@ p {
 .app-content {
   background: #F3F4F6;
   border: 1px solid #efefef;
+}
+
+.MuiDrawer-paper {
+  top: 64px !important;
 }
 
 .landing {

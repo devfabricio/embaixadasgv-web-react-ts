@@ -1,9 +1,11 @@
 import {combineReducers} from 'redux'
+import users from './users_reducer'
 import auth from './auth_reducer'
 import landing from './landing_reducer'
 
 const rootReducer = combineReducers({
     auth,
+    users,
     landing
 });
 export default rootReducer;

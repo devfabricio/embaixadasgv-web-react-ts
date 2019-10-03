@@ -32,8 +32,13 @@ p {
     float: left;
     img {
       height: 30px;
-      margin: 22px 0;
+      margin: 16px;
     }
+  }
+
+  .logo-toolbar-app {
+    height: 30px;
+    margin: 22px 0;
   }
   .bottom-navigation {
     position: fixed;
@@ -48,4 +53,8 @@ p {
 .app-content {
   background: $backgroundGreyStrong;
   border: 1px solid #efefef;
+}
+
+.MuiDrawer-paper {
+  top: 64px !important;
 }
