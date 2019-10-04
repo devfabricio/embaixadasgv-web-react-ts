@@ -21,13 +21,60 @@ p {
 }
 
 .app-wrap {
-  header.MuiPaper-root {
+  background: $backgroundGreyStrong;
+  header {
     box-shadow: none !important;
     background: $colorPrimary;
     width: 100%;
     .container {
       overflow: hidden;
     }
+    .actions {
+      float: right;
+      margin-top: 16px;
+      .user-action {
+        cursor: pointer;
+      }
+      img {
+        height: 30px;
+        width: 30px;
+        border-radius: 50%;
+      }
+      span {
+        color: $colorWhite;
+        font-family: $title-font;
+        font-size: 14px;
+        margin-left: 8px;
+      }
+      i {
+        color: $colorWhite;
+        margin-left: 8px;
+      }
+    }
+  }
+  .top-tabs {
+    border-bottom: 1px solid #e6e6e6;
+    background: $colorWhite;
+    text-align: center;
+    margin-bottom: 32px;
+    .row {
+      margin: 0 auto;
+      max-width: 720px;
+    }
+    a {
+      display: block;
+      color: $colorText;
+      font-family: $title-font;
+      padding: 12px 0;
+      font-weight: bold;
+    }
+    .tab-item.active {
+      border-bottom: 2px solid $colorRed;
+      a {
+        color: $colorRed;
+      }
+    }
+
   }
   .logo {
     float: left;

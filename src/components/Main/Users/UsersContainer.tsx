@@ -1,16 +1,13 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
-import PermanentDrawerLeft from "../../Layout/Drawer";
 import {AppState} from "../../../reducers";
 import {bindActionCreators, Dispatch} from "redux";
 import {listUsers} from "../../../actions/users_actions";
 import {getCurrentUserDetails} from "../../../actions/auth_actions";
 import {connect} from "react-redux";
 import User from "../../../models/User";
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import AvatarCard from "../../Layout/CardAvatar";
+import Sidebar from "react-sidebar";
 import firebase from "firebase";
 import {User as CurrentUser} from "firebase";
 
@@ -28,22 +25,21 @@ interface States {
 
 class UsersContainer extends Component<Props>{
 
+    state = {
+        sidebarOpen: false
+    }
+
     componentDidMount(): void {
         this.props.getCurrentUserDetails(this.props.currentUser)
         this.props.listUsers()
     }
 
-    useStyles = makeStyles((theme: Theme) =>
-        createStyles({
-            root: {
-                flexGrow: 1,
-            }
-        }),
-    );
+    onSetSidebarOpen = (open: boolean) => {
+        this.setState({ sidebarOpen: open });
+    }
 
     children = () => {
 
-        const classes = this.useStyles();
         let list: Array<User> = [];
 
         if(!!this.props.users) {
@@ -52,20 +48,18 @@ class UsersContainer extends Component<Props>{
 
         return (
             <div className={"container list-users"}>
-                <div className={classes.root}>
-                    <Grid container spacing={3}>
+                <div className={"row"}>
                         {list.map((user, i) => {
                             return (
-                                <Grid item xs={4}>
+                                <div className={"col-md-4 user-item"}>
                                     <AvatarCard
                                         imgSrc={user.profile_img}
                                         title={user.name}
                                         description={user.occupation}
                                     />
-                                </Grid>
+                                </div>
                             )
                         })}
-                    </Grid>
                 </div>
             </div>
         )
@@ -84,7 +78,38 @@ class UsersContainer extends Component<Props>{
 
         return(
             <div className={"app-wrap"}>
-                <PermanentDrawerLeft children={this.children} currentUser={currentUser} />
+                <header>
+                    <div className="container">
+                        <div className="logo">
+                            <Link to={"/"}><img src="assets/images/logo.png" /></Link>
+                        </div>
+                        <div className={"actions"}>
+                            <div className={"user-action"} onClick={() => this.onSetSidebarOpen(true)}>
+                                <img src={""} />
+                                <span>Fabrício Augusto</span>
+                                <i className={"fas fa-sort-down"}/>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                <div className={"top-tabs"}>
+                    <div className={"container"}>
+                        <div className={"row"}>
+                            <div className={"col-md-3 tab-item"}><Link to={"/"}>Início</Link></div>
+                            <div className={"col-md-3 tab-item active"}><Link to={"/"}>GV's</Link></div>
+                            <div className={"col-md-3 tab-item"}><Link to={"/"}>Conteúdo</Link></div>
+                            <div className={"col-md-3 tab-item"}><Link to={"/"}>Agenda</Link></div>
+                        </div>
+                    </div>
+                </div>
+                {this.children()}
+                {this.state.sidebarOpen && <Sidebar
+                    sidebar={<b>Sidebar content</b>}
+                    open={this.state.sidebarOpen}
+                    onSetOpen={this.onSetSidebarOpen}
+                    styles={{ sidebar: { background: "white" } }}
+                    pullRight={true}
+                />}
             </div>
         )
     }

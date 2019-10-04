@@ -56,9 +56,23 @@ body{
       color: $backgroundGrey;
       font-family: $text-font;
       font-size: 16px;
-      height: 45px;
       border-radius: 0.15rem;
       width: 100%;
+    }
+
+    .submit-code {
+      input[type="text"] {
+        font-size: 32px;
+        text-align: center;
+      }
+    }
+
+    .form-action {
+      margin-top: 16px;
+      text-align: center;
+      .MuiCircularProgress-root {
+        color: $colorAccent;
+      }
     }
 
     #bt-form {
@@ -91,6 +105,19 @@ body{
 
     .MuiInput-underline:before {
       border-bottom: 1px solid rgba(255, 255, 255, 0.42);
+    }
+  }
+
+  @media screen and (max-width: $break-large) {
+    .logo {
+      margin-bottom: 16px;
+      text-align: center;
+      img {
+        width: 150px;
+      }
+    }
+    .submit-register, .submit-code {
+      padding: 16px;
     }
   }
 }

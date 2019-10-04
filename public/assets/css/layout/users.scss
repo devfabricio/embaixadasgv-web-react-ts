@@ -1,6 +1,11 @@
 .list-users {
+  .user-item {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
   .MuiPaper-root {
     box-shadow: none;
     border:1px solid #e6e6e6;
+    margin-bottom: 16px;
   }
 }

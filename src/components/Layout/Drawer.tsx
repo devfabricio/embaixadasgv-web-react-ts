@@ -19,11 +19,12 @@ import Home from '@material-ui/icons/Home'
 import Group from '@material-ui/icons/Group'
 import Description from '@material-ui/icons/Description'
 import EventAvailable from '@material-ui/icons/EventAvailable'
-import Menu from '@material-ui/icons/Menu'
+import MeetingRoom from '@material-ui/icons/MeetingRoom'
 import {Link} from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import User from "../../models/User";
-import {User as CurrentUser} from "firebase";
+import {firebaseCollections, firebaseStorageRefs,
+    myFirebase, firebaseAuth, firebaseDatabase, firebaseStorage} from "../../utils/firebase";
 
 const drawerWidth = 240;
 
@@ -82,6 +83,11 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
     const theme = useTheme();
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
+    const logout = () => {
+        firebaseAuth.signOut()
+        window.location.href = "/";
+    }
+
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
@@ -123,6 +129,11 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
                         <ListItemText primary={text} />
                     </ListItem>
                 ))}
+                <ListItem button onClick={() => {logout()}}>
+                    <ListItemIcon><MeetingRoom /></ListItemIcon>
+                    <ListItemText primary={"Sair"} />
+                </ListItem>
+
             </List>
         </div>
     );

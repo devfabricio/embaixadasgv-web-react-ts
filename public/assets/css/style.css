@@ -20927,13 +20927,61 @@ p {
   color: #4D4D4F;
 }
 
-.app-wrap header.MuiPaper-root {
+.app-wrap {
+  background: #F3F4F6;
+}
+.app-wrap header {
   box-shadow: none !important;
   background: #011e40;
   width: 100%;
 }
-.app-wrap header.MuiPaper-root .container {
+.app-wrap header .container {
   overflow: hidden;
+}
+.app-wrap header .actions {
+  float: right;
+  margin-top: 16px;
+}
+.app-wrap header .actions .user-action {
+  cursor: pointer;
+}
+.app-wrap header .actions img {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+.app-wrap header .actions span {
+  color: #FFFFFF;
+  font-family: "roboto";
+  font-size: 14px;
+  margin-left: 8px;
+}
+.app-wrap header .actions i {
+  color: #FFFFFF;
+  margin-left: 8px;
+}
+.app-wrap .top-tabs {
+  border-bottom: 1px solid #e6e6e6;
+  background: #FFFFFF;
+  text-align: center;
+  margin-bottom: 32px;
+}
+.app-wrap .top-tabs .row {
+  margin: 0 auto;
+  max-width: 720px;
+}
+.app-wrap .top-tabs a {
+  display: block;
+  color: #4D4D4F;
+  font-family: "roboto";
+  padding: 12px 0;
+  font-weight: bold;
+}
+.app-wrap .top-tabs .tab-item.active {
+  border-bottom: 2px solid #CC2936;
+}
+.app-wrap .top-tabs .tab-item.active a {
+  color: #CC2936;
 }
 .app-wrap .logo {
   float: left;
@@ -21391,9 +21439,19 @@ body {
   color: #FAFAFA;
   font-family: "opensans";
   font-size: 16px;
-  height: 45px;
   border-radius: 0.15rem;
   width: 100%;
+}
+.wrap-auth .form .submit-code input[type=text] {
+  font-size: 32px;
+  text-align: center;
+}
+.wrap-auth .form .form-action {
+  margin-top: 16px;
+  text-align: center;
+}
+.wrap-auth .form .form-action .MuiCircularProgress-root {
+  color: #6699CC;
 }
 .wrap-auth .form #bt-form {
   background: #CC2936;
@@ -21420,6 +21478,18 @@ body {
 }
 .wrap-auth .form .MuiInput-underline:before {
   border-bottom: 1px solid rgba(255, 255, 255, 0.42);
+}
+@media screen and (max-width: 768px) {
+  .wrap-auth .logo {
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  .wrap-auth .logo img {
+    width: 150px;
+  }
+  .wrap-auth .submit-register, .wrap-auth .submit-code {
+    padding: 16px;
+  }
 }
 
 .complete-register {
@@ -21548,9 +21618,14 @@ body {
   margin-top: 25px;
 }
 
+.list-users .user-item {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 .list-users .MuiPaper-root {
   box-shadow: none;
   border: 1px solid #e6e6e6;
+  margin-bottom: 16px;
 }
 
 /*# sourceMappingURL=style.css.map */
