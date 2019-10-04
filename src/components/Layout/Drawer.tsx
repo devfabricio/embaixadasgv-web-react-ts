@@ -60,8 +60,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         bigAvatar: {
             margin: 10,
-            width: 60,
-            height: 60,
+            width: 80,
+            height: 80,
         }
     }),
 );
@@ -89,7 +89,12 @@ export default function ResponsiveDrawer(props: ResponsiveDrawerProps) {
     const drawer = (
         <div>
             <div className={classes.toolbar} >
-                <Avatar src={!!props.currentUser.profile_img ? props.currentUser.profile_img : ""} aria-label="recipe" className={classes.bigAvatar}/>
+                {!!props.currentUser && <div>
+                    <Avatar src={!!props.currentUser.profile_img ? props.currentUser.profile_img : ""} aria-label="recipe" className={classes.bigAvatar}/>
+                    <h5>{props.currentUser.name}</h5>
+                    <span>{props.currentUser.occupation}</span>
+                </div>}
+
             </div>
             <Divider />
             <List>

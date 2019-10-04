@@ -2,8 +2,14 @@ import React, {Component} from "react";
 import SimpleBottomNavigation from "../Layout/SimpleBottomNavigation";
 import {Link} from "react-router-dom";
 import PermanentDrawerLeft from "../Layout/Drawer";
+import {User as CurrentUser} from "firebase";
+import User from "../../models/User";
 
-class MainDashboard extends Component{
+interface Props {
+    currentUser: null | CurrentUser
+}
+
+class MainDashboard extends Component<Props>{
 
     children = () => {
         return (
@@ -14,12 +20,18 @@ class MainDashboard extends Component{
     };
 
     render() {
-        console.log("MainDashboard", "chegou aqui");
+
+        let currentUser: User | null = null;
+
+        if(!!this.props.currentUser) {
+            currentUser = new User();
+            currentUser.toObject(this.props.currentUser);
+        }
 
         return(
             <div className={"app-wrap"}>
                 <div className={"container"}>
-                    <PermanentDrawerLeft children={this.children} />
+                    <PermanentDrawerLeft children={this.children} currentUser={currentUser} />
                 </div>
             </div>
         )

@@ -20888,6 +20888,23 @@ readers do not read off random characters that represent icons */
   font-family: "Font Awesome 5 Brands";
 }
 
+.makeStyles-drawer-2 .makeStyles-toolbar-5 {
+  text-align: center;
+  padding: 16px 24px;
+}
+.makeStyles-drawer-2 .makeStyles-toolbar-5 .MuiAvatar-root {
+  margin: 0 auto;
+}
+.makeStyles-drawer-2 .makeStyles-toolbar-5 h5 {
+  color: #4D4D4F;
+  font-weight: bold;
+  margin: 16px 0 0 0;
+}
+.makeStyles-drawer-2 .makeStyles-toolbar-5 span {
+  color: #9E9E9E;
+  font-size: 0.775rem;
+}
+
 input, button {
   outline: none;
 }
@@ -20910,11 +20927,12 @@ p {
   color: #4D4D4F;
 }
 
-.app-wrap header {
+.app-wrap header.MuiPaper-root {
+  box-shadow: none !important;
   background: #011e40;
   width: 100%;
 }
-.app-wrap header .container {
+.app-wrap header.MuiPaper-root .container {
   overflow: hidden;
 }
 .app-wrap .logo {
@@ -20926,7 +20944,7 @@ p {
 }
 .app-wrap .logo-toolbar-app {
   height: 30px;
-  margin: 22px 0;
+  margin: 16px 0;
 }
 .app-wrap .bottom-navigation {
   position: fixed;
@@ -20935,6 +20953,16 @@ p {
 }
 .app-wrap .bottom-navigation .MuiBottomNavigation-root {
   border: 1px solid #efefef;
+}
+
+.MuiDrawer-root .MuiListItemIcon-root {
+  min-width: 36px;
+}
+.MuiDrawer-root .MuiSvgIcon-root {
+  font-size: 1.2rem;
+}
+.MuiDrawer-root .MuiTypography-root {
+  font-size: 0.9rem;
 }
 
 .app-content {
@@ -21518,6 +21546,11 @@ body {
   float: right;
   font-weight: bold;
   margin-top: 25px;
+}
+
+.list-users .MuiPaper-root {
+  box-shadow: none;
+  border: 1px solid #e6e6e6;
 }
 
 /*# sourceMappingURL=style.css.map */

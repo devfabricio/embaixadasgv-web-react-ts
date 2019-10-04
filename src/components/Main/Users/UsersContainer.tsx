@@ -11,10 +11,12 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import AvatarCard from "../../Layout/CardAvatar";
+import firebase from "firebase";
 import {User as CurrentUser} from "firebase";
 
 interface Props{
     getCurrentUserDetails: (currentUser: any) => void
+    currentUserDetails: firebase.firestore.DocumentData
     currentUser: null | CurrentUser
     listUsers: () => void;
     users: Array<User>;
@@ -49,41 +51,47 @@ class UsersContainer extends Component<Props>{
         }
 
         return (
-            <div className={classes.root}>
-                <Grid container spacing={3}>
-                    {list.map((user, i) => {
-                        return (
-                            <Grid item xs={6}>
-                                <AvatarCard
-                                    imgSrc={user.profile_img}
-                                    title={user.name}
-                                    description={user.occupation}
-                                />
-                            </Grid>
-                        )
-                    })}
-                </Grid>
+            <div className={"container list-users"}>
+                <div className={classes.root}>
+                    <Grid container spacing={3}>
+                        {list.map((user, i) => {
+                            return (
+                                <Grid item xs={4}>
+                                    <AvatarCard
+                                        imgSrc={user.profile_img}
+                                        title={user.name}
+                                        description={user.occupation}
+                                    />
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                </div>
             </div>
         )
     };
 
     render() {
 
-        let currentUser = !!this.props.currentUser ? new User().toObject(this.props.currentUser) : null;
-        console.log(this.props.users);
+        let currentUser: User | null = null;
+
+        if(!!this.props.currentUserDetails) {
+            currentUser = new User();
+            currentUser.toObject(this.props.currentUserDetails);
+        }
+
+        console.log(this.props.currentUserDetails);
 
         return(
             <div className={"app-wrap"}>
-                <div className="container">
-                    <PermanentDrawerLeft children={this.children} currentUser={currentUser} />
-                </div>
+                <PermanentDrawerLeft children={this.children} currentUser={currentUser} />
             </div>
         )
     }
 }
 
 const mapStateToProps = (state: AppState) => ({
-    currentUser: state.auth.currentUser,
+    currentUserDetails: state.auth.userDetails,
     users: state.users.usersList,
 });
 

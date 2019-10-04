@@ -21,7 +21,8 @@ p {
 }
 
 .app-wrap {
-  header {
+  header.MuiPaper-root {
+    box-shadow: none !important;
     background: $colorPrimary;
     width: 100%;
     .container {
@@ -35,10 +36,9 @@ p {
       margin: 16px;
     }
   }
-
   .logo-toolbar-app {
     height: 30px;
-    margin: 22px 0;
+    margin: 16px 0;
   }
   .bottom-navigation {
     position: fixed;
@@ -47,6 +47,18 @@ p {
     .MuiBottomNavigation-root {
       border: 1px solid #efefef;
     }
+  }
+}
+
+.MuiDrawer-root {
+  .MuiListItemIcon-root {
+    min-width: 36px;
+  }
+  .MuiSvgIcon-root {
+    font-size: 1.2rem;
+  }
+  .MuiTypography-root {
+    font-size: 0.9rem;
   }
 }
 
