@@ -1,11 +1,51 @@
 .list-users {
   .user-item {
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 6px;
+    padding-right: 6px;
   }
   .MuiPaper-root {
     box-shadow: none;
     border:1px solid #e6e6e6;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
+  }
+
+  .MuiCardHeader-root {
+    .MuiCardHeader-avatar {
+      margin-right: 4px;
+    }
+  }
+
+  .MuiCardHeader-title {
+    color: $colorText;
+    font-weight: bold !important;
+  }
+
+  .search-form {
+    padding-left: 6px;
+    padding-right: 6px;
+    .MuiTextField-root {
+      margin: 0 0 24px 0;
+    }
+
+    label.MuiInputLabel-formControl {
+      color: $coloGrey;
+    }
+
+    label.MuiFormLabel-root.Mui-focused {
+      color: $colorAccent;
+    }
+
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: $colorAccent;
+      border-width: 2px;
+    }
+
+    .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+      border-color: $colorAccent;
+    }
+
+    .MuiInputBase-input {
+      background: $colorWhite;
+    }
   }
 }

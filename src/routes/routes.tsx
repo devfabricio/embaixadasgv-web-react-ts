@@ -2,8 +2,8 @@ import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 import MainDashboard from '../components/Main/main'
 import UsersContainer from "../components/Main/Users/UsersContainer"
-import firebase, {User} from "firebase";
 import PrivateRoute from "./private_route";
+import User from "../models/User";
 
 interface Props {
     isLogged: boolean,

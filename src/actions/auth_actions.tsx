@@ -10,15 +10,27 @@ import {errorMessage} from "aws-sdk/clients/datapipeline";
 
 export function checkAuth() {
 
+    let userRef = firebaseDatabase.collection(firebaseCollections.USERS);
+
     return (dispatch: Dispatch) => {
         firebaseAuth.onAuthStateChanged((user) => {
             if(!!user)  {
-                dispatch({
-                    type: 'ON_CHECK_AUTH',
-                    payload: {
-                        isLogged: true,
-                        currentUser: user
-                    }});
+                console.log("onAuthStateChanged", user.uid)
+
+                userRef.doc(user.uid)
+                    .get()
+                    .then((doc) => {
+                        console.log(doc.data())
+                        dispatch({
+                            type: 'ON_CHECK_AUTH',
+                            payload: {
+                                isLogged: true,
+                                currentUser: doc.data()
+                            }});
+                    })
+                    .catch((e: errorMessage) => {
+                        console.log(e)
+                    })
             } else {
                 dispatch({
                     type: 'ON_CHECK_AUTH',

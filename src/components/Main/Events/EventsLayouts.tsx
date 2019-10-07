@@ -22,7 +22,7 @@ interface States {
     isSearching: boolean
 }
 
-class UsersContainer extends Component<Props>{
+class EventsContainer extends Component<Props>{
 
     state = {
         query: "",
@@ -94,18 +94,18 @@ class UsersContainer extends Component<Props>{
                                    autoComplete={"new-search"} />
                         {list.length > 0 && <span className={"title-section"}>{list.length} usuários cadastrados</span>}
                     </div>
-                        {list.map((user, i) => {
-                            return (
-                                <div className={"col-md-6 user-item"}>
-                                    <AvatarCard
-                                        imgSrc={user.profile_img}
-                                        title={user.name}
-                                        description={user.occupation}
-                                    />
-                                </div>
-                            )
-                        })}
-                    </div>
+                    {list.map((user, i) => {
+                        return (
+                            <div className={"col-md-6 user-item"}>
+                                <AvatarCard
+                                    imgSrc={user.profile_img}
+                                    title={user.name}
+                                    description={user.occupation}
+                                />
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         )
     };
@@ -128,4 +128,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => (
     bindActionCreators({listUsers}, dispatch)
 );
 
-export default connect (mapStateToProps, mapDispatchToProps) (UsersContainer)
+export default connect (mapStateToProps, mapDispatchToProps) (EventsContainer)

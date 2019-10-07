@@ -20905,6 +20905,56 @@ readers do not read off random characters that represent icons */
   font-size: 0.775rem;
 }
 
+.sidebar .user-info {
+  overflow: hidden;
+  margin-bottom: 16px;
+  margin-right: 32px;
+}
+.sidebar .user-info img {
+  border-radius: 50%;
+  height: 40px;
+  margin-right: 12px;
+  width: 40px;
+}
+.sidebar .user-info span.name-header {
+  color: #4D4D4F;
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+}
+.sidebar .user-info span.sub-header {
+  color: #9E9E9E;
+  display: block;
+  font-size: 14px;
+  margin-top: -2px;
+}
+.sidebar .app-navigation ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar .app-navigation i {
+  width: 32px;
+}
+.sidebar .app-navigation li {
+  color: #4D4D4F;
+}
+.sidebar .app-navigation li:hover {
+  color: #6699CC;
+}
+.sidebar .app-navigation li:hover a {
+  color: #6699CC;
+}
+.sidebar .app-navigation a {
+  color: #4D4D4F;
+  display: inline-block;
+  font-family: "roboto";
+  font-weight: bold;
+  padding: 5px 0;
+}
+.sidebar .app-navigation a:hover {
+  text-decoration: none;
+}
+
 input, button {
   outline: none;
 }
@@ -20933,6 +20983,7 @@ p {
 .app-wrap header {
   box-shadow: none !important;
   background: #011e40;
+  margin-bottom: 64px;
   width: 100%;
 }
 .app-wrap header .container {
@@ -20959,6 +21010,35 @@ p {
 .app-wrap header .actions i {
   color: #FFFFFF;
   margin-left: 8px;
+}
+.app-wrap .container {
+  max-width: 960px;
+}
+.app-wrap .menu-list {
+  list-style: none;
+  padding: 0 48px 0 36px;
+}
+.app-wrap .menu-list .menu-section {
+  color: #4D4D4F;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 36px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+.app-wrap .menu-list .menu-item a, .app-wrap .menu-list .menu-item span {
+  color: #4D4D4F;
+  cursor: pointer;
+  font-size: 16px;
+  display: block;
+  padding: 8px 0;
+}
+.app-wrap .menu-list .menu-item a:hover, .app-wrap .menu-list .menu-item span:hover {
+  color: #6699CC;
+  text-decoration: none;
+}
+.app-wrap .menu-list .menu-item i {
+  margin-right: 12px;
 }
 .app-wrap .top-tabs {
   border-bottom: 1px solid #e6e6e6;
@@ -21001,6 +21081,12 @@ p {
 }
 .app-wrap .bottom-navigation .MuiBottomNavigation-root {
   border: 1px solid #efefef;
+}
+.app-wrap .title-section {
+  color: #011e40;
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
 }
 
 .MuiDrawer-root .MuiListItemIcon-root {
@@ -21619,13 +21705,43 @@ body {
 }
 
 .list-users .user-item {
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 6px;
+  padding-right: 6px;
 }
 .list-users .MuiPaper-root {
   box-shadow: none;
   border: 1px solid #e6e6e6;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+}
+.list-users .MuiCardHeader-root .MuiCardHeader-avatar {
+  margin-right: 4px;
+}
+.list-users .MuiCardHeader-title {
+  color: #4D4D4F;
+  font-weight: bold !important;
+}
+.list-users .search-form {
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.list-users .search-form .MuiTextField-root {
+  margin: 0 0 24px 0;
+}
+.list-users .search-form label.MuiInputLabel-formControl {
+  color: #797979;
+}
+.list-users .search-form label.MuiFormLabel-root.Mui-focused {
+  color: #6699CC;
+}
+.list-users .search-form .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #6699CC;
+  border-width: 2px;
+}
+.list-users .search-form .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #6699CC;
+}
+.list-users .search-form .MuiInputBase-input {
+  background: #FFFFFF;
 }
 
 /*# sourceMappingURL=style.css.map */

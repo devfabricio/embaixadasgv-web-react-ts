@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom'
 import Routes from './routes/routes'
 import './App.css';
-import {User} from "firebase";
+import firebase from "firebase";
 import {AppState} from "./reducers";
 import {bindActionCreators, Dispatch} from "redux";
 import {checkAuth} from "./actions/auth_actions";
@@ -16,11 +16,12 @@ import FoundPage from "./components/Landing/found";
 import ContactPage from "./components/Landing/contact";
 import PrivacyPage from "./components/Landing/policy-privacy";
 import LandingPage from "./components/Landing";
+import User from "./models/User";
 
 interface Props {
     checkAuth: () => void
     isLogged?: boolean
-    currentUser: User | null
+    currentUser: firebase.firestore.DocumentData
 }
 
 class App extends Component<Props> {
@@ -33,9 +34,13 @@ class App extends Component<Props> {
 
         if(this.props.isLogged !== undefined) {
             if(this.props.isLogged) {
+
+                let user = new User();
+                user.toObject(this.props.currentUser);
+
                return (
                    <BrowserRouter>
-                       <Routes isLogged={this.props.isLogged} currentUser={this.props.currentUser}/>
+                       <Routes isLogged={this.props.isLogged} currentUser={user}/>
                    </BrowserRouter>)
             } else {
                 return (

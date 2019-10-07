@@ -21,6 +21,7 @@
     "@types/react-sidebar": "^3.0.0",
     "@types/redux-promise": "^0.5.28",
     "@types/uuid": "^3.4.5",
+    "algoliasearch": "^3.35.0",
     "aws-sdk": "^2.519.0",
     "bootstrap": "^4.3.1",
     "clsx": "^1.0.4",
@@ -73,5 +74,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/algoliasearch": "^3.34.3"
   }
 }

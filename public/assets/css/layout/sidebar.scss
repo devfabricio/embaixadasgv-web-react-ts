@@ -1,0 +1,54 @@
+.sidebar {
+  .user-info {
+    overflow: hidden;
+    margin-bottom: 16px;
+    margin-right: 32px;
+    img {
+      border-radius: 50%;
+      height: 40px;
+      margin-right: 12px;
+      width: 40px;
+    }
+    span.name-header {
+      color: $colorText;
+      display: block;
+      font-size: 14px;
+      font-weight: bold;
+    }
+    span.sub-header {
+      color: $colorSubText;
+      display: block;
+      font-size: 14px;
+      margin-top: -2px;
+    }
+  }
+  .app-navigation {
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    i {
+      width: 32px;
+    }
+    li {
+      color: $colorText;
+      &:hover {
+        color: $colorAccent;
+        a {
+          color: $colorAccent;
+        }
+      }
+    }
+    a {
+      color: $colorText;
+      display: inline-block;
+      font-family: $title-font;
+      font-weight: bold;
+      padding: 5px 0;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}
+

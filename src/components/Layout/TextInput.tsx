@@ -199,6 +199,18 @@ const FormField = (props: any) => {
                     </div>
                 </FormControl>
                 );
+        case 'search':
+            return(
+                <div className={classes.container}>
+                    <TextField
+                        label={props.placeholder}
+                        value={props.value}
+                        onChange={props.onChange}
+                        type="search"
+                        className={classes.textField}
+                        margin="normal"
+                        variant="outlined"
+                    /></div>);
         default:
             return (
                 <div className={classes.container}>

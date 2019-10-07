@@ -9,7 +9,7 @@ interface Action {
 }
 
 interface StoreState {
-    currentUser?: CurrentUser
+    currentUser?: firebase.firestore.DocumentData
     isLogged?: boolean
     validatedCode?: boolean
     invitation?: firebase.firestore.DocumentData
