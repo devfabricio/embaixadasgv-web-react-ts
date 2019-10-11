@@ -241,7 +241,7 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
         }
 
         return (
-            <div className="page-content">
+            <div className="page-content" id={"cadastrar-embaixada"}>
                 <div className="register-leader container">
                     <div className="col-md-6 offset-md-3">
                         <h4>Cadastrar embaixada</h4>

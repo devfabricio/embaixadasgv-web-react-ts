@@ -11,12 +11,14 @@ import withStyles from "@material-ui/core/styles/withStyles";
 interface Props {
     list: Array<Embassy>;
     listEmbassy: () => void;
+    querySearch: string | undefined
 }
 
 class EmbassyList extends Component<Props> {
 
     state = {
         embassyList: [],
+        checkQuery: false
     };
 
     componentDidMount() {
@@ -38,6 +40,19 @@ class EmbassyList extends Component<Props> {
         }
     };
 
+    quarySearchEmbassies = (query: string): Array<Embassy> => {
+        return this.props.list.filter((item) => {
+
+            let embassyName = item.name.indexOf(query)>-1;
+            let leaderName = item.leader.name.indexOf(query)>-1;
+            let city = item.city.indexOf(query)>-1;
+            let state = item.state.indexOf(query)>-1;
+
+            return embassyName || leaderName || city || state;
+        });
+    }
+
+
     styles = (theme: Theme) => createStyles ({
         progress: {
             margin: theme.spacing(2),
@@ -53,9 +68,9 @@ class EmbassyList extends Component<Props> {
 
         if(!!this.props.list) {
             list = this.props.list
-            list.forEach((embassy, i) => {
-                console.log(embassy.status)
-            })
+            if(this.props.querySearch !== "" && this.props.querySearch !== undefined) {
+                list = this.quarySearchEmbassies(this.props.querySearch)
+            }
         } else {
             showProgress = true;
         }
