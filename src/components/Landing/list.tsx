@@ -6,7 +6,7 @@ import request from 'superagent'
 
 const ListPage = (props: any) => {
 
-    let query_search = props.location.search.replace('?cidade=','')
+    let query_search = decodeURI(props.location.search.replace('?cidade=',''));
 
     return (<div className={"wrap landing"}>
         <LandingHeader/>
