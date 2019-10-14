@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import LocationSearchInput from "../Layout/LocationSearchInput";
+import LocationSearchInput from "../Widgets/LocationSearchInput";
 import {createStyles, makeStyles, Theme, WithStyles} from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Radio from '@material-ui/core/Radio';
@@ -7,7 +7,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
-import Toast from "../Layout/Toast";
+import Toast from "../Widgets/Toast";
 import {bindActionCreators, Dispatch} from "redux";
 import {AppState} from "../../reducers";
 import {registerEmbassy, clearRegisterState, listSponsors} from "../../actions/landing_actions";
@@ -16,7 +16,7 @@ import {geocodeByAddress} from "react-places-autocomplete";
 import {EmbassySponsor} from "../../models/EmbassySponsor";
 import Embassy from "../../models/Embassy";
 import User from "../../models/User";
-import FormField from "../Layout/TextInput";
+import FormField from "../Widgets/TextInput";
 
 type variants = "error" | "info" | "success" | "warning"
 

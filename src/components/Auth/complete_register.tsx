@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Link} from "react-router-dom";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Toast from "../Layout/Toast";
+import Toast from "../Widgets/Toast";
 import {geocodeByAddress} from "react-places-autocomplete";
 import User from "../../models/User";
 import {AppState} from "../../reducers";
@@ -10,9 +10,9 @@ import {getCurrentUserDetails, setCurrentUserDetals, logout} from "../../actions
 import {connect} from "react-redux";
 import Dropzone from 'react-dropzone'
 import uuid from "uuid/v4"
-import CropImage from "../Layout/CropImage";
-import TransitionsModal from "../Layout/TransitionModal";
-import FormField from "../Layout/TextInput";
+import CropImage from "../Widgets/CropImage";
+import TransitionsModal from "../Widgets/TransitionModal";
+import FormField from "../Widgets/TextInput";
 import firebase, {User as CurrentUser} from "firebase";
 
 type variants = "error" | "info" | "success" | "warning"

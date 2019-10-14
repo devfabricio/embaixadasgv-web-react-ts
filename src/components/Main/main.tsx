@@ -4,7 +4,7 @@ import {bindActionCreators, Dispatch} from "redux";
 import {listUsers} from "../../actions/users_actions";
 import {connect} from "react-redux";
 import User from "../../models/User";
-import AvatarCard from "../Layout/CardAvatar";
+import AvatarCard from "../Widgets/CardAvatar";
 import {User as CurrentUser} from "firebase";
 import BaseLayout from "./BaseLayout";
 

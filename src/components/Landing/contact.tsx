@@ -2,7 +2,7 @@ import LandingHeader from "./header";
 import LandingFooter from "./footer";
 import React, {Component} from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Toast from "../Layout/Toast";
+import Toast from "../Widgets/Toast";
 import {createStyles, makeStyles, Theme, WithStyles} from "@material-ui/core";
 import { Helmet } from "react-helmet";
 

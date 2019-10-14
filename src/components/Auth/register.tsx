@@ -6,11 +6,11 @@ import {submitCode, registerUser} from "../../actions/auth_actions";
 import {Link} from 'react-router-dom'
 import {connect} from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Toast from "../Layout/Toast";
+import Toast from "../Widgets/Toast";
 import {AppState} from "../../reducers";
 import {Invitation} from "../../models/Invitation";
 import firebase from "firebase"
-import FormField from "../Layout/TextInput";
+import FormField from "../Widgets/TextInput";
 
 type variants = "error" | "info" | "success" | "warning"
 

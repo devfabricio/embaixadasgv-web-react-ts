@@ -4,9 +4,9 @@ import {bindActionCreators, Dispatch} from "redux";
 import {listUsers} from "../../../actions/users_actions";
 import {connect} from "react-redux";
 import User from "../../../models/User";
-import AvatarCard from "../../Layout/CardAvatar";
+import AvatarCard from "../../Widgets/CardAvatar";
 import BaseLayout from "../BaseLayout";
-import FormField from "../../Layout/TextInput";
+import FormField from "../../Widgets/TextInput";
 import algoliasearch from "algoliasearch";
 
 

@@ -1,0 +1,19 @@
+.mobile-container{
+  background: $backgroundGreyStrong;
+  position: relative;
+  height: 100%;
+  padding: 68px 0;
+  .mobile-toolbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: $colorPrimary;
+    img {
+      margin: 12px 8px 12px 16px;
+      height: 30px;
+    }
+  }
+  .MuiBottomNavigationAction-root.Mui-selected {
+    color: $colorRed;
+  }
+}

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Switch, Route, BrowserRouter} from 'react-router-dom'
+import {isMobile} from 'react-device-detect';
 import Routes from './routes/routes'
 import './App.css';
 import firebase from "firebase";
@@ -17,6 +18,7 @@ import ContactPage from "./components/Landing/contact";
 import PrivacyPage from "./components/Landing/policy-privacy";
 import LandingPage from "./components/Landing";
 import User from "./models/User";
+import MobileRoutes from "./routes/mobile_routes";
 
 interface Props {
     checkAuth: () => void
@@ -38,6 +40,13 @@ class App extends Component<Props> {
                 let user = new User();
                 user.toObject(this.props.currentUser);
 
+                if(isMobile) {
+                    return (
+                        <BrowserRouter>
+                            <MobileRoutes isLogged={this.props.isLogged} currentUser={user}/>
+                        </BrowserRouter>
+                    )
+                }
                return (
                    <BrowserRouter>
                        <Routes isLogged={this.props.isLogged} currentUser={user}/>

@@ -20955,6 +20955,14 @@ readers do not read off random characters that represent icons */
   text-decoration: none;
 }
 
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
 input, button {
   outline: none;
 }
@@ -21742,6 +21750,25 @@ body {
 }
 .list-users .search-form .MuiInputBase-input {
   background: #FFFFFF;
+}
+
+.mobile-container {
+  background: #F3F4F6;
+  position: relative;
+  height: 100%;
+}
+.mobile-container .mobile-toolbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #011e40;
+}
+.mobile-container .mobile-toolbar img {
+  margin: 8px 8px 8px 16px;
+  height: 30px;
+}
+.mobile-container .MuiBottomNavigationAction-root.Mui-selected {
+  color: #CC2936;
 }
 
 /*# sourceMappingURL=style.css.map */
