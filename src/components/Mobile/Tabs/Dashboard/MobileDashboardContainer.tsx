@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Redirect} from 'react-router-dom'
 import {AppState} from "../../../../reducers";
 import {bindActionCreators, Dispatch} from "redux";
 import {listUsers} from "../../../../actions/users_actions";
@@ -12,7 +13,23 @@ import {Link} from "react-router-dom";
 
 class MobileDashboardContainer extends Component{
 
+    state = {
+        tabName: "home",
+        tabPath: "/"
+    };
+
+    handleChangeTab = (tabName: string, tabPath: string) => {
+        this.setState({...this.state, tabName: tabName, tabPath: tabPath})
+    };
+
     render() {
+
+        if(this.state.tabName !== "home") {
+            return (
+                <Redirect to={this.state.tabPath} />
+            )
+        }
+
         return(
             <div className={"mobile-container"}>
                 <header>
@@ -94,7 +111,7 @@ class MobileDashboardContainer extends Component{
                         </ul>
                     </div>
                 </div>
-                <SimpleBottomNavigation/>
+                <SimpleBottomNavigation currentTab={"home"} handleChangeTab={this.handleChangeTab}/>
             </div>
         )
     }

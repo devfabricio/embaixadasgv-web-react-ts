@@ -5717,6 +5717,18 @@ readers do not read off random characters that represent icons */
   font-style: normal;
 }
 @font-face {
+  font-family: "sf_pro_displaybold";
+  src: url("../fonts/sfprodisplay-bold-webfont.woff2") format("woff2"), url("../fonts/sfprodisplay-bold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "sf_pro_displayregular";
+  src: url("../fonts/sfprodisplay-regular-webfont.woff2") format("woff2"), url("../fonts/sfprodisplay-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
   font-family: "Font Awesome 5 Free";
   font-style: normal;
   font-weight: 400;
@@ -5866,6 +5878,10 @@ body {
   }
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .mobile-container {
   background: #F3F4F6;
   position: relative;
@@ -5892,7 +5908,7 @@ body {
 }
 .dashboard-section h4 {
   color: #011e40;
-  font-family: "opensans";
+  font-family: "sf_pro_displayregular";
   font-weight: bold;
   font-size: 1rem;
   margin-bottom: 0.4rem;
@@ -5921,7 +5937,7 @@ body {
 }
 .dashboard-section .dashboard-button span {
   display: block;
-  font-family: "opensans";
+  font-family: "sf_pro_displayregular";
   font-size: 0.65rem;
   text-transform: uppercase;
 }
@@ -5951,15 +5967,13 @@ body {
 }
 .next-event .date-event span.day {
   color: #CC2936;
-  font-family: "roboto";
-  font-weight: bold;
+  font-family: "sf_pro_displaybold";
   font-size: 2.4rem;
   margin-top: -14px;
 }
 .next-event .date-event span.month {
   color: #4D4D4F;
-  font-family: "roboto";
-  font-weight: bold;
+  font-family: "sf_pro_displaybold";
   font-size: 1.2rem;
   text-transform: uppercase;
   margin-top: 8px;
@@ -5967,7 +5981,7 @@ body {
 .next-event .description-event {
   float: left;
   width: 80%;
-  font-family: "opensans";
+  font-family: "sf_pro_displayregular";
 }
 .next-event .description-event a {
   background: #fff;
@@ -5976,7 +5990,7 @@ body {
   display: block;
   height: 80px;
   margin-left: 4px;
-  padding: 10px 12px;
+  padding: 8px 12px;
 }
 .next-event .description-event span {
   display: block;
@@ -5991,7 +6005,6 @@ body {
   color: #4D4D4F;
   font-weight: bold;
   font-size: 0.9rem;
-  margin-top: -4px;
 }
 .next-event .description-event span.place {
   color: #4D4D4F;
@@ -6012,14 +6025,15 @@ body {
 }
 .bulletin-list .bulletin-item span {
   color: #4D4D4F;
-  font-family: "opensans";
+  font-family: "sf_pro_displayregular";
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 .bulletin-list .bulletin-item p {
-  font-family: "opensans";
-  color: #4D4D4F;
+  font-family: "sf_pro_displayregular";
+  color: #9E9E9E;
   font-size: 0.9rem;
+  margin-top: -3px;
 }
 
 /*# sourceMappingURL=mobile-style.css.map */

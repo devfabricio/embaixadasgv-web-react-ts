@@ -7,9 +7,6 @@ import Group from '@material-ui/icons/Group'
 import Description from '@material-ui/icons/Description'
 import EventAvailable from '@material-ui/icons/EventAvailable'
 import Menu from '@material-ui/icons/Menu'
-import RestoreIcon from '@material-ui/icons/Restore';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 const useStyles = makeStyles({
     root: {
@@ -19,24 +16,41 @@ const useStyles = makeStyles({
     },
 });
 
-export default function SimpleBottomNavigation() {
+export default function SimpleBottomNavigation(props: any) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
+    console.log("SimpleBottomNavigation Props", props)
+
     return (
         <BottomNavigation
-            value={value}
+            value={props.currentTab}
             onChange={(event, newValue) => {
-                setValue(newValue);
+                if(newValue === "home") {
+                    props.handleChangeTab(newValue, "/")
+                }
+                if(newValue === "users") {
+                    props.handleChangeTab(newValue, "/gvs")
+                }
+                if(newValue === "feed") {
+                    props.handleChangeTab(newValue,"/posts")
+                }
+                if(newValue === "agenda") {
+                    props.handleChangeTab(newValue,"/agenda")
+                }
+                if(newValue === "menu") {
+                    props.handleChangeTab(newValue,"/menu")
+                }
+
             }}
             showLabels
             className={classes.root}
         >
-            <BottomNavigationAction label="Início" icon={<Home />} />
-            <BottomNavigationAction label="GV's" icon={<Group />} />
-            <BottomNavigationAction label="Conteúdo" icon={<Description />} />
-            <BottomNavigationAction label="Agenda" icon={<EventAvailable />} />
-            <BottomNavigationAction label="Mais" icon={<Menu />} />
+            <BottomNavigationAction label="Início" value={"home"} icon={<Home />} />
+            <BottomNavigationAction label="GV's" value={"users"} icon={<Group />} />
+            <BottomNavigationAction label="Conteúdo" value={"feed"} icon={<Description />} />
+            <BottomNavigationAction label="Agenda" value={"agenda"} icon={<EventAvailable />} />
+            <BottomNavigationAction label="Mais" value={"menu"} icon={<Menu />} />
         </BottomNavigation>
     );
 }
