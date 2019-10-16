@@ -17,7 +17,16 @@ a:hover {
       height: 30px;
     }
   }
-  .MuiBottomNavigationAction-root.Mui-selected {
-    color: $colorRed;
+
+  .MuiBottomNavigation-root {
+    border-top: 1px solid #e0e1e2;
+    .MuiBottomNavigationAction-root.Mui-selected {
+      color: $colorRed;
+    }
+    .MuiBottomNavigationAction-root {
+      min-width: 1px;
+      padding: 8px 12px 8px;
+      width: 20%;
+    }
   }
 }

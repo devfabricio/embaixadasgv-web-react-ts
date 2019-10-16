@@ -5,6 +5,8 @@ import {listUsers} from "../../../../actions/users_actions";
 import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import SimpleBottomNavigation from "../../../Widgets/SimpleBottomNavigation";
+import {Link} from "react-router-dom";
+import PostCard from "./PostCard";
 
 class MobileFeedContainer extends Component{
     state = {
@@ -32,9 +34,20 @@ class MobileFeedContainer extends Component{
                             <img src="assets/images/logo.png" />
                         </div>
                     </div>
+                    <div className={"top-navigation-feed"}>
+                        <Link className={"active"} to={"/"}>Destaques</Link>
+                        <Link to={"/"}>Minha Embaixada</Link>
+                        <Link to={"/"}>Geral</Link>
+                    </div>
                 </header>
                 <div className={"content"}>
-                    <p>Feed</p>
+                    <ul className={"list-posts"}>
+                        <li>
+                            <Link to={"/"}>
+                                <PostCard />
+                            </Link>
+                        </li>
+                    </ul>
                 </div>
                 <SimpleBottomNavigation currentTab={"feed"} handleChangeTab={this.handleChangeTab}/>
             </div>
