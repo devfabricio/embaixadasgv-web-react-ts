@@ -1,0 +1,36 @@
+.list-users {
+  margin: 0 16px;
+  list-style: none;
+  padding: 0;
+  li {
+    margin: 16px 0;
+    a {
+      display: block;
+      overflow: hidden;
+    }
+    img {
+      border-radius: 50%;
+      float: left;
+      height: 50px;
+      margin-right: 16px;
+      width: 50px;
+    }
+    span {
+      display: block;
+    }
+    span.user-name {
+      color: $colorText;
+      font-family: $appFont;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+
+    span.user-occupation {
+      color: $colorSubText;
+      font-size: 0.9rem;
+      font-family: $appFont;
+      line-height: 1.2;
+    }
+  }
+}

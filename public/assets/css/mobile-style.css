@@ -6036,4 +6036,116 @@ a:hover {
   margin-top: -3px;
 }
 
+.list-users {
+  margin: 0 16px;
+  list-style: none;
+  padding: 0;
+}
+.list-users li {
+  margin: 16px 0;
+}
+.list-users li a {
+  display: block;
+  overflow: hidden;
+}
+.list-users li img {
+  border-radius: 50%;
+  float: left;
+  height: 50px;
+  margin-right: 16px;
+  width: 50px;
+}
+.list-users li span {
+  display: block;
+}
+.list-users li span.user-name {
+  color: #4D4D4F;
+  font-family: "sf_pro_displayregular";
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: 4px;
+}
+.list-users li span.user-occupation {
+  color: #9E9E9E;
+  font-size: 0.9rem;
+  font-family: "sf_pro_displayregular";
+  line-height: 1.2;
+}
+
+.list-events {
+  margin: 0;
+  list-style: none;
+  padding: 0;
+}
+.list-events li {
+  margin-bottom: 24px;
+}
+
+.event-item-cover {
+  background-size: 100%;
+  background-position: 50%;
+  height: 160px;
+}
+
+.event-item-description {
+  background: #FAFAFA;
+  border: 1px solid #e0e1e2;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
+}
+.event-item-description .date {
+  float: left;
+}
+.event-item-description .date-event {
+  float: left;
+  width: 20%;
+  display: block;
+}
+.event-item-description .date-event span {
+  display: block;
+  text-align: center;
+}
+.event-item-description .date-event span.day {
+  color: #CC2936;
+  font-family: "sf_pro_displaybold";
+  font-size: 2.4rem;
+  margin-top: -14px;
+}
+.event-item-description .date-event span.month {
+  color: #4D4D4F;
+  font-family: "sf_pro_displaybold";
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+.event-item-description .description-event {
+  float: left;
+  width: 80%;
+  font-family: "sf_pro_displayregular";
+  display: block;
+  padding: 8px 12px;
+}
+.event-item-description .description-event span {
+  display: block;
+  text-align: left;
+}
+.event-item-description .description-event span.time {
+  color: #CC2936;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+.event-item-description .description-event span.theme {
+  color: #4D4D4F;
+  font-weight: bold;
+  font-size: 0.9rem;
+  line-height: 1.2;
+}
+.event-item-description .description-event span.place {
+  color: #4D4D4F;
+  font-size: 0.9rem;
+  line-height: 1.2;
+  margin-bottom: 5px;
+}
+
 /*# sourceMappingURL=mobile-style.css.map */

@@ -40,6 +40,7 @@ class Login extends Component<Props, States> {
     loginSuccessful = (success: boolean) => {
 
         if(success) {
+            window.location.href = "/";
             this.setState({
                 ...this.state,
                 toastMessage: "Login efetuado com sucesso!",
@@ -47,7 +48,6 @@ class Login extends Component<Props, States> {
                 loading: false,
                 open: true
             });
-            window.location.href = "/";
             return true
         } else {
             this.setState({
@@ -141,7 +141,7 @@ class Login extends Component<Props, States> {
                                         </div>)
                                 })}
                                 <div className="form-group form-action col-md-12">
-                                    {showButton ? <button id={"bt-form"} className="btn btn-primary">Registrar</button> : null }
+                                    {showButton ? <button id={"bt-form"} className="btn btn-primary">Entrar</button> : null }
                                     {showProgress ? <CircularProgress size={30} id={"progress-form"}  /> : null}
                                 </div>
 

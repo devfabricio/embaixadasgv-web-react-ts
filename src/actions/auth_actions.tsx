@@ -102,7 +102,11 @@ export function loginUser(credentials: UserCredentials, callback: (success: bool
                 // if a user forgets to sign out.
                 // ...
                 // New sign-in will be persisted with session persistence.
-                return auth.signInWithEmailAndPassword(credentials.email, credentials.password);
+                return auth.signInWithEmailAndPassword(credentials.email, credentials.password)
+                    .then(userCredential => {
+                        window.location.href = "/";
+                    })
+                    .catch();
             })
     }
 }
@@ -111,9 +115,9 @@ export function getCurrentUserDetails(currentUser: any) {
     let userRef = myFirebase.firestore().collection(firebaseCollections.USERS);
 
     return (dispatch: Dispatch) => {
-        console.log(currentUser)
-        let currentUserId = currentUser.uid
-        console.log(currentUserId)
+        console.log(currentUser);
+        let currentUserId = currentUser.uid;
+        console.log(currentUserId);
         userRef.doc(currentUserId)
             .get()
             .then((doc) => {

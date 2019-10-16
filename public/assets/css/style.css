@@ -20850,6 +20850,18 @@ readers do not read off random characters that represent icons */
   font-style: normal;
 }
 @font-face {
+  font-family: "sf_pro_displaybold";
+  src: url("../fonts/sfprodisplay-bold-webfont.woff2") format("woff2"), url("../fonts/sfprodisplay-bold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "sf_pro_displayregular";
+  src: url("../fonts/sfprodisplay-regular-webfont.woff2") format("woff2"), url("../fonts/sfprodisplay-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
   font-family: "Font Awesome 5 Free";
   font-style: normal;
   font-weight: 400;
@@ -20959,7 +20971,7 @@ readers do not read off random characters that represent icons */
   margin: 0;
 }
 
-html, body {
+body {
   height: 100%;
 }
 
@@ -21750,25 +21762,6 @@ body {
 }
 .list-users .search-form .MuiInputBase-input {
   background: #FFFFFF;
-}
-
-.mobile-container {
-  background: #F3F4F6;
-  position: relative;
-  height: 100%;
-}
-.mobile-container .mobile-toolbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: #011e40;
-}
-.mobile-container .mobile-toolbar img {
-  margin: 8px 8px 8px 16px;
-  height: 30px;
-}
-.mobile-container .MuiBottomNavigationAction-root.Mui-selected {
-  color: #CC2936;
 }
 
 /*# sourceMappingURL=style.css.map */

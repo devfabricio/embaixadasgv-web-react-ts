@@ -7,13 +7,23 @@ import {Redirect} from "react-router";
 import {Link} from "react-router-dom";
 import Group from "@material-ui/core/SvgIcon/SvgIcon";
 import SimpleBottomNavigation from "../../../Widgets/SimpleBottomNavigation";
+import User from "../../../../models/User";
 
-class MobileUsersContainer extends Component{
+interface Props {
+    listUsers: () => void
+    users: Array<User>
+}
+
+class MobileUsersContainer extends Component<Props>{
 
     state = {
         tabName: "users",
         tabPath: "/"
     };
+
+    componentDidMount(): void {
+        this.props.listUsers()
+    }
 
     handleChangeTab = (tabName: string, tabPath: string) => {
         this.setState({...this.state, tabName: tabName, tabPath: tabPath})
@@ -21,10 +31,16 @@ class MobileUsersContainer extends Component{
 
     render() {
 
+        let list: Array<User> = [];
+
         if(this.state.tabName !== "users") {
             return (
                 <Redirect to={this.state.tabPath} />
             )
+        }
+
+        if(!!this.props.users) {
+            list = this.props.users
         }
 
         return(
@@ -37,7 +53,17 @@ class MobileUsersContainer extends Component{
                     </div>
                 </header>
                 <div className={"content"}>
-                    <p>Users</p>
+                    <ul className={"list-users"}>
+                    {list.map((item, i) => (
+                        <li key={i}>
+                            <Link to={""}>
+                                <img className={"profile-img"} src={!!item.profile_img ? item.profile_img : ""} />
+                                <span className={"user-name"}>{item.name}</span>
+                                <span className={"user-occupation"}>{item.occupation}</span>
+                            </Link>
+                        </li>
+                    ))}
+                    </ul>
                 </div>
                 <SimpleBottomNavigation currentTab={"users"} handleChangeTab={this.handleChangeTab}/>
             </div>
@@ -46,7 +72,6 @@ class MobileUsersContainer extends Component{
 }
 
 const mapStateToProps = (state: AppState) => ({
-    currentUserDetails: state.auth.userDetails,
     users: state.users.usersList,
 });
 
