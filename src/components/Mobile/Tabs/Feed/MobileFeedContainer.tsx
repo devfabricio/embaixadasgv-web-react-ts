@@ -1,18 +1,30 @@
 import React, {Component} from "react";
 import {AppState} from "../../../../reducers";
 import {bindActionCreators, Dispatch} from "redux";
-import {listUsers} from "../../../../actions/users_actions";
+import {listPosts} from "../../../../actions/post_actions";
 import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import SimpleBottomNavigation from "../../../Widgets/SimpleBottomNavigation";
 import {Link} from "react-router-dom";
 import PostCard from "./PostCard";
+import Event from "../../../../models/Event";
+import {Post} from "../../../../models/Post";
 
-class MobileFeedContainer extends Component{
+interface Props {
+    listPosts: () => void
+    posts: Array<Post>
+}
+
+
+class MobileFeedContainer extends Component<Props>{
     state = {
         tabName: "feed",
         tabPath: "/"
     };
+
+    componentDidMount(): void {
+        this.props.listPosts()
+    }
 
     handleChangeTab = (tabName: string, tabPath: string) => {
         this.setState({...this.state, tabName: tabName, tabPath: tabPath})
@@ -24,6 +36,12 @@ class MobileFeedContainer extends Component{
             return (
                 <Redirect to={this.state.tabPath} />
             )
+        }
+
+        let list: Array<Post> = [];
+
+        if(!!this.props.posts) {
+            list = this.props.posts
         }
 
         return(
@@ -42,11 +60,14 @@ class MobileFeedContainer extends Component{
                 </header>
                 <div className={"content"}>
                     <ul className={"list-posts"}>
-                        <li>
-                            <Link to={"/"}>
-                                <PostCard />
-                            </Link>
-                        </li>
+                        {list.map((post, i) => (
+                            <li key={i}>
+                                <Link to={"/"}>
+                                    <PostCard post={post} />
+                                </Link>
+                            </li>
+                        ))}
+
                     </ul>
                 </div>
                 <SimpleBottomNavigation currentTab={"feed"} handleChangeTab={this.handleChangeTab}/>
@@ -56,12 +77,11 @@ class MobileFeedContainer extends Component{
 }
 
 const mapStateToProps = (state: AppState) => ({
-    currentUserDetails: state.auth.userDetails,
-    users: state.users.usersList,
+    posts: state.posts.postsList,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => (
-    bindActionCreators({listUsers}, dispatch)
+    bindActionCreators({listPosts}, dispatch)
 );
 
 export default connect (mapStateToProps, mapDispatchToProps) (MobileFeedContainer)
