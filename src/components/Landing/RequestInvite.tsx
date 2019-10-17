@@ -1,19 +1,21 @@
 import React, {Component} from 'react'
+import {Redirect} from 'react-router-dom'
 import {UserCredentials} from "../../interface/UserInterface";
 import {bindActionCreators, Dispatch} from "redux";
-import {loginUser} from "../../actions/auth_actions";
+import {requestInvite, sendInviteRequest} from "../../actions/auth_actions";
 import {Link} from 'react-router-dom'
 import {connect} from "react-redux";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Toast from "../Widgets/Toast";
 import {AppState} from "../../reducers";
 import FormField from "../Widgets/TextInput";
+import Embassy from "../../models/Embassy";
 
 type variants = "error" | "info" | "success" | "warning"
 
 interface States {
     email: string
-    password: string
+    name: string
     loading: boolean
     registered: boolean
     open: boolean
@@ -22,14 +24,23 @@ interface States {
 }
 
 interface Props {
-    loginUser: (credentials: UserCredentials, callback: (success: boolean) => void) => void
+    embassy: Embassy | null | undefined,
+    usernameValidated: boolean | undefined,
+    requestInvite: (username: string) => void
+    sendInviteRequest: (requestorData: {requestorName: string,
+                            requestorEmail: string,
+                            embassy: {id: string, name: string}
+                            leaderName: string,
+                            leaderId: string},
+                        callback: (success: boolean) => void) => void
+    match: any
 }
 
-class Login extends Component<Props, States> {
+class RequestInvite extends Component<Props, States> {
 
     state: Readonly<States> = {
         email: "",
-        password: "",
+        name: "",
         loading: false,
         registered: false,
         open: false,
@@ -37,13 +48,17 @@ class Login extends Component<Props, States> {
         toastVariant: "info"
     };
 
-    loginSuccessful = (success: boolean) => {
+    componentDidMount(): void {
+        this.props.requestInvite(this.props.match.params.username)
+    }
+
+    sentSuccessful = (success: boolean) => {
 
         if(success) {
             window.location.href = "/";
             this.setState({
                 ...this.state,
-                toastMessage: "Login efetuado com sucesso!",
+                toastMessage: "Solicitação enviada com sucesso!",
                 toastVariant: "success",
                 loading: false,
                 open: true
@@ -71,14 +86,10 @@ class Login extends Component<Props, States> {
         e.preventDefault();
 
         let email = this.state.email;
-        let password = this.state.password;
+        let name = this.state.name;
+        let embassy = this.props.embassy
 
-        let credentials: UserCredentials = {
-            email: email,
-            password: password
-        };
-
-        if(email === "" || password === "") {
+        if(email === "" || name === "") {
             this.setState({
                 ...this.state,
                 toastMessage: "Preencha todos os campos antes de enviar",
@@ -94,24 +105,26 @@ class Login extends Component<Props, States> {
             loading: true
         });
 
-        this.props.loginUser(credentials, this.loginSuccessful)
+        this.props.sendInviteRequest({requestorName: name, requestorEmail: email,
+        embassy: {name: !!embassy ? embassy.name : "", id: !!embassy ? embassy.id : ""},
+            leaderName: !!embassy ? embassy.leader.name : "", leaderId: !!embassy ? embassy.leader.id : ""}, this.sentSuccessful)
     };
 
     render() {
 
         let form = [
             {attr: {
+                    type: "text",
+                    placeholder:"Nome",
+                    value: this.state.name,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, name: e.target.value})
+                }
+            },
+            {attr: {
                     type: "email",
                     placeholder:"E-mail",
                     value: this.state.email,
                     onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, email: e.target.value})
-                }
-            },
-            {attr: {
-                    type: "password",
-                    placeholder:"Senha",
-                    value: this.state.password,
-                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, password: e.target.value})
                 }
             }
         ];
@@ -124,14 +137,34 @@ class Login extends Component<Props, States> {
             showButton = false;
         }
 
+        console.log("usernameValidated", this.props.usernameValidated)
+
+        if(this.props.usernameValidated === undefined) {
+            return null
+        }
+
+        if(this.props.usernameValidated === false) {
+            return (<Redirect to={"/"} />)
+        }
+
+        let embassy = new Embassy();
+
+        if(!!this.props.embassy) {
+            embassy = this.props.embassy
+        }
+
+
+
         return (
             <div className={"wrap-auth"}>
                 <div className={"container"}>
                     <div className={"form col-md-4"}>
                         <div className={"logo"}>
-                            <img src="/assets/images/logo_vertical.png" />
+                            <img style={{width: "7rem"}} src="/assets/images/logo_vertical.png" />
                         </div>
                         <div className={"submit-register"}>
+                            <h4>SOLICITAÇÃO DE CONVITE</h4>
+                            <p>Preencha os seus dados, solicite o convite para <b>{embassy.leader.name}</b> e aguarde até que a sua solicitação seja aprovada e o código seja enviado para o seu e-mail. O código te dará acesso ao cadastro na plataforma e no aplicativo das embaixadas ;)</p>
                             <form className="row" id={"register-embassy-form"} onSubmit={(e) => this.handleSubmitLogin(e)} autoComplete={"off"}>
                                 <input type="hidden" value="anything" />
                                 {form.map((field, i) => {
@@ -141,12 +174,8 @@ class Login extends Component<Props, States> {
                                         </div>)
                                 })}
                                 <div className="form-group form-action col-md-12">
-                                    {showButton ? <button id={"bt-form"} className="btn btn-primary">Entrar</button> : null }
+                                    {showButton ? <button id={"bt-form"} className="btn btn-primary">Enviar</button> : null }
                                     {showProgress ? <CircularProgress size={30} id={"progress-form"}  /> : null}
-                                </div>
-
-                                <div className={"col-md-12"}>
-                                    <p>Ainda não tem registro? <Link to={"/registrar"}><b>Cadastre-se</b></Link></p>
                                 </div>
                             </form>
                         </div>
@@ -161,10 +190,13 @@ class Login extends Component<Props, States> {
     }
 }
 
-const mapStateToProps = (state: AppState) => ({});
+const mapStateToProps = (state: AppState) => ({
+    embassy: state.auth.embassy,
+    usernameValidated: state.auth.usernameValidate
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) => (
-    bindActionCreators({loginUser}, dispatch)
+    bindActionCreators({requestInvite, sendInviteRequest}, dispatch)
 );
 
-export default connect (mapStateToProps, mapDispatchToProps) (Login)
+export default connect (mapStateToProps, mapDispatchToProps) (RequestInvite)

@@ -6,6 +6,7 @@ import {UserCredentials} from "../interface/UserInterface";
 import User from "../models/User";
 import {Invitation} from "../models/Invitation";
 import {errorMessage} from "aws-sdk/clients/datapipeline";
+import Embassy from "../models/Embassy";
 
 
 export function checkAuth() {
@@ -66,6 +67,60 @@ export function submitCode(code: string, callback: (success: boolean) => void) {
             .catch(error => {
                 callback(false);
             })
+    }
+}
+
+export function requestInvite(username: string) {
+
+    let embassyCollection = firebaseDatabase.collection(firebaseCollections.EMBASSY);
+
+    return (dispatch: Dispatch) => {
+        embassyCollection
+            .where("leader_username", "==", username)
+            .get()
+            .then(queryDocuments => {
+                if(queryDocuments.docs.length > 0) {
+                    let embassy = new Embassy();
+                    embassy.toObject(queryDocuments.docs[0].data())
+                    dispatch({
+                        type: 'ON_REQUEST_INVITE',
+                        payload: {
+                            validated: true,
+                            embassy: embassy
+                        }});
+                } else {
+                    dispatch({
+                        type: 'ON_REQUEST_INVITE',
+                        payload: {
+                            validated: false,
+                            embassy: null
+                        }});
+                }
+            })
+            .catch(error => {
+            })
+    }
+}
+
+export function sendInviteRequest(requestorData: {requestorName: string,
+                                      requestorEmail: string,
+                                      embassy: {id: string, name: string}
+                                      leaderName: string,
+                                      leaderId: string},
+                                  callback: (success: boolean) => void) {
+    let invitationRequestCollection = firebaseDatabase.collection(firebaseCollections.INVITATION_REQUEST);
+    return (dispatch: Dispatch) => {
+        invitationRequestCollection
+            .add(requestorData)
+            .then((doc) => {
+                callback(true)
+                dispatch({
+                    type: 'ON_SEND_REQUEST_INVITATION',
+                    payload: {
+                        invitationSent: true,
+                    }})
+            })
+            .catch()
     }
 }
 

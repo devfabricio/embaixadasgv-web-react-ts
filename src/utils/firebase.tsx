@@ -22,6 +22,7 @@ export const firebaseCollections = {
     POST_LIKES: "post_likes",
     POST_COMMENTS: "post_comments",
     SPONSORS: "sponsors",
+    INVITATION_REQUEST: "invitation_request",
     APP_INVITATIONS: "app_invitations",
     APP_MESSAGES: "app_messages"
 };

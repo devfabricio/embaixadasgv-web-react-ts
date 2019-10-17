@@ -19,6 +19,7 @@ import PrivacyPage from "./components/Landing/policy-privacy";
 import LandingPage from "./components/Landing";
 import User from "./models/User";
 import MobileRoutes from "./routes/mobile_routes";
+import RequestInvite from "./components/Landing/RequestInvite"
 
 interface Props {
     checkAuth: () => void
@@ -57,6 +58,7 @@ class App extends Component<Props> {
                         <Switch>
                             <Route exact path={'/login'} component={Login} />
                             <Route exact path={'/registrar'} component={Register} />
+                            <Route exact path={'/convite/:username'} component={RequestInvite} />
                             <Route exact path={'/completar-registro'} component={CompleteRegister} />
                             <Route exact path={'/sobre'} component={AboutPage} />
                             <Route exact path={'/lista'} component={ListPage} />
