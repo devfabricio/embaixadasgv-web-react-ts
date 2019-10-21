@@ -21597,6 +21597,27 @@ body {
     padding: 16px;
   }
 }
+@media screen and (max-width: 768px) {
+  .wrap-auth {
+    position: inherit;
+    overflow: auto;
+  }
+  .wrap-auth .form {
+    margin: 0;
+    position: relative;
+    top: auto;
+    left: auto;
+    -ms-transform: none;
+    transform: none;
+    padding: 32px 0;
+  }
+  .wrap-auth .form h4 {
+    margin-bottom: 12px;
+  }
+  .wrap-auth .form p {
+    margin-top: 12px;
+  }
+}
 
 .complete-register {
   background: #011e40;

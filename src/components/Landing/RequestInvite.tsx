@@ -16,6 +16,7 @@ type variants = "error" | "info" | "success" | "warning"
 interface States {
     email: string
     name: string
+    whatsapp: string
     loading: boolean
     registered: boolean
     open: boolean
@@ -29,6 +30,7 @@ interface Props {
     requestInvite: (username: string) => void
     sendInviteRequest: (requestorData: {requestorName: string,
                             requestorEmail: string,
+                            requestorWhatsapp: string,
                             embassy: {id: string, name: string}
                             leaderName: string,
                             leaderId: string},
@@ -41,6 +43,7 @@ class RequestInvite extends Component<Props, States> {
     state: Readonly<States> = {
         email: "",
         name: "",
+        whatsapp: "",
         loading: false,
         registered: false,
         open: false,
@@ -55,7 +58,6 @@ class RequestInvite extends Component<Props, States> {
     sentSuccessful = (success: boolean) => {
 
         if(success) {
-            window.location.href = "/";
             this.setState({
                 ...this.state,
                 toastMessage: "Solicitação enviada com sucesso!",
@@ -87,6 +89,7 @@ class RequestInvite extends Component<Props, States> {
 
         let email = this.state.email;
         let name = this.state.name;
+        let whatsapp = this.state.whatsapp;
         let embassy = this.props.embassy
 
         if(email === "" || name === "") {
@@ -105,7 +108,7 @@ class RequestInvite extends Component<Props, States> {
             loading: true
         });
 
-        this.props.sendInviteRequest({requestorName: name, requestorEmail: email,
+        this.props.sendInviteRequest({requestorName: name, requestorEmail: email, requestorWhatsapp: whatsapp,
         embassy: {name: !!embassy ? embassy.name : "", id: !!embassy ? embassy.id : ""},
             leaderName: !!embassy ? embassy.leader.name : "", leaderId: !!embassy ? embassy.leader.id : ""}, this.sentSuccessful)
     };
@@ -125,6 +128,13 @@ class RequestInvite extends Component<Props, States> {
                     placeholder:"E-mail",
                     value: this.state.email,
                     onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, email: e.target.value})
+                }
+            },
+            {attr: {
+                    type: "text",
+                    placeholder:"Whatsapp (com DDD)",
+                    value: this.state.whatsapp,
+                    onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, whatsapp: e.target.value})
                 }
             }
         ];

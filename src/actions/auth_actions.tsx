@@ -104,11 +104,15 @@ export function requestInvite(username: string) {
 
 export function sendInviteRequest(requestorData: {requestorName: string,
                                       requestorEmail: string,
+                                      requestorWhatsapp: string,
+                                      status?: string,
                                       embassy: {id: string, name: string}
                                       leaderName: string,
                                       leaderId: string},
                                   callback: (success: boolean) => void) {
     let invitationRequestCollection = firebaseDatabase.collection(firebaseCollections.INVITATION_REQUEST);
+    requestorData.status = "awaiting";
+
     return (dispatch: Dispatch) => {
         invitationRequestCollection
             .add(requestorData)

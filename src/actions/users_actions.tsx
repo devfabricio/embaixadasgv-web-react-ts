@@ -21,7 +21,7 @@ export function listUsers() {
                     let user = new User()
                     user.toObject(doc.data());
 
-                    var arr = user.name.split(" ")
+                    /*var arr = user.name.split(" ")
                     var name = arr[0];
                     let lastname = ""
 
@@ -47,7 +47,7 @@ export function listUsers() {
                         username = formattedName+"_"+formattedLastname
                     }
 
-                    usernames.push(formattedName);
+                    usernames.push(formattedName);*/
 
                     list.push(user)
                 });

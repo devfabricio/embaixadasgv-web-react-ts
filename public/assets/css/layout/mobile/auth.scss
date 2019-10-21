@@ -120,24 +120,4 @@ body{
       padding: 16px;
     }
   }
-  @media screen and (max-width: $break-large) {
-    position:inherit;
-    overflow:auto;
-
-    .form {
-      margin: 0;
-      position: relative;
-      top: auto;
-      left: auto;
-      -ms-transform: none;
-      transform: none;
-      padding: 32px 0;
-      h4 {
-        margin-bottom: 12px;
-      }
-      p {
-        margin-top: 12px;
-      }
-    }
-  }
 }
