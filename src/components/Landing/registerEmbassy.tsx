@@ -17,6 +17,8 @@ import {EmbassySponsor} from "../../models/EmbassySponsor";
 import Embassy from "../../models/Embassy";
 import User from "../../models/User";
 import FormField from "../Widgets/TextInput";
+import CropImage from "../Widgets/CropImage";
+import TransitionsModal from "../Widgets/TransitionModal";
 
 type variants = "error" | "info" | "success" | "warning"
 
@@ -43,6 +45,7 @@ interface RegisterEmbassyStates {
     loading: boolean
     registered: boolean
     open: boolean
+    openModal: boolean
     toastMessage: string
     toastVariant: variants
 }
@@ -65,6 +68,7 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
         loading: false,
         registered: false,
         open: false,
+        openModal: false,
         toastMessage: "",
         toastVariant: "info"
     };
@@ -98,7 +102,8 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
             toastMessage: "Embaixada cadastrada com sucesso",
             toastVariant: "success",
             loading: false,
-            open: true
+            open: true,
+            openModal: true
         });
     };
 
@@ -334,6 +339,31 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
                         </form>
                     </div>
                 </div>
+                <TransitionsModal open={this.state.openModal}>
+                    <div>
+                        <div style={{textAlign: "center"}}>
+                            <img style={
+                                {width: "64px",
+                                    margin: "16px 0"}
+                            } src={"assets/images/check_success.png"} />
+                        </div>
+                        <h4>A sua embaixada foi cadastrada com sucesso! Mas atenção:</h4>
+                        <p>Ela será exibida na lista de embaixadas somente após a aprovação de um dos nossos gestores.</p>
+                        <p><b>O prazo para a aprovação pode levar até 48 horas</b></p>
+                        <p>Sendo aprovada, você será notificado(a) por e-mail e receberá o código de acesso para se cadastrar no aplicativo EGV App</p>
+                        <p><b>Observação:</b> caso o serviço de webmail utilizado for o Hotmail não esqueça de verificar a pasta de lixo eletrônico.</p>
+                        <div style={{textAlign: "center"}}>
+                            <button style={{
+                                padding: "12px 42px",
+                                border: "none",
+                                background: "#4885ca",
+                                color: "#fff",
+                                borderRadius: 5,
+                                textTransform: "unset"}}
+                            onClick={() => {this.setState({...this.state, openModal: false})}}>Entendi</button>
+                        </div>
+                    </div>
+                </TransitionsModal>
             </div>)
     }
 }
