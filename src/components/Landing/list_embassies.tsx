@@ -17,7 +17,9 @@ interface Props {
 class EmbassyList extends Component<Props> {
 
     state = {
+        searchList: [],
         embassyList: [],
+        isSearching: false,
         checkQuery: false
     };
 
@@ -27,16 +29,20 @@ class EmbassyList extends Component<Props> {
 
     filterEmbassies = (query: string) => {
         if(!!this.props.list) {
-            let filter = this.props.list.filter((item) => {
+            if(query.length > 0) {
 
-                let embassyName = item.name.indexOf(query)>-1;
-                let leaderName = item.leader.name.indexOf(query)>-1;
-                let city = item.city.indexOf(query)>-1;
-                let state = item.state.indexOf(query)>-1;
-
-                return embassyName || leaderName || city || state;
-            });
-            this.setState({...this.state, embassyList: filter})
+                let filter = this.props.list.filter((item) => {
+                    let str = query.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+                    let embassyName = item.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(str)>-1;
+                    let leaderName = item.leader.name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(str)>-1;
+                    let city = item.city.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(str)>-1;
+                    let state = item.state.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().indexOf(str)>-1;
+                    return embassyName || leaderName || city || state;
+                });
+                this.setState({...this.state, searchList: filter, isSearching: true})
+            } else {
+                this.setState({...this.state, isSearching: false})
+            }
         }
     };
 
@@ -75,11 +81,9 @@ class EmbassyList extends Component<Props> {
             showProgress = true;
         }
 
-        if(this.state.embassyList.length > 0) {
-            list = this.state.embassyList
+        if(this.state.isSearching) {
+            list = this.state.searchList
         }
-
-
 
         return(
             <div className={"container"} >
@@ -90,13 +94,16 @@ class EmbassyList extends Component<Props> {
                            className="form-control form-control-lg"
                            id="search"
                            onChange={(e) => this.filterEmbassies(e.target.value)}
-                           placeholder="Pesquise por nome, líder, bairro ou cidade" />
+                           placeholder="Pesquise por nome, líder, cidade ou estado" />
                 </div>
                 <div className={"progress-list"}>
                     {showProgress ? <CircularProgress id={"progress-form"} size={30} /> : null}
                 </div>
                 <ul className={"list-group list-group-flush"}>
-                    {list.length > 0 && <span className={"embassyCount"}>{list.length+" embaixadas cadastradas"}</span>}
+                    {(list.length > 0 && !this.state.isSearching) && <span className={"embassyCount"}>{list.length+" embaixadas cadastradas"}</span>}
+                    {(this.state.searchList.length === 1 && this.state.isSearching) && <span className={"embassyCount"}>1 embaixada encontrada</span>}
+                    {(this.state.searchList.length > 1 && this.state.isSearching) && <span className={"embassyCount"}>{this.state.searchList.length+" embaixadas encontradas"}</span>}
+                    {(this.state.searchList.length === 0 && this.state.isSearching) && <span className={"embassyCount"}>Nenhuma embaixada encontrada</span>}
                     {list.map((embassy, i) => (
                         <li key={i} className="list-group-item">
                             <div className={"row"}>

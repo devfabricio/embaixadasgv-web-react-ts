@@ -278,8 +278,20 @@
     min-height: 790px;
     padding: 60px 0;
     width: 100%;
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+    }
     h4 {
       margin-bottom: 16px;
+      font-size: 1.2rem;
+      color: #4D4D4F;
+      margin-top: 24px;
+    }
+    .mission-box {
+      background: #f2f2f3;
+      padding: 24px 32px;
+      border: 1px solid #dadada;
     }
     .pillars{
       text-align: center;

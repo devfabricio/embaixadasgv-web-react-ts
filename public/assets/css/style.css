@@ -21394,8 +21394,20 @@ p {
   padding: 60px 0;
   width: 100%;
 }
+.landing .about-embassy h3 {
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+}
 .landing .about-embassy h4 {
   margin-bottom: 16px;
+  font-size: 1.2rem;
+  color: #4D4D4F;
+  margin-top: 24px;
+}
+.landing .about-embassy .mission-box {
+  background: #f2f2f3;
+  padding: 24px 32px;
+  border: 1px solid #dadada;
 }
 .landing .about-embassy .pillars {
   text-align: center;

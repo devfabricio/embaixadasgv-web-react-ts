@@ -1,7 +1,16 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {Navbar, Nav, NavDropdown} from "react-bootstrap";
+import ReactGA from "react-ga";
+
+const initializeReactGA = () => {
+    ReactGA.initialize('UA-150680516-1');
+    ReactGA.pageview(window.location.pathname + window.location.search);
+}
+
 const LandingHeader = () => {
+
+    initializeReactGA();
 
     return (
         <header>
