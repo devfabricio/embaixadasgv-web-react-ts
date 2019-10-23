@@ -13,12 +13,15 @@ import firebase from "firebase";
 import User from "../../../../models/User";
 
 interface Props {
-    listHighlightsPosts: () => void
-    listMyEmbassyPosts: (user: User) => void
-    listAllPosts: () => void
+    listHighlightsPosts: (previewList: Array<Post>, loadmore: boolean, lastDoc: firebase.firestore.DocumentData | null) => void
+    listMyEmbassyPosts: (user: User, previewList: Array<Post>, loadmore: boolean, lastDoc: firebase.firestore.DocumentData | null) => void
+    listAllPosts: (previewList: Array<Post>, loadmore: boolean, lastDoc: firebase.firestore.DocumentData | null) => void
     highlightsPosts: Array<Post>
     myEmbassyPosts: Array<Post>
     allPosts: Array<Post>
+    highlightsLastDoc: firebase.firestore.DocumentData,
+    embassyLastDoc: firebase.firestore.DocumentData,
+    allLastDoc: firebase.firestore.DocumentData,
     authUser: firebase.firestore.DocumentData
 }
 
@@ -31,7 +34,14 @@ class MobileFeedContainer extends Component<Props>{
     };
 
     componentDidMount(): void {
-        this.props.listHighlightsPosts()
+        this.props.listHighlightsPosts([], false, null)
+        let self = this
+        window.addEventListener('scroll', function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                self.listPosts(self.state.category)
+                //show loading spinner and make fetch request to api
+            }
+        });
     }
 
     handleChangeTab = (tabName: string, tabPath: string) => {
@@ -39,25 +49,43 @@ class MobileFeedContainer extends Component<Props>{
     };
 
     handleChangeCategory = (category: string) => {
+        if(category !== this.state.category) {
+            this.setState({...this.state, category: category})
+            this.listPosts(category)
+        }
+    };
+
+    listPosts = (category: string) => {
 
         let user = new User()
         user.toObject(this.props.authUser)
 
-        if(category !== this.state.category) {
-            this.setState({...this.state, category: category})
-            if(category === "highlights") {
-                this.props.listHighlightsPosts()
-            }
-
-            if(category === "myEmbassy") {
-                this.props.listMyEmbassyPosts(user)
-            }
-
-            if(category === "all") {
-                this.props.listAllPosts()
+        if(category === "highlights") {
+            if(!!this.props.highlightsLastDoc && !!this.props.highlightsPosts) {
+                this.props.listHighlightsPosts(this.props.highlightsPosts, true, this.props.highlightsLastDoc)
+            } else {
+                this.props.listHighlightsPosts([], false, null)
             }
         }
-    };
+
+        if(category === "myEmbassy") {
+            if(!!this.props.embassyLastDoc && !!this.props.myEmbassyPosts) {
+                this.props.listMyEmbassyPosts(user, this.props.myEmbassyPosts, true, this.props.embassyLastDoc)
+            } else {
+                this.props.listMyEmbassyPosts(user, [], false, null)
+            }
+
+        }
+
+        if(category === "all") {
+            if(!!this.props.allLastDoc && !!this.props.allPosts) {
+                this.props.listAllPosts(this.props.allPosts, true, this.props.allLastDoc)
+            } else {
+                this.props.listAllPosts([], false, null)
+            }
+        }
+
+    }
 
     render() {
 
@@ -132,6 +160,9 @@ const mapStateToProps = (state: AppState) => ({
     highlightsPosts: state.posts.highlightsPostsList,
     myEmbassyPosts: state.posts.embassyPostsList,
     allPosts: state.posts.allPostsList,
+    highlightsLastDoc: state.posts.highlightsLastDoc,
+    embassyLastDoc: state.posts.embassyLastDoc,
+    allLastDoc: state.posts.allLastDoc
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => (
