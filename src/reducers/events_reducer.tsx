@@ -13,7 +13,7 @@ interface StoreState {
 export default function (state: StoreState = {}, action: Action) {
 
     switch (action.type) {
-        case 'ON_LIST':
+        case 'ON_LIST_EVENTS':
             return {...state, eventsList: action.payload};
         default:
             return state

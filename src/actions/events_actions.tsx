@@ -19,7 +19,7 @@ export function listEvents() {
                 });
 
                 dispatch({
-                    type: 'ON_LIST',
+                    type: 'ON_LIST_EVENTS',
                     payload: list})
             })
     }

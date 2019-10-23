@@ -202,9 +202,8 @@ a:hover {
 
 .top-navigation-feed {
   background: #FAFAFA;
-  position: fixed;
   height: 50px;
-  margin-top: -14px;
+  margin-top: -12px;
   overflow: hidden;
   width: 100%;
 }
@@ -231,7 +230,7 @@ a:hover {
 .list-posts {
   margin: 0;
   list-style: none;
-  padding: 54px 0 24px;
+  padding: 0;
 }
 .list-posts li {
   margin-bottom: 24px;
@@ -242,8 +241,6 @@ a:hover {
   border-top: 1px solid #e0e1e2;
 }
 .list-posts .card-header {
-  background: #FAFAFA;
-  border: none;
   margin: 0;
   padding: 12px 0;
 }
@@ -372,4 +369,4 @@ a:hover {
   margin-bottom: 5px;
 }
 
-/*# sourceMappingURL=mobile-style.css.map */
+/*# sourceMappingURL=mobile.style.css.map */

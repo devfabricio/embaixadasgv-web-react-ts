@@ -1,10 +1,13 @@
 .top-navigation-feed {
   background: $backgroundGrey;
+  position: fixed;
   height: 50px;
-  margin-top: -12px;
+  margin-top: -14px;
   overflow: hidden;
   width: 100%;
-  a {
+  button {
+    background: $backgroundGrey;
+    border: none;
     border-bottom: 1px solid #e0e1e2;
     border-right: 1px solid #e0e1e2;
     color: $colorText;
@@ -18,7 +21,7 @@
     text-transform: uppercase;
     width: 33.3333%;
   }
-  a.active {
+  button.active {
     border-bottom: 2px solid $colorRed;
   }
 }
@@ -26,7 +29,7 @@
 .list-posts {
   margin: 0;
   list-style: none;
-  padding: 0;
+  padding: 54px 0 24px;
   li {
     margin-bottom: 24px;
   }
@@ -36,6 +39,8 @@
     border-top: 1px solid #e0e1e2;
   }
   .card-header {
+    background: $backgroundGrey;
+    border: none;
     margin: 0;
     padding: 12px 0;
   }

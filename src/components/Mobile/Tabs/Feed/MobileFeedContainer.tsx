@@ -1,36 +1,67 @@
 import React, {Component} from "react";
 import {AppState} from "../../../../reducers";
 import {bindActionCreators, Dispatch} from "redux";
-import {listPosts} from "../../../../actions/post_actions";
+import {listHighlightsPosts, listMyEmbassyPosts, listAllPosts} from "../../../../actions/post_actions";
 import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import SimpleBottomNavigation from "../../../Widgets/SimpleBottomNavigation";
 import {Link} from "react-router-dom";
 import PostCard from "./PostCard";
-import Event from "../../../../models/Event";
 import {Post} from "../../../../models/Post";
+import auth from "../../../../reducers/auth_reducer";
+import firebase from "firebase";
+import User from "../../../../models/User";
 
 interface Props {
-    listPosts: () => void
-    posts: Array<Post>
+    listHighlightsPosts: () => void
+    listMyEmbassyPosts: (user: User) => void
+    listAllPosts: () => void
+    highlightsPosts: Array<Post>
+    myEmbassyPosts: Array<Post>
+    allPosts: Array<Post>
+    authUser: firebase.firestore.DocumentData
 }
 
 
 class MobileFeedContainer extends Component<Props>{
     state = {
         tabName: "feed",
-        tabPath: "/"
+        tabPath: "/",
+        category: "highlights"
     };
 
     componentDidMount(): void {
-        this.props.listPosts()
+        this.props.listHighlightsPosts()
     }
 
     handleChangeTab = (tabName: string, tabPath: string) => {
         this.setState({...this.state, tabName: tabName, tabPath: tabPath})
     };
 
+    handleChangeCategory = (category: string) => {
+
+        let user = new User()
+        user.toObject(this.props.authUser)
+
+        if(category !== this.state.category) {
+            this.setState({...this.state, category: category})
+            if(category === "highlights") {
+                this.props.listHighlightsPosts()
+            }
+
+            if(category === "myEmbassy") {
+                this.props.listMyEmbassyPosts(user)
+            }
+
+            if(category === "all") {
+                this.props.listAllPosts()
+            }
+        }
+    };
+
     render() {
+
+        console.log(this.props.authUser)
 
         if(this.state.tabName !== "feed") {
             return (
@@ -40,8 +71,28 @@ class MobileFeedContainer extends Component<Props>{
 
         let list: Array<Post> = [];
 
-        if(!!this.props.posts) {
-            list = this.props.posts
+        if(this.state.category === "highlights") {
+            if(!!this.props.highlightsPosts) {
+                list = this.props.highlightsPosts
+            } else {
+                list = []
+            }
+        }
+
+        if(this.state.category === "myEmbassy") {
+            if(!!this.props.myEmbassyPosts) {
+                list = this.props.myEmbassyPosts
+            } else {
+                list = []
+            }
+        }
+
+        if(this.state.category === "all") {
+            if(!!this.props.allPosts) {
+                list = this.props.allPosts
+            } else {
+                list = []
+            }
         }
 
         return(
@@ -53,9 +104,9 @@ class MobileFeedContainer extends Component<Props>{
                         </div>
                     </div>
                     <div className={"top-navigation-feed"}>
-                        <Link className={"active"} to={"/"}>Destaques</Link>
-                        <Link to={"/"}>Minha Embaixada</Link>
-                        <Link to={"/"}>Geral</Link>
+                        <button onClick={() => {this.handleChangeCategory("highlights")}} className={this.state.category === "highlights" ? "active" : ""}>Destaques</button>
+                        <button onClick={() => {this.handleChangeCategory("myEmbassy")}} className={this.state.category === "myEmbassy" ? "active" : ""}>Minha Embaixada</button>
+                        <button onClick={() => {this.handleChangeCategory("all")}} className={this.state.category === "all" ? "active" : ""}>Geral</button>
                     </div>
                 </header>
                 <div className={"content"}>
@@ -77,11 +128,14 @@ class MobileFeedContainer extends Component<Props>{
 }
 
 const mapStateToProps = (state: AppState) => ({
-    posts: state.posts.postsList,
+    authUser: state.auth.currentUser,
+    highlightsPosts: state.posts.highlightsPostsList,
+    myEmbassyPosts: state.posts.embassyPostsList,
+    allPosts: state.posts.allPostsList,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => (
-    bindActionCreators({listPosts}, dispatch)
+    bindActionCreators({listHighlightsPosts, listMyEmbassyPosts, listAllPosts}, dispatch)
 );
 
 export default connect (mapStateToProps, mapDispatchToProps) (MobileFeedContainer)
