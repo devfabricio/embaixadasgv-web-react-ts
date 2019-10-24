@@ -1,7 +1,21 @@
+.users-container {
+  background: $backgroundGreyStrong;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  z-index: 1;
+  .loading-progress {
+    text-align: center;
+    svg {
+      color: $colorAccent;
+    }
+  }
+}
 .list-users {
   margin: 0 16px;
   list-style: none;
-  padding: 0;
+  padding: 0 0 124px;
   li {
     margin: 16px 0;
     a {

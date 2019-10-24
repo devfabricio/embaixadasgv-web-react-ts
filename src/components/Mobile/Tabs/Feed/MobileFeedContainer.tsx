@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, UIEventHandler} from "react";
 import {AppState} from "../../../../reducers";
 import {bindActionCreators, Dispatch} from "redux";
 import {listHighlightsPosts, listMyEmbassyPosts, listAllPosts} from "../../../../actions/post_actions";
@@ -11,6 +11,7 @@ import {Post} from "../../../../models/Post";
 import auth from "../../../../reducers/auth_reducer";
 import firebase from "firebase";
 import User from "../../../../models/User";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 interface Props {
     listHighlightsPosts: (previewList: Array<Post>, loadmore: boolean, lastDoc: firebase.firestore.DocumentData | null) => void
@@ -44,6 +45,14 @@ class MobileFeedContainer extends Component<Props>{
         });
     }
 
+    handleScroll = (e: any) => {
+        let element = e.target
+        if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+            this.listPosts(this.state.category)
+        }
+    }
+
+
     handleChangeTab = (tabName: string, tabPath: string) => {
         this.setState({...this.state, tabName: tabName, tabPath: tabPath})
     };
@@ -51,7 +60,26 @@ class MobileFeedContainer extends Component<Props>{
     handleChangeCategory = (category: string) => {
         if(category !== this.state.category) {
             this.setState({...this.state, category: category})
-            this.listPosts(category)
+            let user = new User()
+            user.toObject(this.props.authUser)
+
+            if(category === "highlights") {
+                if(!this.props.highlightsPosts) {
+                    this.props.listHighlightsPosts([], false, null)
+                }
+            }
+
+            if(category === "myEmbassy") {
+                if(!this.props.myEmbassyPosts) {
+                    this.props.listMyEmbassyPosts(user, [], false, null)
+                }
+            }
+
+            if(category === "all") {
+                if(!this.props.allPosts) {
+                    this.props.listAllPosts([], false, null)
+                }
+            }
         }
     };
 
@@ -89,6 +117,9 @@ class MobileFeedContainer extends Component<Props>{
 
     render() {
 
+        let highlightsPosts: Array<Post>;
+        let myEmbassyPosts: Array<Post>;
+        let allPosts: Array<Post>;
         console.log(this.props.authUser)
 
         if(this.state.tabName !== "feed") {
@@ -97,34 +128,27 @@ class MobileFeedContainer extends Component<Props>{
             )
         }
 
-        let list: Array<Post> = [];
 
-        if(this.state.category === "highlights") {
-            if(!!this.props.highlightsPosts) {
-                list = this.props.highlightsPosts
-            } else {
-                list = []
-            }
+        if(!!this.props.highlightsPosts) {
+            highlightsPosts = this.props.highlightsPosts;
+        } else {
+            highlightsPosts = [];
         }
 
-        if(this.state.category === "myEmbassy") {
-            if(!!this.props.myEmbassyPosts) {
-                list = this.props.myEmbassyPosts
-            } else {
-                list = []
-            }
+        if(!!this.props.myEmbassyPosts) {
+            myEmbassyPosts = this.props.myEmbassyPosts
+        } else {
+            myEmbassyPosts = []
         }
 
-        if(this.state.category === "all") {
-            if(!!this.props.allPosts) {
-                list = this.props.allPosts
-            } else {
-                list = []
-            }
+        if(!!this.props.allPosts) {
+            allPosts = this.props.allPosts
+        } else {
+            allPosts = []
         }
 
         return(
-            <div className={"mobile-container"}>
+            <div className={"mobile-container"} style={{overflow: "hidden"}}>
                 <header>
                     <div className={"mobile-toolbar"}>
                         <div className="logo">
@@ -138,16 +162,48 @@ class MobileFeedContainer extends Component<Props>{
                     </div>
                 </header>
                 <div className={"content"}>
-                    <ul className={"list-posts"}>
-                        {list.map((post, i) => (
-                            <li key={i}>
-                                <Link to={"/"}>
-                                    <PostCard post={post} />
-                                </Link>
-                            </li>
-                        ))}
-
-                    </ul>
+                    <div className={"feed-container"}  onScroll={this.handleScroll} style={{zIndex: this.state.category === "highlights" ? 999 : 1}}>
+                        <ul className={"list-posts"}>
+                            {highlightsPosts.map((post, i) => (
+                                <li key={i}>
+                                    <Link to={"/"}>
+                                        <PostCard post={post} />
+                                    </Link>
+                                </li>
+                            ))}
+                            <div className={"loading-progress"}>
+                                <CircularProgress size={20} id={"progress-form"} />
+                            </div>
+                        </ul>
+                    </div>
+                    <div className={"feed-container"} onScroll={this.handleScroll} style={{zIndex: this.state.category === "myEmbassy" ? 999 : 1}}>
+                        <ul className={"list-posts"}>
+                            {myEmbassyPosts.map((post, i) => (
+                                <li key={i}>
+                                    <Link to={"/"}>
+                                        <PostCard post={post} />
+                                    </Link>
+                                </li>
+                            ))}
+                            <div className={"loading-progress"}>
+                                <CircularProgress size={20} id={"progress-form"} />
+                            </div>
+                        </ul>
+                    </div>
+                    <div className={"feed-container"} onScroll={this.handleScroll} style={{zIndex: this.state.category === "all" ? 999 : 1}}>
+                        <ul className={"list-posts"}>
+                            {allPosts.map((post, i) => (
+                                <li key={i}>
+                                    <Link to={"/"}>
+                                        <PostCard post={post} />
+                                    </Link>
+                                </li>
+                            ))}
+                            <div className={"loading-progress"}>
+                                <CircularProgress size={20} id={"progress-form"} />
+                            </div>
+                        </ul>
+                    </div>
                 </div>
                 <SimpleBottomNavigation currentTab={"feed"} handleChangeTab={this.handleChangeTab}/>
             </div>

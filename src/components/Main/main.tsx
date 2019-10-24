@@ -5,12 +5,12 @@ import {listUsers} from "../../actions/users_actions";
 import {connect} from "react-redux";
 import User from "../../models/User";
 import AvatarCard from "../Widgets/CardAvatar";
-import {User as CurrentUser} from "firebase";
+import firebase, {User as CurrentUser} from "firebase";
 import BaseLayout from "./BaseLayout";
 
 interface Props{
     currentUser: User
-    listUsers: () => void;
+    listUsers: (previewList: Array<User>, loadmore: boolean, lastDoc: firebase.firestore.DocumentData | null) => void
     users: Array<User>;
 }
 
@@ -21,7 +21,7 @@ interface States {
 class MainDashboard extends Component<Props>{
 
     componentDidMount(): void {
-        this.props.listUsers()
+        this.props.listUsers([], false, null)
     }
 
     children = () => {

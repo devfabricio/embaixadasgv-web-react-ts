@@ -2,9 +2,10 @@
   background: $backgroundGrey;
   position: fixed;
   height: 50px;
-  margin-top: -14px;
+  margin-top: 0;
   overflow: hidden;
   width: 100%;
+  z-index: 99999;
   button {
     background: $backgroundGrey;
     border: none;
@@ -26,10 +27,25 @@
   }
 }
 
+.feed-container {
+  background: $backgroundGreyStrong;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  z-index: 1;
+  .loading-progress {
+    text-align: center;
+    svg {
+      color: $colorAccent;
+    }
+  }
+}
+
 .list-posts {
   margin: 0;
   list-style: none;
-  padding: 54px 0 24px;
+  padding: 64px 0 148px;
   li {
     margin-bottom: 24px;
   }

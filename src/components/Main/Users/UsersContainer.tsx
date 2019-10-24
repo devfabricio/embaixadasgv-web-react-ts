@@ -8,11 +8,12 @@ import AvatarCard from "../../Widgets/CardAvatar";
 import BaseLayout from "../BaseLayout";
 import FormField from "../../Widgets/TextInput";
 import algoliasearch from "algoliasearch";
+import firebase from "firebase";
 
 
 interface Props{
     currentUser: User
-    listUsers: () => void;
+    listUsers: (previewList: Array<User>, loadmore: boolean, lastDoc: firebase.firestore.DocumentData | null) => void
     users: Array<User>;
 }
 
@@ -68,7 +69,7 @@ class UsersContainer extends Component<Props>{
     };
 
     componentDidMount(): void {
-        this.props.listUsers()
+        this.props.listUsers([], false, null)
     }
 
     children = () => {

@@ -4,14 +4,16 @@ a:hover {
 
 .mobile-container{
   background: $backgroundGreyStrong;
-  position: relative;
+  position: absolute;
   height: 100%;
-  padding: 68px 0;
+  padding: 54px 0;
+  width: 100%;
   .mobile-toolbar {
     position: fixed;
     top: 0;
     width: 100%;
     background: $colorPrimary;
+    z-index: 99999;
     img {
       margin: 12px 8px 12px 16px;
       height: 30px;

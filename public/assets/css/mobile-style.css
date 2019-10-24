@@ -4,15 +4,17 @@ a:hover {
 
 .mobile-container {
   background: #F3F4F6;
-  position: relative;
+  position: absolute;
   height: 100%;
-  padding: 68px 0;
+  padding: 54px 0;
+  width: 100%;
 }
 .mobile-container .mobile-toolbar {
   position: fixed;
   top: 0;
   width: 100%;
   background: #011e40;
+  z-index: 99999;
 }
 .mobile-container .mobile-toolbar img {
   margin: 12px 8px 12px 16px;
@@ -164,10 +166,25 @@ a:hover {
   margin-top: -3px;
 }
 
+.users-container {
+  background: #F3F4F6;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  z-index: 1;
+}
+.users-container .loading-progress {
+  text-align: center;
+}
+.users-container .loading-progress svg {
+  color: #6699CC;
+}
+
 .list-users {
   margin: 0 16px;
   list-style: none;
-  padding: 0;
+  padding: 0 0 124px;
 }
 .list-users li {
   margin: 16px 0;
@@ -204,9 +221,10 @@ a:hover {
   background: #FAFAFA;
   position: fixed;
   height: 50px;
-  margin-top: -14px;
+  margin-top: 0;
   overflow: hidden;
   width: 100%;
+  z-index: 99999;
 }
 .top-navigation-feed button {
   background: #FAFAFA;
@@ -228,10 +246,25 @@ a:hover {
   border-bottom: 2px solid #CC2936;
 }
 
+.feed-container {
+  background: #F3F4F6;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: scroll;
+  z-index: 1;
+}
+.feed-container .loading-progress {
+  text-align: center;
+}
+.feed-container .loading-progress svg {
+  color: #6699CC;
+}
+
 .list-posts {
   margin: 0;
   list-style: none;
-  padding: 54px 0 24px;
+  padding: 64px 0 148px;
 }
 .list-posts li {
   margin-bottom: 24px;

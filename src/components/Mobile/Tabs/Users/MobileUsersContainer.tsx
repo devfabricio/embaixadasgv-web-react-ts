@@ -8,21 +8,40 @@ import {Link} from "react-router-dom";
 import Group from "@material-ui/core/SvgIcon/SvgIcon";
 import SimpleBottomNavigation from "../../../Widgets/SimpleBottomNavigation";
 import User from "../../../../models/User";
+import firebase from "firebase";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 interface Props {
-    listUsers: () => void
+    listUsers: (previewList: Array<User>, loadmore: boolean, lastDoc: firebase.firestore.DocumentData | null, callback: (isOver: boolean) => void) => void
     users: Array<User>
+    lastDoc: firebase.firestore.DocumentData
 }
 
 class MobileUsersContainer extends Component<Props>{
 
     state = {
         tabName: "users",
-        tabPath: "/"
+        tabPath: "/",
+        isPostOver: false
     };
 
     componentDidMount(): void {
-        this.props.listUsers()
+        this.props.listUsers([], false, null, this.listenLoadMore)
+    }
+
+    handleScroll = (e: any) => {
+        let element = e.target
+        if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+            if(!this.state.isPostOver) {
+                this.props.listUsers(this.props.users, true, this.props.lastDoc, this.listenLoadMore)
+            }
+        }
+    }
+
+    listenLoadMore = (isPostOver: boolean) => {
+        if(isPostOver) {
+            this.setState({...this.state, isPostOver: true})
+        }
     }
 
     handleChangeTab = (tabName: string, tabPath: string) => {
@@ -44,7 +63,7 @@ class MobileUsersContainer extends Component<Props>{
         }
 
         return(
-            <div className={"mobile-container"}>
+            <div className={"mobile-container"} style={{overflow: "hidden"}}>
                 <header>
                     <div className={"mobile-toolbar"}>
                         <div className="logo">
@@ -53,17 +72,23 @@ class MobileUsersContainer extends Component<Props>{
                     </div>
                 </header>
                 <div className={"content"}>
-                    <ul className={"list-users"}>
-                    {list.map((item, i) => (
-                        <li key={i}>
-                            <Link to={""}>
-                                <img className={"profile-img"} src={!!item.profile_img ? item.profile_img : ""} />
-                                <span className={"user-name"}>{item.name}</span>
-                                <span className={"user-occupation"}>{item.occupation}</span>
-                            </Link>
-                        </li>
-                    ))}
-                    </ul>
+                    <div className={"users-container"} onScroll={this.handleScroll}>
+                        <ul className={"list-users"}>
+                        {list.map((item, i) => (
+                            <li key={i}>
+                                <Link to={""}>
+                                    <img className={"profile-img"} src={!!item.profile_img ? item.profile_img : ""} />
+                                    <span className={"user-name"}>{item.name}</span>
+                                    <span className={"user-occupation"}>{item.occupation}</span>
+                                </Link>
+                            </li>
+                        ))}
+                            <div className={"loading-progress"}>
+                                {!this.state.isPostOver && <CircularProgress size={20} id={"progress-form"} />}
+                            </div>
+                        </ul>
+
+                    </div>
                 </div>
                 <SimpleBottomNavigation currentTab={"users"} handleChangeTab={this.handleChangeTab}/>
             </div>
@@ -73,6 +98,7 @@ class MobileUsersContainer extends Component<Props>{
 
 const mapStateToProps = (state: AppState) => ({
     users: state.users.usersList,
+    lastDoc: state.users.usersLastDoc
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => (
