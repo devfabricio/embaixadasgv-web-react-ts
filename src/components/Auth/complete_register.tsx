@@ -13,15 +13,12 @@ import uuid from "uuid/v4"
 import CropImage from "../Widgets/CropImage";
 import TransitionsModal from "../Widgets/TransitionModal";
 import FormField from "../Widgets/TextInput";
-import firebase, {User as CurrentUser} from "firebase";
 
 type variants = "error" | "info" | "success" | "warning"
 
 interface Props{
     isCompleted: boolean | undefined
-    user: firebase.firestore.DocumentData
-    currentUser: null | CurrentUser
-    getCurrentUserDetails: (currentUser: any) => void
+    currentUser: User
     setCurrentUserDetals: (user: User, blob: Blob | null, picname: string) => void
     logout: () => void
 }
@@ -73,7 +70,7 @@ class CompleteRegister extends Component<Props, States> {
     };
 
     componentDidMount() {
-        this.props.getCurrentUserDetails(this.props.currentUser)
+
     }
 
     setLocation = (resultPlace: google.maps.GeocoderResult) => {
@@ -187,8 +184,7 @@ class CompleteRegister extends Component<Props, States> {
         }
 
 
-        let user = new User();
-        user.toObject(this.props.user);
+        let user = this.props.currentUser;
         user.gender = gender;
         user.birthdate = birthday;
         user.city = city;
@@ -196,6 +192,7 @@ class CompleteRegister extends Component<Props, States> {
         user.state_short = shortState;
         user.occupation = occupation;
         user.description = biography;
+        user.status = "active"
 
         this.setState({
             ...this.state,
@@ -235,11 +232,10 @@ class CompleteRegister extends Component<Props, States> {
     render () {
 
         if(!!this.props.isCompleted) {
-            console.log(this.props.isCompleted)
+            window.location.href = "/";
         }
 
-        let user = !!this.props.user ? new User().toObject(this.props.user) : null;
-        console.log(this.props.user);
+        let user = this.props.currentUser
 
         let form = [
             {attr: {
@@ -295,7 +291,7 @@ class CompleteRegister extends Component<Props, States> {
             showButton = false;
         }
 
-        if(!this.props.user) {
+        if(!this.props.currentUser) {
             return (
                 <div className={"wrap complete-register"}>
                     <header>

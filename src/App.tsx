@@ -20,6 +20,7 @@ import LandingPage from "./components/Landing";
 import User from "./models/User";
 import MobileRoutes from "./routes/mobile_routes";
 import RequestInvite from "./components/Landing/RequestInvite"
+import PrivateRoute from "./routes/private_route";
 
 interface Props {
     checkAuth: () => void
@@ -42,6 +43,15 @@ class App extends Component<Props> {
                 user.toObject(this.props.currentUser);
 
                 if(isMobile) {
+
+                    if(user.status === "registered") {
+                        return (<BrowserRouter>
+                            <Switch>
+                                <PrivateRoute currentUser={user} isLogged={this.props.isLogged} exact path={'/'} component={CompleteRegister} />
+                            </Switch>
+                        </BrowserRouter>)
+                    }
+
                     return (
                         <BrowserRouter>
                             <MobileRoutes isLogged={this.props.isLogged} currentUser={user}/>
@@ -53,11 +63,29 @@ class App extends Component<Props> {
                        <Routes isLogged={this.props.isLogged} currentUser={user}/>
                    </BrowserRouter>)
             } else {
+
+                if(isMobile) {
+                    return (
+                        <BrowserRouter>
+                            <Switch>
+                                <Route exact path={'/login'} component={Login} />
+                                <Route exact path={'/registrar'} component={Register} />
+                                <Route exact path={'/convite/:username'} component={RequestInvite} />
+                                <Route exact path={'/completar-registro'} component={CompleteRegister} />
+                                <Route exact path={'/sobre'} component={AboutPage} />
+                                <Route exact path={'/lista'} component={ListPage} />
+                                <Route exact path={'/quero-fundar'} component={FoundPage} />
+                                <Route exact path={'/contato'} component={ContactPage} />
+                                <Route exact path={'/politicas-de-privacidade'} component={PrivacyPage} />
+                                <Route exact path={'/'} component={LandingPage} />
+                            </Switch>
+                        </BrowserRouter>
+                    )
+                }
+
                 return (
                     <BrowserRouter>
                         <Switch>
-                            <Route exact path={'/login'} component={Login} />
-                            <Route exact path={'/registrar'} component={Register} />
                             <Route exact path={'/convite/:username'} component={RequestInvite} />
                             <Route exact path={'/completar-registro'} component={CompleteRegister} />
                             <Route exact path={'/sobre'} component={AboutPage} />

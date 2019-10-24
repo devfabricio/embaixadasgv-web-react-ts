@@ -21611,11 +21611,10 @@ body {
 }
 @media screen and (max-width: 768px) {
   .wrap-auth {
-    position: inherit;
     overflow: auto;
   }
   .wrap-auth .form {
-    margin: 0;
+    margin: 48px 0;
     position: relative;
     top: auto;
     left: auto;

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Switch} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import MobileDashboardContainer from "../components/Mobile/Tabs/Dashboard/MobileDashboardContainer"
 import MobileUsersContainer from "../components/Mobile/Tabs/Users/MobileUsersContainer"
 import MobileFeedContainer from "../components/Mobile/Tabs/Feed/MobileFeedContainer"
@@ -7,6 +7,7 @@ import MobileAgendaContainer from "../components/Mobile/Tabs/Agenda/MobileAgenda
 import MobileMenuContainer from "../components/Mobile/Tabs/Menu/MobileMenuContainer"
 import PrivateRoute from "./private_route";
 import User from "../models/User";
+import CompleteRegister from "../components/Auth/complete_register";
 
 interface Props {
     isLogged: boolean,

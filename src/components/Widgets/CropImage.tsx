@@ -16,13 +16,16 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         height: 200,
         background: '#333',
+        marginTop: 12,
         [theme.breakpoints.up('sm')]: {
             height: 400,
         },
     },
     cropButton: {
+        background: "#33658A",
         flexShrink: 0,
         marginLeft: 16,
+        marginTop: 12
     },
     controls: {
         padding: 16,
@@ -45,13 +48,7 @@ const useStyles = makeStyles(theme => ({
         },
     },
     slider: {
-        padding: '22px 0px',
-        marginLeft: 16,
-        [theme.breakpoints.up('sm')]: {
-            flexDirection: 'row',
-            alignItems: 'center',
-            margin: '0 16px',
-        },
+        color: "#33658A",
     },
 }));
 
@@ -111,6 +108,7 @@ const CropImage = (props: any) => {
                         Zoom
                     </Typography>
                     <Slider
+                        className={classes.slider}
                         value={zoom}
                         min={1}
                         max={3}
@@ -125,7 +123,7 @@ const CropImage = (props: any) => {
                     color="primary"
                     classes={{ root: classes.cropButton }}
                 >
-                    Show Result
+                    Pronto!
                 </Button>
             </div>
         </div>

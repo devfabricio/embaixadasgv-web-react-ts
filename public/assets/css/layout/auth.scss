@@ -121,11 +121,10 @@ body{
     }
   }
   @media screen and (max-width: $break-large) {
-    position:inherit;
     overflow:auto;
 
     .form {
-      margin: 0;
+      margin: 48px 0;
       position: relative;
       top: auto;
       left: auto;

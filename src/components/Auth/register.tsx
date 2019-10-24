@@ -71,6 +71,7 @@ class Register extends Component<Props, States> {
     };
 
     registerSuccess = () => {
+        window.location.href = "/";
         this.setState({
             ...this.state,
             loading: false,
@@ -82,7 +83,6 @@ class Register extends Component<Props, States> {
             password: "",
             confirmPassword: ""
         })
-        return window.location.reload();
     };
 
     handleSubmitCode = (e: React.FormEvent<HTMLFormElement>) => {

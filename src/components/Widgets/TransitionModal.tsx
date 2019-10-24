@@ -11,6 +11,7 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'center',
     },
     paper: {
+        margin: "0 16px",
         width: "100%",
         maxWidth: 600,
         backgroundColor: "#F3F4F6",
