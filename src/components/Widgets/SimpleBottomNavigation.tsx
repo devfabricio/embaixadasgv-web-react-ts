@@ -21,8 +21,6 @@ export default function SimpleBottomNavigation(props: any) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
 
-    console.log("SimpleBottomNavigation Props", props)
-
     return (
         <BottomNavigation
             value={props.currentTab}

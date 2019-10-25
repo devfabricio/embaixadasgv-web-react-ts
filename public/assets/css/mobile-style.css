@@ -14,7 +14,22 @@ a:hover {
   top: 0;
   width: 100%;
   background: #011e40;
+  overflow: hidden;
   z-index: 99999;
+}
+.mobile-container .mobile-toolbar .logo {
+  float: left;
+}
+.mobile-container .mobile-toolbar .actions {
+  float: right;
+}
+.mobile-container .mobile-toolbar .actions button {
+  color: #FAFAFA;
+  padding: 14px 15px 10px;
+  opacity: 0.7;
+}
+.mobile-container .mobile-toolbar .actions i {
+  font-size: 1.1rem;
 }
 .mobile-container .mobile-toolbar img {
   margin: 12px 8px 12px 16px;
@@ -168,10 +183,9 @@ a:hover {
 
 .users-container {
   background: #F3F4F6;
-  position: absolute;
+  position: relative;
   height: 100%;
   width: 100%;
-  overflow: scroll;
   z-index: 1;
 }
 .users-container .loading-progress {
@@ -248,10 +262,9 @@ a:hover {
 
 .feed-container {
   background: #F3F4F6;
-  position: absolute;
+  position: relative;
   height: 100%;
   width: 100%;
-  overflow: scroll;
   z-index: 1;
 }
 .feed-container .loading-progress {

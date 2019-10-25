@@ -27,15 +27,13 @@ class MobileUsersContainer extends Component<Props>{
 
     componentDidMount(): void {
         this.props.listUsers([], false, null, this.listenLoadMore)
-    }
-
-    handleScroll = (e: any) => {
-        let element = e.target
-        if (element.scrollHeight - element.scrollTop === element.clientHeight) {
-            if(!this.state.isPostOver) {
-                this.props.listUsers(this.props.users, true, this.props.lastDoc, this.listenLoadMore)
+        let self = this
+        window.addEventListener('scroll', function() {
+            if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                self.props.listUsers(self.props.users, true, self.props.lastDoc, self.listenLoadMore)
+                //show loading spinner and make fetch request to api
             }
-        }
+        });
     }
 
     listenLoadMore = (isPostOver: boolean) => {
@@ -63,16 +61,19 @@ class MobileUsersContainer extends Component<Props>{
         }
 
         return(
-            <div className={"mobile-container"} style={{overflow: "hidden"}}>
+            <div className={"mobile-container"}>
                 <header>
                     <div className={"mobile-toolbar"}>
                         <div className="logo">
                             <img src="assets/images/logo.png" />
                         </div>
+                        <div className={"actions"}>
+                            <button><i className={"fas fa-search"}/></button>
+                        </div>
                     </div>
                 </header>
                 <div className={"content"}>
-                    <div className={"users-container"} onScroll={this.handleScroll}>
+                    <div className={"users-container"} >
                         <ul className={"list-users"}>
                         {list.map((item, i) => (
                             <li key={i}>

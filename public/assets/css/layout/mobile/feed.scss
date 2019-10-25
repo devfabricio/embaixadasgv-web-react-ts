@@ -29,10 +29,9 @@
 
 .feed-container {
   background: $backgroundGreyStrong;
-  position: absolute;
+  position: relative;
   height: 100%;
   width: 100%;
-  overflow: scroll;
   z-index: 1;
   .loading-progress {
     text-align: center;

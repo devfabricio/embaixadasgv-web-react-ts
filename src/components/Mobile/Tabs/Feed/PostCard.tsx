@@ -19,10 +19,8 @@ const PostCard = (props: Props) => {
     }
 
 
-    console.log(post)
     var decoder = new TextDecoder('utf-8')
 
-    console.log(decodeURIComponent(!!post.text ? post.text : ""))
     return(
         <div className={"post-card"}>
             <div className={"card-header"}>
