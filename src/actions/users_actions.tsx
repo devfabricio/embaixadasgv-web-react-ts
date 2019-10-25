@@ -86,3 +86,47 @@ export function listUsers(previewList: Array<User>, loadmore: boolean, lastDoc: 
 
     }
 }
+
+export function listEmbassyMembers(embassyId: string) {
+    let userCollections = firebaseDatabase.collection(firebaseCollections.USERS)
+    let list: Array<User> = [];
+
+    return (dispatch: Dispatch) => {
+            userCollections
+                .where("status", "==", "active")
+                .where("embassy_id", "==", embassyId)
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        let user = new User()
+                        user.toObject(doc.data());
+                        list.push(user)
+                    });
+                    if(querySnapshot.docs.length > 0) {
+                        dispatch({
+                            type: 'ON_LIST_EMBASSY_MEMBERS',
+                            payload: {list: list}})
+                    }
+                })
+    }
+}
+
+export function getSingleUser(username: string) {
+
+    let userCollections = firebaseDatabase.collection(firebaseCollections.USERS)
+
+    return (dispatch: Dispatch) => {
+        userCollections
+            .where("username", "==", username)
+            .get()
+            .then((querySnapshot) => {
+                if(querySnapshot.docs.length > 0) {
+                    let user = new User()
+                    user.toObject(querySnapshot.docs[0].data());
+                    dispatch({
+                        type: 'ON_GET_SINGLE_USER',
+                        payload: {user: user}})
+                }
+            })
+    }
+}

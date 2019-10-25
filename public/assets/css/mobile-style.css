@@ -17,6 +17,23 @@ a:hover {
   overflow: hidden;
   z-index: 99999;
 }
+.mobile-container .mobile-toolbar .title button {
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  opacity: 0.8;
+  font-size: 1.2rem;
+  color: #FAFAFA;
+  float: left;
+}
+.mobile-container .mobile-toolbar .title h5 {
+  color: #FAFAFA;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin: 26px 0;
+  line-height: 0;
+  float: left;
+}
 .mobile-container .mobile-toolbar .logo {
   float: left;
 }
@@ -24,6 +41,8 @@ a:hover {
   float: right;
 }
 .mobile-container .mobile-toolbar .actions button {
+  background: none;
+  border: none;
   color: #FAFAFA;
   padding: 14px 15px 10px;
   opacity: 0.7;
@@ -45,6 +64,15 @@ a:hover {
   min-width: 1px;
   padding: 8px 12px 8px;
   width: 20%;
+}
+
+.dashboard-container {
+  background: #F3F4F6;
+  position: relative;
+  padding: 16px 0 64px;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
 }
 
 .dashboard-section {
@@ -229,6 +257,48 @@ a:hover {
   font-size: 0.9rem;
   font-family: "sf_pro_displayregular";
   line-height: 1.2;
+}
+
+.single-user-container .profile-photo {
+  background: url("/assets/images/bg_user_profile.png") no-repeat;
+  background-size: 100%;
+  margin-top: -5px;
+  text-align: center;
+}
+.single-user-container .profile-photo img {
+  width: 50%;
+  border-radius: 50%;
+  border: 0.4rem solid #FAFAFA;
+  margin-top: 25px;
+}
+.single-user-container .user-name {
+  text-align: center;
+}
+.single-user-container .user-name h1 {
+  color: #4D4D4F;
+  font-family: "sf_pro_displaybold";
+  font-size: 1.8rem;
+}
+.single-user-container .user-info {
+  margin: 16px 24px;
+}
+.single-user-container .user-info li {
+  font-family: "sf_pro_displayregular";
+  color: #4D4D4F;
+}
+.single-user-container .user-info li i {
+  min-width: 25px;
+}
+.single-user-container .user-info li b {
+  color: #33658A;
+}
+.single-user-container .user-description {
+  color: #4D4D4F;
+  font-family: "sf_pro_displayregular";
+  margin: 16px 24px;
+}
+.single-user-container .user-description span {
+  font-weight: bold;
 }
 
 .top-navigation-feed {
@@ -416,6 +486,44 @@ a:hover {
   font-size: 0.9rem;
   line-height: 1.2;
   margin-bottom: 5px;
+}
+
+.menu-container {
+  background: #FAFAFA;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+.menu-section .section-name {
+  color: #4D4D4F;
+  display: block;
+  font-family: "sf_pro_displaybold";
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 24px 16px 8px;
+  text-transform: uppercase;
+}
+.menu-section ul {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  font-family: "sf_pro_displayregular";
+}
+.menu-section .menu-about {
+  padding-bottom: 80px;
+}
+.menu-section li a {
+  color: #4D4D4F;
+  display: block;
+  padding: 8px 16px;
+}
+.menu-section li img {
+  float: left;
+  margin-right: 12px;
+  width: 1.2rem;
+  margin-top: 3px;
 }
 
 /*# sourceMappingURL=mobile-style.css.map */

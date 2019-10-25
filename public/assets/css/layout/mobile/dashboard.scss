@@ -1,3 +1,12 @@
+.dashboard-container {
+  background: $backgroundGreyStrong;
+  position: relative;
+  padding: 16px 0 64px;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
 .dashboard-section {
   margin-bottom: 32px;
   padding: 0 16px;

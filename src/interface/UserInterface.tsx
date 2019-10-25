@@ -29,6 +29,7 @@ export interface UserInterface {
     behance: string | null;
     github: string | null;
     website: string | null;
+    username: string | null;
     leader: boolean;
     sponsor: boolean;
     manager: boolean;
@@ -42,5 +43,6 @@ export interface BasicUserInterface {
     profile_img: string | null;
     occupation: string | null;
     embassy_id: string | null;
+    username: string | null;
     verified: boolean;
 }

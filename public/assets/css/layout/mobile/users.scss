@@ -47,3 +47,47 @@
     }
   }
 }
+
+.single-user-container {
+  .profile-photo {
+    background: url("/assets/images/bg_user_profile.png") no-repeat;
+    background-size: 100%;
+    margin-top: -5px;
+    text-align: center;
+    img {
+      width: 50%;
+      border-radius: 50%;
+      border: 0.4rem solid $backgroundGrey;
+      margin-top: 25px;
+    }
+  }
+  .user-name {
+    text-align: center;
+    h1 {
+      color: $colorText;
+      font-family: $appFontBold;
+      font-size: 1.8rem;
+    }
+  }
+  .user-info {
+    margin: 16px 24px;
+    li {
+      font-family: $appFont;
+      color: $colorText;
+      i {
+        min-width: 25px;
+      }
+      b {
+        color: $colorLink;
+      }
+    }
+  }
+  .user-description {
+    color: $colorText;
+    font-family: $appFont;
+    margin: 16px 24px;
+    span {
+      font-weight: bold;
+    }
+  }
+}

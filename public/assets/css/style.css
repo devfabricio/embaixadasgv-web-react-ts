@@ -20997,6 +20997,12 @@ p {
   color: #4D4D4F;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
 .app-wrap {
   background: #F3F4F6;
 }

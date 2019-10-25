@@ -28,6 +28,7 @@ export default class User implements UserInterface{
     private _state_short: string | null;
     private _status: string | null;
     private _twitter: string | null;
+    private _username: string | null;
     private _verified: boolean;
     private _website: string | null;
     private _whatsapp: string | null;
@@ -61,6 +62,7 @@ export default class User implements UserInterface{
         this._manager = false;
         this._embassy_id = null;
         this._embassy = null;
+        this._username = null;
     }
 
     get behance(): string | null {
@@ -247,6 +249,15 @@ export default class User implements UserInterface{
         this._twitter = value;
     }
 
+
+    get username(): string | null {
+        return this._username;
+    }
+
+    set username(value: string | null) {
+        this._username = value;
+    }
+
     get verified(): boolean {
         return this._verified;
     }
@@ -307,6 +318,7 @@ export default class User implements UserInterface{
         this._manager = user.manager ? user.manager : false;
         this._embassy_id = user.embassy_id ? user.embassy_id : null;
         this._embassy = user.embassy ? user.embassy : null;
+        this._username = user.username ? user.username : null;
     };
 
     public toMap = (): UserInterface => {
@@ -337,7 +349,8 @@ export default class User implements UserInterface{
             manager: this._manager,
             sponsor: this._sponsor,
             embassy_id: this._embassy_id,
-            embassy: this._embassy
+            embassy: this._embassy,
+            username: this._username
         }
     };
 
@@ -348,7 +361,8 @@ export default class User implements UserInterface{
             profile_img: this._profile_img,
             occupation: this._occupation,
             embassy_id: this._embassy_id,
-            verified: this._verified
+            verified: this._verified,
+            username: this._username
         }
     }
 }

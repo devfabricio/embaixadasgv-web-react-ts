@@ -10,6 +10,7 @@ import SimpleBottomNavigation from "../../../Widgets/SimpleBottomNavigation";
 import User from "../../../../models/User";
 import firebase from "firebase";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import UserCard from "./UserCard";
 
 interface Props {
     listUsers: (previewList: Array<User>, loadmore: boolean, lastDoc: firebase.firestore.DocumentData | null, callback: (isOver: boolean) => void) => void
@@ -77,10 +78,8 @@ class MobileUsersContainer extends Component<Props>{
                         <ul className={"list-users"}>
                         {list.map((item, i) => (
                             <li key={i}>
-                                <Link to={""}>
-                                    <img className={"profile-img"} src={!!item.profile_img ? item.profile_img : ""} />
-                                    <span className={"user-name"}>{item.name}</span>
-                                    <span className={"user-occupation"}>{item.occupation}</span>
+                                <Link to={"/gv/"+item.username}>
+                                    <UserCard user={item} />
                                 </Link>
                             </li>
                         ))}
