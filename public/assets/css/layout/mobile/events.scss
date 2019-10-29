@@ -1,3 +1,11 @@
+.event-container {
+  background: $backgroundGreyStrong;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
 .list-events {
   margin: 0;
   list-style: none;

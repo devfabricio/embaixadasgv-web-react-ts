@@ -4,7 +4,7 @@ a:hover {
 
 .mobile-container {
   background: #F3F4F6;
-  position: absolute;
+  position: relative;
   height: 100%;
   padding: 54px 0;
   width: 100%;
@@ -65,6 +65,12 @@ a:hover {
   padding: 8px 12px 8px;
   width: 20%;
 }
+.mobile-container .list-title {
+  color: #011e40;
+  display: block;
+  font-family: "sf_pro_displaybold";
+  margin: 16px;
+}
 
 .dashboard-container {
   background: #F3F4F6;
@@ -113,6 +119,11 @@ a:hover {
   font-family: "sf_pro_displayregular";
   font-size: 0.65rem;
   text-transform: uppercase;
+}
+.dashboard-section .no-events-msg {
+  color: #4D4D4F;
+  font-family: "sf_pro_displayregular";
+  font-size: 0.9rem;
 }
 
 .next-event {
@@ -206,7 +217,8 @@ a:hover {
   font-family: "sf_pro_displayregular";
   color: #9E9E9E;
   font-size: 0.9rem;
-  margin-top: -3px;
+  margin-top: 0px;
+  line-height: 1.2;
 }
 
 .users-container {
@@ -258,6 +270,18 @@ a:hover {
   font-family: "sf_pro_displayregular";
   line-height: 1.2;
 }
+.list-users li span.user-identifier {
+  display: inline-block;
+  margin-left: 66px;
+  font-size: 0.8rem;
+  background: #011e40;
+  padding: 2px 8px;
+  color: #fff;
+  border-radius: 25px;
+}
+.list-users li .clear {
+  clear: both;
+}
 
 .single-user-container .profile-photo {
   background: url("/assets/images/bg_user_profile.png") no-repeat;
@@ -277,7 +301,9 @@ a:hover {
 .single-user-container .user-name h1 {
   color: #4D4D4F;
   font-family: "sf_pro_displaybold";
-  font-size: 1.8rem;
+  font-size: 1.4rem;
+  margin-top: 8px;
+  margin-bottom: 24px;
 }
 .single-user-container .user-info {
   margin: 16px 24px;
@@ -285,6 +311,7 @@ a:hover {
 .single-user-container .user-info li {
   font-family: "sf_pro_displayregular";
   color: #4D4D4F;
+  font-size: 0.9rem;
 }
 .single-user-container .user-info li i {
   min-width: 25px;
@@ -295,7 +322,11 @@ a:hover {
 .single-user-container .user-description {
   color: #4D4D4F;
   font-family: "sf_pro_displayregular";
-  margin: 16px 24px;
+  font-size: 0.9rem;
+  margin: 24px;
+}
+.single-user-container .user-description p {
+  font-family: "sf_pro_displayregular";
 }
 .single-user-container .user-description span {
   font-weight: bold;
@@ -404,12 +435,29 @@ a:hover {
   font-weight: bold;
   margin: 12px 16px 4px 16px;
 }
-.list-posts .card-body .post-text {
+.list-posts .card-body .post-text p, .list-posts .card-body .post-text span {
   color: #4D4D4F;
   display: block;
   font-family: "sf_pro_displayregular";
-  font-size: 0.9rem;
   margin: 0 16px 16px 16px;
+}
+.list-posts .card-body .post-text.post-thought p, .list-posts .card-body .post-text.post-thought span {
+  font-size: 1.3rem;
+}
+.list-posts .card-body .post-text.post-picture p, .list-posts .card-body .post-text.post-picture span {
+  font-size: 1rem;
+  margin-top: 12px;
+}
+.list-posts .card-body .post-text.post-note p, .list-posts .card-body .post-text.post-note span {
+  font-size: 0.9rem;
+}
+
+.event-container {
+  background: #F3F4F6;
+  position: relative;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
 }
 
 .list-events {
@@ -495,6 +543,32 @@ a:hover {
   width: 100%;
   z-index: 1;
 }
+.menu-container .user-profile {
+  padding: 16px 16px 0;
+}
+.menu-container .user-profile img {
+  border-radius: 50%;
+  float: left;
+  height: 50px;
+  margin-right: 8px;
+  width: 50px;
+}
+.menu-container .user-profile span {
+  display: block;
+}
+.menu-container .user-profile span.user-name {
+  color: #4D4D4F;
+  font-family: "sf_pro_displayregular";
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-top: 4px;
+}
+.menu-container .user-profile span.user-occupation {
+  color: #9E9E9E;
+  font-size: 0.9rem;
+  font-family: "sf_pro_displayregular";
+  line-height: 1.2;
+}
 
 .menu-section .section-name {
   color: #4D4D4F;
@@ -515,6 +589,13 @@ a:hover {
   padding-bottom: 80px;
 }
 .menu-section li a {
+  color: #4D4D4F;
+  display: block;
+  padding: 8px 16px;
+}
+.menu-section li button {
+  background: none;
+  border: none;
   color: #4D4D4F;
   display: block;
   padding: 8px 16px;

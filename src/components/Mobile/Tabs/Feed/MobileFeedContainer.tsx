@@ -40,6 +40,7 @@ class MobileFeedContainer extends Component<Props, State>{
     };
 
     componentDidMount(): void {
+        window.scrollTo({ top: 0})
         this.props.listHighlightsPosts([], false, null)
         let self = this
         window.addEventListener('scroll', function() {
@@ -57,6 +58,7 @@ class MobileFeedContainer extends Component<Props, State>{
 
     handleChangeCategory = (category: string) => {
 
+        window.scrollTo({ top: 0})
 
         if(category !== this.state.category) {
             this.setState({...this.state, category: category})
@@ -66,24 +68,18 @@ class MobileFeedContainer extends Component<Props, State>{
             if(category === "highlights") {
                 if(!this.props.highlightsPosts) {
                     this.props.listHighlightsPosts([], false, null)
-                } else {
-                    window.scrollTo({ top: 0})
                 }
             }
 
             if(category === "myEmbassy") {
                 if(!this.props.myEmbassyPosts) {
                     this.props.listMyEmbassyPosts(user, [], false, null)
-                } else {
-                    window.scrollTo({ top: 0})
                 }
             }
 
             if(category === "all") {
                 if(!this.props.allPosts) {
                     this.props.listAllPosts([], false, null)
-                } else {
-                    window.scrollTo({ top: 0})
                 }
             }
         }
@@ -171,42 +167,27 @@ class MobileFeedContainer extends Component<Props, State>{
                         <ul className={"list-posts"}>
                             {highlightsPosts.map((post, i) => (
                                 <li key={i}>
-                                    <Link to={"/"}>
-                                        <PostCard post={post} />
-                                    </Link>
+                                    <PostCard post={post} />
                                 </li>
                             ))}
-                            <div className={"loading-progress"}>
-                                <CircularProgress size={20} id={"progress-form"} />
-                            </div>
                         </ul>
                     </div>}
                     {this.state.category === "myEmbassy" && <div className={"feed-container"}>
                         <ul className={"list-posts"}>
                             {myEmbassyPosts.map((post, i) => (
                                 <li key={i}>
-                                    <Link to={"/"}>
-                                        <PostCard post={post} />
-                                    </Link>
+                                    <PostCard post={post} />
                                 </li>
                             ))}
-                            <div className={"loading-progress"}>
-                                <CircularProgress size={20} id={"progress-form"} />
-                            </div>
                         </ul>
                     </div>}
                     {this.state.category === "all" && <div className={"feed-container"}>
                         <ul className={"list-posts"}>
                             {allPosts.map((post, i) => (
                                 <li key={i}>
-                                    <Link to={"/"}>
-                                        <PostCard post={post} />
-                                    </Link>
+                                    <PostCard post={post} />
                                 </li>
                             ))}
-                            <div className={"loading-progress"}>
-                                <CircularProgress size={20} id={"progress-form"} />
-                            </div>
                         </ul>
                     </div>}
                 </div>

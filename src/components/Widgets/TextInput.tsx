@@ -209,7 +209,6 @@ const FormField = (props: any) => {
                         type="search"
                         className={classes.textField}
                         margin="normal"
-                        variant="outlined"
                     /></div>);
         default:
             return (

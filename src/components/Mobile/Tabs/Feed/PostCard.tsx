@@ -32,12 +32,22 @@ const PostCard = (props: Props) => {
             </div>
             <div className={"card-body"}>
                 {!!post_img && <img className={"post-img"} src={post_img} />}
-                <span className={"post-title"}>{post.title}</span>
-                <p className={"post-text"} style={{fontSize: post.type === "thought" ? "1.3rem" : "1rem"}}>
+                {post.type === "note" && <span className={"post-title"}>{post.title}</span>}
+                {post.type === "thought" && <div className={"post-thought post-text"}>
                     <Markdown>
                         {he.decode(!!post.text ? post.text : "")}
                     </Markdown>
-                </p>
+                </div>}
+                {post.type === "post" && <div className={"post-picture post-text"}>
+                    <Markdown>
+                        {he.decode(!!post.text ? post.text : "")}
+                    </Markdown>
+                </div>}
+                {post.type === "note" && <div className={"post-note post-text"}>
+                    <Markdown>
+                        {he.decode(!!post.text ? post.text : "")}
+                    </Markdown>
+                </div>}
             </div>
         </div>
     )

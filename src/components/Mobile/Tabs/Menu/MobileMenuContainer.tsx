@@ -2,12 +2,21 @@ import React, {Component} from "react";
 import {AppState} from "../../../../reducers";
 import {bindActionCreators, Dispatch} from "redux";
 import {listUsers} from "../../../../actions/users_actions";
+import firebase from "firebase";
 import {connect} from "react-redux";
 import {Redirect} from "react-router";
 import SimpleBottomNavigation from "../../../Widgets/SimpleBottomNavigation";
 import {Link} from "react-router-dom";
+import {firebaseAuth} from "../../../../utils/firebase";
+import {Post} from "../../../../models/Post";
+import User from "../../../../models/User";
+import UserCard from "../Users/UserCard";
 
-class MobileMenuContainer extends Component{
+interface Props {
+    authUser: firebase.firestore.DocumentData
+}
+
+class MobileMenuContainer extends Component<Props>{
 
     state = {
         tabName: "menu",
@@ -18,7 +27,15 @@ class MobileMenuContainer extends Component{
         this.setState({...this.state, tabName: tabName, tabPath: tabPath})
     };
 
+    logout = () => {
+        firebaseAuth.signOut();
+        window.location.href = "/";
+    }
+
     render() {
+
+        let user = new User()
+        user.toObject(this.props.authUser)
 
         if(this.state.tabName !== "menu") {
             return (
@@ -37,99 +54,105 @@ class MobileMenuContainer extends Component{
                 </header>
                 <div className={"content"}>
                     <div className={"menu-container"}>
-                        <div className={"user-propfile"}></div>
+                        <div className={"user-profile"}>
+                            <Link to={"/gv/"+user.username} >
+                                <img className={"profile-img"} src={!!user.profile_img ? user.profile_img : ""} />
+                                <span className={"user-name"}>{user.name}</span>
+                                <span className={"user-occupation"}>Visualizar perfil</span>
+                            </Link>
+                        </div>
                         <div className={"menu-section"}>
                             <span className={"section-name"}>Configurações de Conta</span>
                             <ul className={"account-settings"}>
-                                <li><Link to={""}>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_profile.svg"/>
-                                    Editar Perfil
+                                    Editar Perfil <i>(Em breve)</i>
                                 </Link></li>
-                                <li><Link to={""}>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_change_photo.svg"/>
-                                    Alterar foto de perfil</Link></li>
-                                <li><Link to={""}>
+                                    Alterar foto de perfil <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_change_pass.svg"/>
-                                    Alterar Senha</Link></li>
-                                <li><Link to={""}>
+                                    Alterar Senha <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_social_network.svg"/>
-                                    Editar Redes Sociais</Link></li>
-                                <li><Link to={""}>
+                                    Editar Redes Sociais <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_embassy.svg"/>
-                                    Minha Embaixada</Link></li>
+                                    Minha Embaixada <i>(Em breve)</i></Link></li>
                             </ul>
                         </div>
-                        <div className={"menu-section"}>
+                        {user.leader && <div className={"menu-section"}>
                             <span className={"section-name"}>Líderes</span>
                             <ul className={"account-settings"}>
-                                <li><Link to={""}>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_menu_manage_event.svg"/>
-                                    Gerenciar Eventos</Link></li>
-                                <li><Link to={""}>
+                                    Gerenciar Eventos <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_add_picture.svg"/>
-                                    Gerenciar Fotos</Link></li>
-                                <li><Link to={""}>
+                                    Gerenciar Fotos <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_profile.svg"/>
-                                    Convidar Membros</Link></li>
-                                <li><Link to={""}>
+                                    Convidar Membros <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_profile.svg"/>
-                                    Solicitação de convites</Link></li>
-                                <li><Link to={""}>
+                                    Solicitação de convites <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_embassy.svg"/>
-                                    Editar dados da embaixada</Link></li>
+                                    Editar dados da embaixada <i>(Em breve)</i></Link></li>
                             </ul>
-                        </div>
-                        <div className={"menu-section"}>
+                        </div>}
+                        {user.sponsor && <div className={"menu-section"}>
                             <span className={"section-name"}>Padrinhos</span>
                             <ul className={"account-settings"}>
-                                <li><Link to={""}>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_profile.svg"/>
-                                    Embaixadas Afiliadas</Link></li>
+                                    Embaixadas Afiliadas <i>(Em breve)</i></Link></li>
                             </ul>
-                        </div>
-                        <div className={"menu-section"}>
+                        </div>}
+                        {user.manager && <div className={"menu-section"}>
                             <span className={"section-name"}>Gestores</span>
                             <ul className={"account-settings"}>
-                                <li><Link to={""}>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_profile.svg"/>
-                                    Embaixadas para aprovação</Link></li>
-                                <li><Link to={""}>
+                                    Embaixadas para aprovação <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_profile.svg"/>
-                                    Gerenciar Padrinhos</Link></li>
-                                <li><Link to={""}>
+                                    Gerenciar Padrinhos <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_create_bulletin.svg"/>
-                                    Gerenciar Informativos</Link></li>
-                                <li><Link to={""}>
+                                    Gerenciar Informativos <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_profile.svg"/>
-                                    Informações</Link></li>
+                                    Informações <i>(Em breve)</i></Link></li>
                             </ul>
-                        </div>
+                        </div>}
                         <div className={"menu-section"}>
                             <span className={"section-name"}>Privacidade</span>
                             <ul className={"account-settings"}>
-                                <li><Link to={""}>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_profile.svg"/>
-                                    Configurações de Privacidade</Link></li>
+                                    Configurações de Privacidade <i>(Em breve)</i></Link></li>
                             </ul>
                         </div>
                         <div className={"menu-section"}>
                             <span className={"section-name"}>Mais Opções</span>
                             <ul className={"menu-about"}>
-                                <li><Link to={""}>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_profile.svg"/>
-                                    Lista de embaixadas</Link></li>
-                                <li><Link to={""}>
+                                    Lista de embaixadas <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_profile.svg"/>
-                                    Sobre as embaixadas</Link></li>
-                                <li><Link to={""}>
+                                    Sobre as embaixadas <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_edit_profile.svg"/>
-                                    Sugira uma funcionalidade</Link></li>
-                                <li><Link to={""}>
+                                    Sugira uma funcionalidade <i>(Em breve)</i></Link></li>
+                                <li style={{opacity: 0.5}}><Link to={""}>
                                     <img src="assets/images/menu_icons/ic_send_message.svg"/>
-                                    Envie-nos uma mensagem</Link></li>
-                                <li><Link to={""}>
+                                    Envie-nos uma mensagem <i>(Em breve)</i></Link></li>
+                                <li><button onClick={() => {this.logout()}}>
                                     <img src="assets/images/menu_icons/ic_logout.svg"/>
-                                Sair</Link></li>
+                                Sair</button></li>
                             </ul>
                         </div>
                     </div>
@@ -142,7 +165,7 @@ class MobileMenuContainer extends Component{
 }
 
 const mapStateToProps = (state: AppState) => ({
-    currentUserDetails: state.auth.userDetails,
+    authUser: state.auth.currentUser,
     users: state.users.usersList,
 });
 

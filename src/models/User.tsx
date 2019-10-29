@@ -8,6 +8,7 @@ export default class User implements UserInterface{
     private _behance: string | null;
     private _birthdate: string | null;
     private _city: string | null;
+    private _committee_leader: boolean;
     private _description: string | null;
     private _email: string;
     private _embassy: BasicEmbassyInterface | null;
@@ -60,6 +61,7 @@ export default class User implements UserInterface{
         this._leader = false;
         this._sponsor = false;
         this._manager = false;
+        this._committee_leader = false;
         this._embassy_id = null;
         this._embassy = null;
         this._username = null;
@@ -87,6 +89,15 @@ export default class User implements UserInterface{
 
     set city(value: string | null) {
         this._city = value;
+    }
+
+
+    get committee_leader(): boolean {
+        return this._committee_leader;
+    }
+
+    set committee_leader(value: boolean) {
+        this._committee_leader = value;
     }
 
     get description(): string | null {
@@ -316,6 +327,7 @@ export default class User implements UserInterface{
         this._leader = user.leader ? user.leader : false;
         this._sponsor = user.sponsor ? user.sponsor : false;
         this._manager = user.manager ? user.manager : false;
+        this._committee_leader = user.manager ? user.manager : false;
         this._embassy_id = user.embassy_id ? user.embassy_id : null;
         this._embassy = user.embassy ? user.embassy : null;
         this._username = user.username ? user.username : null;
@@ -348,6 +360,7 @@ export default class User implements UserInterface{
             leader: this._leader,
             manager: this._manager,
             sponsor: this._sponsor,
+            committee_leader: this._committee_leader,
             embassy_id: this._embassy_id,
             embassy: this._embassy,
             username: this._username

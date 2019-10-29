@@ -2,13 +2,14 @@ import React, {Component} from 'react'
 import MobileToolbar from "../../Widgets/MobileToolbar";
 import {AppState} from "../../../../reducers";
 import {bindActionCreators, Dispatch} from "redux";
-import {getSingleUser} from "../../../../actions/users_actions";
+import {getSingleUser, clearSingleUser} from "../../../../actions/users_actions";
 import {connect} from "react-redux";
 import {UserInterface} from "../../../../interface/UserInterface";
 
 interface Props {
     history: any
     match: any
+    clearSingleUser: () => void
     getSingleUser: (username: string) => void
     user: UserInterface
 }
@@ -17,6 +18,10 @@ class SingleUserContainer extends Component<Props> {
 
     componentDidMount(): void {
         this.props.getSingleUser(this.props.match.params.username)
+    }
+
+    componentWillUnmount(): void {
+        this.props.clearSingleUser()
     }
 
     goBack = () => {
@@ -65,7 +70,7 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => (
-    bindActionCreators({getSingleUser}, dispatch)
+    bindActionCreators({getSingleUser, clearSingleUser}, dispatch)
 );
 
 export default connect (mapStateToProps, mapDispatchToProps) (SingleUserContainer)

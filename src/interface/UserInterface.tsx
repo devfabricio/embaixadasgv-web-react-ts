@@ -33,6 +33,7 @@ export interface UserInterface {
     leader: boolean;
     sponsor: boolean;
     manager: boolean;
+    committee_leader: boolean;
     embassy_id: string | null;
     embassy: BasicEmbassyInterface | null;
 }

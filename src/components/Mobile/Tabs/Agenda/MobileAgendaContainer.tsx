@@ -10,6 +10,7 @@ import User from "../../../../models/User";
 import {Link} from "react-router-dom";
 import firebase from "firebase";
 import {timestampToDate} from "../../../../utils/dates";
+import EventCard from "./EventCard";
 
 interface Props {
     listEvents: () => void
@@ -24,6 +25,7 @@ class MobileAgendaContainer extends Component<Props>{
     };
 
     componentDidMount(): void {
+        window.scrollTo({ top: 0})
         this.props.listEvents()
     }
 
@@ -55,26 +57,18 @@ class MobileAgendaContainer extends Component<Props>{
                     </div>
                 </header>
                 <div className={"content"}>
-                    <ul className={"list-events"}>
-                    {list.map((event, i) => (
-                            <li>
-                                <Link to={"/"}>
-                                    <div className={"event-item-cover"} style={{backgroundImage: !!event.cover_img ? "url("+event.cover_img+")" : "url(assets/images/bg_default_cover.png)"}}/>
-                                    <div className={"event-item-description"}>
-                                        <div className={"date-event"}>
-                                            <span className={"month"}>{!!event.date ? timestampToDate(event.date).month_abbrev : ""}</span>
-                                            <span className={"day"}>{!!event.date ? timestampToDate(event.date).date : ""}</span>
-                                        </div>
-                                        <div className={"description-event"}>
-                                            <span className={"time"}>{!!event.date ? timestampToDate(event.date).weekday+" às "+timestampToDate(event.date).hour+":"+timestampToDate(event.date).min: ""}</span>
-                                            <span className={"theme"}>{event.theme}</span>
-                                            <span className={"place"}>{!!event.embassy ? event.embassy.name : ""} - {event.city+", "+event.state_short}</span>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
+                    <div className={"event-container"}>
+                        <span className={"list-title"}>Próximos eventos</span>
+                        <ul className={"list-events"}>
+                        {list.map((event, i) => (
+                                <li>
+                                    <Link to={"/"}>
+                                        <EventCard event={event}/>
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
                 <SimpleBottomNavigation currentTab={"agenda"} handleChangeTab={this.handleChangeTab}/>
             </div>

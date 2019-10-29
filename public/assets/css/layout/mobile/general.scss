@@ -4,7 +4,7 @@ a:hover {
 
 .mobile-container{
   background: $backgroundGreyStrong;
-  position: absolute;
+  position: relative;
   height: 100%;
   padding: 54px 0;
   width: 100%;
@@ -66,5 +66,12 @@ a:hover {
       padding: 8px 12px 8px;
       width: 20%;
     }
+  }
+
+  .list-title {
+    color: $colorPrimary;
+    display: block;
+    font-family: $appFontBold;
+    margin: 16px;
   }
 }

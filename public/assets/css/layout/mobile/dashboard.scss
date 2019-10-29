@@ -45,6 +45,11 @@
       text-transform: uppercase;
     }
   }
+  .no-events-msg {
+    color: $colorText;
+    font-family: $appFont;
+    font-size: 0.9rem;
+  }
 }
 
 .next-event {
@@ -136,7 +141,8 @@
       font-family: $appFont;
       color: $colorSubText;
       font-size: 0.9rem;
-      margin-top: -3px;
+      margin-top: 0px;
+      line-height: 1.2;
     }
   }
 }

@@ -12,6 +12,8 @@ interface StoreState {
     membersList?: Array<User>
     usersLastDoc?: firebase.firestore.DocumentData | null
     singleUser?: User
+    usersCount?: number
+
 }
 
 export default function (state: StoreState = {}, action: Action) {
@@ -19,6 +21,8 @@ export default function (state: StoreState = {}, action: Action) {
     switch (action.type) {
         case 'ON_LIST':
             return {...state, usersList: action.payload.list, usersLastDoc: action.payload.lastDoc};
+        case 'ON_USERS_COUNT':
+            return {...state, usersCount: action.payload.usersCount};
         case 'ON_LIST_EMBASSY_MEMBERS':
             return {...state, membersList: action.payload.list};
         case 'ON_GET_SINGLE_USER':

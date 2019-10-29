@@ -45,6 +45,18 @@
       font-family: $appFont;
       line-height: 1.2;
     }
+    span.user-identifier {
+      display: inline-block;
+      margin-left: 66px;
+      font-size: 0.8rem;
+      background: #011e40;
+      padding: 2px 8px;
+      color: #fff;
+      border-radius: 25px;
+    }
+    .clear {
+      clear: both;
+    }
   }
 }
 
@@ -66,7 +78,9 @@
     h1 {
       color: $colorText;
       font-family: $appFontBold;
-      font-size: 1.8rem;
+      font-size: 1.4rem;
+      margin-top: 8px;
+      margin-bottom: 24px;
     }
   }
   .user-info {
@@ -74,6 +88,7 @@
     li {
       font-family: $appFont;
       color: $colorText;
+      font-size: 0.9rem;
       i {
         min-width: 25px;
       }
@@ -85,7 +100,11 @@
   .user-description {
     color: $colorText;
     font-family: $appFont;
-    margin: 16px 24px;
+    font-size: 0.9rem;
+    margin: 24px;
+    p {
+      font-family: $appFont;
+    }
     span {
       font-weight: bold;
     }

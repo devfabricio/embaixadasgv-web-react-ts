@@ -18,38 +18,43 @@ export function listUsers(previewList: Array<User>, loadmore: boolean, lastDoc: 
                 .limit(30)
                 .get()
                 .then((querySnapshot) => {
+
                     let lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1]
                     querySnapshot.forEach((doc) => {
                         let user = new User()
                         user.toObject(doc.data());
 
-                        /*var arr = user.name.split(" ")
-                        var name = arr[0];
-                        let lastname = ""
+                            /*var arr = user.name.split(" ")
+                            var name = arr[0];
+                            let lastname = ""
 
-                        if(arr.length > 2) {
-                            if(arr[1].length < 3) {
-                                lastname = arr[2]
-                            } else {
+                            if(arr.length > 2) {
+                                if(arr[1].length < 3) {
+                                    lastname = arr[2]
+                                } else {
+                                    lastname = arr[1]
+                                }
+                            } else if(arr.length > 1 && arr.length < 3) {
                                 lastname = arr[1]
                             }
-                        } else if(arr.length > 1 && arr.length < 3) {
-                            lastname = arr[1]
-                        }
 
 
-                        let formattedName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-                        let formattedLastname =  lastname.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
+                            let formattedName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+                            let formattedLastname =  lastname.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
 
-                        let username = ""
+                            let username = ""
 
-                        if(usernames.indexOf(formattedName, 0) < 0) {
-                            username = formattedName
-                        } else {
-                            username = formattedName+"_"+formattedLastname
-                        }
+                            if(usernames.indexOf(formattedName, 0) < 0) {
+                                username = formattedName
+                            } else {
+                                username = formattedName+"_"+formattedLastname
+                            }
 
-                        usernames.push(formattedName);*/
+                            usernames.push(formattedName);
+
+                            if(!user.username) {
+                                doc.ref.update("username", username)
+                            }*/
 
                         list.push(user)
                     });
@@ -58,7 +63,11 @@ export function listUsers(previewList: Array<User>, loadmore: boolean, lastDoc: 
                         type: 'ON_LIST',
                         payload: {list: list, lastDoc:lastDoc}})
                 })
+                .catch(error => {console.log(error)}
+                )
+
         } else {
+            console.log("chamou o load more")
             userCollections
                 .where("status", "==", "active")
                 .limit(30)
@@ -84,6 +93,29 @@ export function listUsers(previewList: Array<User>, loadmore: boolean, lastDoc: 
                 })
         }
 
+    }
+}
+
+
+export function getUsersCount() {
+    let serverDataCollections = firebaseDatabase.collection(firebaseCollections.SERVER_DATA);
+
+    return (dispatch: Dispatch) => {
+        serverDataCollections
+            .doc("users_count")
+            .get()
+            .then((docServerData) => {
+
+                let serverData = docServerData.data();
+                let usersCount = 0;
+                if(!!serverData) {
+                    usersCount = serverData.value
+                }
+
+                dispatch({
+                    type: 'ON_USERS_COUNT',
+                    payload: {usersCount: usersCount}})
+            })
     }
 }
 
@@ -128,5 +160,13 @@ export function getSingleUser(username: string) {
                         payload: {user: user}})
                 }
             })
+    }
+}
+
+export function clearSingleUser() {
+    return (dispatch: Dispatch) => {
+        dispatch({
+            type: 'ON_GET_SINGLE_USER',
+            payload: {user: undefined}})
     }
 }

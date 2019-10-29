@@ -100,11 +100,28 @@
       margin: 12px 16px 4px 16px;
     }
     .post-text {
-      color: $colorText;
-      display: block;
-      font-family: $appFont;
-      font-size: 0.9rem;
-      margin: 0 16px 16px 16px;
+      p, span {
+        color: $colorText;
+        display: block;
+        font-family: $appFont;
+        margin: 0 16px 16px 16px;
+      }
+    }
+    .post-text.post-thought {
+      p, span {
+        font-size: 1.3rem;
+      }
+    }
+    .post-text.post-picture {
+      p, span {
+        font-size: 1rem;
+        margin-top: 12px;
+      }
+    }
+    .post-text.post-note {
+      p, span {
+        font-size: 0.9rem;
+      }
     }
   }
 }

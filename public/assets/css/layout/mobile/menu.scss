@@ -4,6 +4,33 @@
   height: 100%;
   width: 100%;
   z-index: 1;
+  .user-profile {
+    padding: 16px 16px 0;
+    img {
+      border-radius: 50%;
+      float: left;
+      height: 50px;
+      margin-right: 8px;
+      width: 50px;
+    }
+    span {
+      display: block;
+    }
+    span.user-name {
+      color: $colorText;
+      font-family: $appFont;
+      font-size: 0.9rem;
+      font-weight: bold;
+      margin-top: 4px;
+    }
+
+    span.user-occupation {
+      color: $colorSubText;
+      font-size: 0.9rem;
+      font-family: $appFont;
+      line-height: 1.2;
+    }
+  }
 }
 
 .menu-section {
@@ -27,6 +54,13 @@
   }
   li {
     a {
+      color: $colorText;
+      display: block;
+      padding: 8px 16px;
+    }
+    button {
+      background: none;
+      border: none;
       color: $colorText;
       display: block;
       padding: 8px 16px;

@@ -24,6 +24,7 @@ export const firebaseCollections = {
     SPONSORS: "sponsors",
     INVITATION_REQUEST: "invitation_request",
     APP_INVITATIONS: "app_invitations",
+    SERVER_DATA: "server_data",
     APP_MESSAGES: "app_messages"
 };
 
