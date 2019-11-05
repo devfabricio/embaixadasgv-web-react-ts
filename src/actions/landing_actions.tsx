@@ -45,7 +45,11 @@ export function listEmbassy() {
                         queryApproved.forEach((doc) => {
                             let embassy = new Embassy();
                             embassy.toObject(doc.data());
-                            list.push(embassy);
+                            if (list.some(e => e.name === embassy.name)) {
+                                console.log("tem repetido")
+                            } else {
+                                list.push(embassy);
+                            }
                         });
                         embassyRef.where("status", "==", "released")
                             .get()

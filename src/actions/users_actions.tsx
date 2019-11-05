@@ -7,6 +7,7 @@ import User from "../models/User";
 
 export function listUsers(previewList: Array<User>, loadmore: boolean, lastDoc: firebase.firestore.DocumentData | null, callback?: (isOver: boolean) => void) {
 
+    let embassyCollections = firebaseDatabase.collection(firebaseCollections.EMBASSY)
     let userCollections = firebaseDatabase.collection(firebaseCollections.USERS)
     let list: Array<User> = [];
     let usernames: Array<string> = []
@@ -23,40 +24,40 @@ export function listUsers(previewList: Array<User>, loadmore: boolean, lastDoc: 
                     querySnapshot.forEach((doc) => {
                         let user = new User()
                         user.toObject(doc.data());
+                        list.push(user)
 
-                            /*var arr = user.name.split(" ")
-                            var name = arr[0];
-                            let lastname = ""
-
-                            if(arr.length > 2) {
-                                if(arr[1].length < 3) {
-                                    lastname = arr[2]
-                                } else {
-                                    lastname = arr[1]
+                        /*embassyCollections
+                            .where("leader_id", "==", user.id)
+                            .where("status", "==", "active")
+                            .get()
+                            .then((embassiesSnapshot) => {
+                                if(embassiesSnapshot.docs.length > 0) {
+                                    embassiesSnapshot.docs[0].ref.update("leader_username", user.username)
+                                        .then(() => {
+                                            console.log(user.username)
+                                        })
                                 }
-                            } else if(arr.length > 1 && arr.length < 3) {
-                                lastname = arr[1]
-                            }
+                            });*/
 
+
+                        /*if(!user.username) {
+                            var arr = user.name.split(" ")
+                            var name = arr[0];
+                            let lastname = "";
+
+                            if(arr.length > 1) {
+                                lastname = arr[arr.length - 1]
+                            }
 
                             let formattedName = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
                             let formattedLastname =  lastname.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
 
-                            let username = ""
+                            let username = formattedName+"_"+formattedLastname;
 
-                            if(usernames.indexOf(formattedName, 0) < 0) {
+                            if(arr.length === 1) {
                                 username = formattedName
-                            } else {
-                                username = formattedName+"_"+formattedLastname
                             }
-
-                            usernames.push(formattedName);
-
-                            if(!user.username) {
-                                doc.ref.update("username", username)
-                            }*/
-
-                        list.push(user)
+                        }*/
                     });
 
                     dispatch({
@@ -67,7 +68,6 @@ export function listUsers(previewList: Array<User>, loadmore: boolean, lastDoc: 
                 )
 
         } else {
-            console.log("chamou o load more")
             userCollections
                 .where("status", "==", "active")
                 .limit(30)
@@ -79,6 +79,7 @@ export function listUsers(previewList: Array<User>, loadmore: boolean, lastDoc: 
                         let user = new User()
                         user.toObject(doc.data());
                         list.push(user)
+
                     });
                     if(querySnapshot.docs.length > 0) {
                         dispatch({
