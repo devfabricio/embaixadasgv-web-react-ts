@@ -21,6 +21,7 @@ import User from "./models/User";
 import MobileRoutes from "./routes/mobile_routes";
 import RequestInvite from "./components/Landing/RequestInvite"
 import PrivateRoute from "./routes/private_route";
+import ParticipatePage from "./components/Landing/participate";
 
 interface Props {
     checkAuth: () => void
@@ -70,6 +71,7 @@ class App extends Component<Props> {
                             <Switch>
                                 <Route exact path={'/login'} component={Login} />
                                 <Route exact path={'/registrar'} component={Register} />
+                                <Route exact path={'/participar'} component={ParticipatePage} />
                                 <Route exact path={'/convite/:username'} component={RequestInvite} />
                                 <Route exact path={'/completar-registro'} component={CompleteRegister} />
                                 <Route exact path={'/sobre'} component={AboutPage} />
@@ -88,6 +90,7 @@ class App extends Component<Props> {
                         <Switch>
                             <Route exact path={'/convite/:username'} component={RequestInvite} />
                             <Route exact path={'/completar-registro'} component={CompleteRegister} />
+                            <Route exact path={'/participar'} component={ParticipatePage} />
                             <Route exact path={'/sobre'} component={AboutPage} />
                             <Route exact path={'/lista'} component={ListPage} />
                             <Route exact path={'/quero-fundar'} component={FoundPage} />
