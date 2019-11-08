@@ -2,6 +2,7 @@ import {myFirebase} from "../utils/firebase";
 import {Dispatch} from "redux";
 import Embassy from "../models/Embassy";
 import {EmbassySponsor} from "../models/EmbassySponsor";
+import firebase from "firebase";
 
 export function registerEmbassy(embassy: Embassy, callback: Function) {
     return (dispatch: Dispatch) => {
@@ -12,6 +13,28 @@ export function registerEmbassy(embassy: Embassy, callback: Function) {
                 callback();
                 dispatch({
                     type: 'ON_REGISTER',
+                    payload: true})
+            })
+    };
+}
+
+export function registerInterested(interested: {
+    name: string,
+    email: string,
+    phone: string,
+    city: string,
+    state: string,
+    stateShort: string,
+    date: firebase.firestore.FieldValue
+}, callback: () => void) {
+
+    return (dispatch: Dispatch) => {
+        myFirebase.firestore().collection("interested")
+            .add(interested)
+            .then(document => {
+                callback();
+                dispatch({
+                    type: 'ON_REGISTER_INTERESTED',
                     payload: true})
             })
     };
@@ -96,7 +119,7 @@ export function listSponsors() {
     }
 }
 
-export function getEmbassyByCity(city: string) {
+export function getEmbassyByCity(city: string, callback: () => void) {
     let list: Array<Embassy> = [];
     let embassyRef = myFirebase.firestore().collection("embassy");
     return (dispatch: Dispatch) => {
@@ -104,10 +127,12 @@ export function getEmbassyByCity(city: string) {
             .get()
             .then(querySnapshot => {
                 if(querySnapshot.docs.length > 0) {
+                    callback()
                     dispatch({
                         type: 'ON_LIST_EMBASSY_BY_CITY',
                         payload: true})
                 } else {
+                    callback()
                     dispatch({
                         type: 'ON_LIST_EMBASSY_BY_CITY',
                         payload: false})

@@ -292,6 +292,11 @@
       background: #f2f2f3;
       padding: 24px 32px;
       border: 1px solid #dadada;
+      ul {
+        color: $colorText;
+        list-style: unset;
+        padding-left: 1.5rem;
+      }
     }
     .pillars{
       text-align: center;
@@ -372,7 +377,7 @@
   }
 }
 .participate-page {
-  padding: 64px 0;
+  padding: 64px 0 128px;
   .form {
     h4 {
       color: $backgroundGrey;
@@ -391,6 +396,8 @@
 
     a {
       color: $colorAccent;
+      font-size: 1.4rem;
+      font-weight: bold;
     }
 
     input[type="text"],  input[type="email"],  input[type="number"],  input[type="password"]{
@@ -410,9 +417,9 @@
       font-size: 14px;
       font-weight: bold;
       height: 45px;
+      margin-top: 1rem;
       text-transform: uppercase;
       width: 100%;
-
     }
 
     .submit-code {

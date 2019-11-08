@@ -2,29 +2,56 @@ import React, {Component} from "react";
 import LandingHeader from "./header";
 import LandingFooter from "./footer";
 import {bindActionCreators, Dispatch} from "redux";
-import {getEmbassyByCity} from "../../actions/landing_actions";
+import {getEmbassyByCity, registerInterested} from "../../actions/landing_actions";
 import {connect} from "react-redux";
 import {AppState} from "../../reducers";
-import firebase from 'firebase';
 import FormField from "../Widgets/TextInput";
 import {geocodeByAddress} from "react-places-autocomplete";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {Link} from "react-router-dom";
-import {Invitation} from "../../models/Invitation";
-import User from "../../models/User";
+import Toast from "../Widgets/Toast";
+import firebase from "firebase";
 
 interface Props {
     hasEmbassy: boolean | undefined;
-    getEmbassyByCity: (city: string) => void;
+    getEmbassyByCity: (city: string, callback: () => void) => void;
+    registerInterested: (interested: {
+        name: string,
+        email: string,
+        phone: string,
+        city: string,
+        state: string,
+        stateShort: string,
+        date: firebase.firestore.FieldValue
+    }, callback: () => void) => void;
 }
 
-class ParticipatePage extends Component<Props> {
+interface State {
+    cityHasEmbassy: boolean
+    beLeader: boolean
+    beParticipant: boolean
+    loading: boolean
+    loadingCity: boolean
+    open: boolean
+    toastMessage: string
+    toastVariant: "error" | "info" | "success" | "warning"
+    address: string
+    city: string
+    state: string
+    shortState: string
+    name: string
+    email: string
+    phone: string
+}
 
-    state = {
+class ParticipatePage extends Component<Props, State> {
+
+    state: Readonly<State> = {
         cityHasEmbassy: false,
         beLeader: false,
         beParticipant: false,
         loading: false,
+        loadingCity: false,
         open: false,
         toastMessage: "",
         toastVariant: "info",
@@ -38,14 +65,15 @@ class ParticipatePage extends Component<Props> {
     };
 
     setLocation = (resultPlace: google.maps.GeocoderResult) => {
+
         let self = this;
         resultPlace.address_components.forEach(function (value: google.maps.GeocoderAddressComponent, i: number) {
             if(value.types[0] === "locality" || value.types[0] === "administrative_area_level_2") {
                 self.setState({
                     ...self.state,
                     city : value.long_name
-                })
-                self.props.getEmbassyByCity(value.long_name)
+                });
+                self.props.getEmbassyByCity(value.long_name, self.hideLoadingCity)
             }
             if(value.types[0] === "administrative_area_level_1") {
                 self.setState({
@@ -54,15 +82,44 @@ class ParticipatePage extends Component<Props> {
                     shortState: value.short_name
                 });
             }
+        });
+    };
+
+
+    registerSuccess = () => {
+        this.setState({
+            ...this.state,
+            loading: false,
+            toastMessage: "Cadastro realizado com sucesso!",
+            toastVariant: "success",
+            open: true,
+            address: "",
+            city: "",
+            state: "",
+            shortState: "",
+            name: "",
+            email: "",
+            phone: ""
         })
     };
+
+    handleToastClose = () => {
+        this.setState({
+            ...this.state,
+            open: false,
+        });
+    };
+
+    hideLoadingCity = () => {
+        this.setState({loadingCity: false})
+    }
 
     handleLocationChange = (address: string) => {
         this.setState({ address });
     };
 
     handleLocationSelect = (address: string) => {
-        this.setState({ address })
+        this.setState({ address, loadingCity: true })
         geocodeByAddress(address)
             .then(results => {
                 this.setLocation(results[0])
@@ -76,6 +133,9 @@ class ParticipatePage extends Component<Props> {
         let name = this.state.name;
         let email = this.state.email;
         let whatsapp = this.state.phone;
+        let city = this.state.city;
+        let state = this.state.state;
+        let stateShort = this.state.shortState;
 
         if(name === "" || email === "" || whatsapp === "" ) {
             this.setState({
@@ -88,6 +148,22 @@ class ParticipatePage extends Component<Props> {
             return
         }
 
+        let interested = {
+            name: name,
+            email: email,
+            phone: whatsapp,
+            city: city,
+            state: state,
+            stateShort: stateShort,
+            date: firebase.firestore.FieldValue.serverTimestamp()
+        }
+
+        this.setState({
+            ...this.state,
+            loading: true,
+        });
+
+        this.props.registerInterested(interested, this.registerSuccess)
     };
 
     render() {
@@ -132,7 +208,7 @@ class ParticipatePage extends Component<Props> {
             {attr: {
                     type: "text",
                     placeholder:"Whastapp: ",
-                    value: this.state.name,
+                    value: this.state.phone,
                     onChange: (e: React.ChangeEvent<HTMLInputElement>) => this.setState({...this.state, phone: e.target.value})
                 }
             }
@@ -143,7 +219,8 @@ class ParticipatePage extends Component<Props> {
             <div className={"participate-page"}>
                 <div className={"container"}>
                     {!hasSelectedCity && <div className={"form col-md-6 offset-md-3"}>
-                        <h4>Qual a sua cidade?</h4>
+                        <h4>Quer participar do movimento das embaixadas GV?</h4>
+                        <p>Você será muito bem vindo(a). Para começar, precisamos saber de qual cidade você é:</p>
                         <FormField
                             type={"location"}
                             searchOptions={{
@@ -164,15 +241,17 @@ class ParticipatePage extends Component<Props> {
                         </div>
                     </div>}
                     {(hasSelectedCity && this.state.beParticipant) && <div className={"form col-md-6 offset-md-3"}>
-                        <h4>Tem embaixadas em {this.state.city}!</h4>
+                        <h4>Agora é com você ;)</h4>
                         <p>Confira a lista das embaixadas localizadas em {this.state.city} e entre em contato com o líder da embaixada mais próxima de sua região para já começar a participar das reuniões!</p>
-                        <Link to={"/"}>Ir para a lista</Link>
+                        <div style={{textAlign: "center"}}>
+                            <Link to={"/lista?cidade="+this.state.city}>Ir para a lista</Link>
+                        </div>
                     </div>}
                     {(hasSelectedCity && (!hasEmbassyCity || this.state.beLeader)) && <div className={"form col-md-6 offset-md-3"}>
-                        {!this.state.beLeader && <h4>Seja o primeiro!</h4>}
-                        {!this.state.beLeader && <p>Não foi encontrada nenhuma embaixada ativa em sua cidade, mas você pode fundar a primeira! Caso queira fundar uma embaixada preencha o formulário abaixo:</p>}
+                        {!this.state.beLeader && <h4>Seja o primeiro na sua cidade!</h4>}
+                        {!this.state.beLeader && <p>Não foi encontrada nenhuma embaixada ativa em sua cidade, mas você pode fundar a primeira! Preencha o formulário abaixo com os seus dados que em breve entraremos em contato para lhe fornecer o suporte necessário na abertura de sua embaixada:</p>}
                         {this.state.beLeader && <h4>Perfeito!</h4>}
-                        {this.state.beLeader && <p>Preencha o formulário abaixo com os seus dados que em breve entraremos em contato para lhe fornecer o suporte necessário na abertura de seua embaixada.</p>}
+                        {this.state.beLeader && <p>Preencha o formulário abaixo com os seus dados que em breve entraremos em contato para lhe fornecer o suporte necessário na abertura de sua embaixada.</p>}
                         <form className="row" id={"register-interessed"} onSubmit={(e) => this.handleSubmitRegister(e)} autoComplete={"off"}>
                             <input type="hidden" value="anything" />
                             {form.map((field, i) => {
@@ -182,14 +261,23 @@ class ParticipatePage extends Component<Props> {
                                     </div>)
                             })}
                             <div className="form-group form-action col-md-12">
-                                {showButton ? <button id={"bt-form"} className="btn btn-primary">Registrar</button> : null }
+                                {showButton ? <button id={"bt-form"} className="btn btn-primary">Enviar</button> : null }
                                 {showProgress ? <CircularProgress size={30} id={"progress-form"}  /> : null}
                             </div>
                         </form>
                     </div>}
+                    <div style={{textAlign: "center"}}>
+                        {this.state.loadingCity ? <CircularProgress size={30} id={"progress-form"}  /> : null}
+                    </div>
                 </div>
             </div>
-            <LandingFooter/>
+            <div style={{position: "absolute", bottom: 0, width: "100%"}}>
+                <LandingFooter/>
+            </div>
+            <Toast open={this.state.open}
+                   message={this.state.toastMessage}
+                   variant={this.state.toastVariant}
+                   handleToastClose={this.handleToastClose}/>
         </div>)
     }
 
@@ -200,7 +288,7 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => (
-    bindActionCreators({getEmbassyByCity}, dispatch)
+    bindActionCreators({getEmbassyByCity, registerInterested}, dispatch)
 );
 
 export default connect (mapStateToProps, mapDispatchToProps) (ParticipatePage)

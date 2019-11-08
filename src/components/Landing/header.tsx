@@ -24,7 +24,7 @@ const LandingHeader = () => {
                     <Nav className="mr-auto">
                         <Link className={"nav-link"} to="/sobre">Sobre as embaixadas</Link>
                         <Link className={"nav-link"} to="/lista">Lista</Link>
-                        <Link className={"nav-link"} to="/quero-fundar">Quero fundar</Link>
+                        <Link className={"nav-link"} to="/quero-participar">Quero participar</Link>
                         <Link className={"nav-link"} to="/contato">Contato</Link>
                     </Nav>
                 </Navbar.Collapse>

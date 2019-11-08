@@ -29,9 +29,9 @@ const AboutPage = () => {
                 <h4>Missão, Visão e Valores</h4>
                 <div className={"mission-box"}>
                     <p><b>Missão</b></p>
-                    <p>Nossa visão é fazer “O Jeito Empreendedor do Brasileiro” ser reconhecido mundialmente. Transformando a imagem pejorativa do “Jeitinho Brasileiro” em uma imagem positiva perante os outros países.</p>
-                    <p><b>Visão</b></p>
                     <p>A nossa missão é contribuir para a formação de líderes que exercem o papel de protagonistas na sociedade através do empreendedorismo.</p>
+                    <p><b>Visão</b></p>
+                    <p>Nossa visão é fazer “O Jeito Empreendedor do Brasileiro” ser reconhecido mundialmente. Transformando a imagem pejorativa do “Jeitinho Brasileiro” em uma imagem positiva perante os outros países.</p>
                     <p><b>Valores</b></p>
                     <ul>
                         <li><p><b>Protagonismo:</b> É entender que você é responsável pelos seus resultados e pelas decisões que tomou durante a sua vida. A decisão é sempre sua.</p></li>

@@ -71,12 +71,11 @@ class App extends Component<Props> {
                             <Switch>
                                 <Route exact path={'/login'} component={Login} />
                                 <Route exact path={'/registrar'} component={Register} />
-                                <Route exact path={'/participar'} component={ParticipatePage} />
                                 <Route exact path={'/convite/:username'} component={RequestInvite} />
                                 <Route exact path={'/completar-registro'} component={CompleteRegister} />
                                 <Route exact path={'/sobre'} component={AboutPage} />
                                 <Route exact path={'/lista'} component={ListPage} />
-                                <Route exact path={'/quero-fundar'} component={FoundPage} />
+                                <Route exact path={'/quero-participar'} component={ParticipatePage} />
                                 <Route exact path={'/contato'} component={ContactPage} />
                                 <Route exact path={'/politicas-de-privacidade'} component={PrivacyPage} />
                                 <Route exact path={'/'} component={LandingPage} />
@@ -90,10 +89,9 @@ class App extends Component<Props> {
                         <Switch>
                             <Route exact path={'/convite/:username'} component={RequestInvite} />
                             <Route exact path={'/completar-registro'} component={CompleteRegister} />
-                            <Route exact path={'/participar'} component={ParticipatePage} />
                             <Route exact path={'/sobre'} component={AboutPage} />
                             <Route exact path={'/lista'} component={ListPage} />
-                            <Route exact path={'/quero-fundar'} component={FoundPage} />
+                            <Route exact path={'/quero-participar'} component={ParticipatePage} />
                             <Route exact path={'/contato'} component={ContactPage} />
                             <Route exact path={'/politicas-de-privacidade'} component={PrivacyPage} />
                             <Route exact path={'/'} component={LandingPage} />
