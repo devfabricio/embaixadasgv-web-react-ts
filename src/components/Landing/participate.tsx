@@ -155,7 +155,8 @@ class ParticipatePage extends Component<Props> {
                             handleLocationSelect={this.handleLocationSelect}
                             setLocation={this.setLocation} />
                     </div>}
-                    {(hasSelectedCity && hasEmbassyCity && (this.state.beParticipant || this.state.beLeader)) && <div className={"form col-md-6 offset-md-3"}>
+                    {(hasSelectedCity && hasEmbassyCity && (!this.state.beParticipant && !this.state.beLeader)) && <div className={"form col-md-6 offset-md-3"}>
+                        <h4>Tem embaixadas em {this.state.city}!</h4>
                         <p>Encontramos algumas embaixadas ativas em sua cidade! Você pode participar de uma já existente ou fundar uma nova. Qual a sua escolha?</p>
                         <div className={"row"}>
                             <div className={"col-md-6"}><button onClick={() => this.setState({...this.state, beParticipant: true})} className={"bt-option"}>Participar</button></div>
@@ -163,11 +164,14 @@ class ParticipatePage extends Component<Props> {
                         </div>
                     </div>}
                     {(hasSelectedCity && this.state.beParticipant) && <div className={"form col-md-6 offset-md-3"}>
+                        <h4>Tem embaixadas em {this.state.city}!</h4>
                         <p>Confira a lista das embaixadas localizadas em {this.state.city} e entre em contato com o líder da embaixada mais próxima de sua região para já começar a participar das reuniões!</p>
                         <Link to={"/"}>Ir para a lista</Link>
                     </div>}
                     {(hasSelectedCity && (!hasEmbassyCity || this.state.beLeader)) && <div className={"form col-md-6 offset-md-3"}>
+                        {!this.state.beLeader && <h4>Seja o primeiro!</h4>}
                         {!this.state.beLeader && <p>Não foi encontrada nenhuma embaixada ativa em sua cidade, mas você pode fundar a primeira! Caso queira fundar uma embaixada preencha o formulário abaixo:</p>}
+                        {this.state.beLeader && <h4>Perfeito!</h4>}
                         {this.state.beLeader && <p>Preencha o formulário abaixo com os seus dados que em breve entraremos em contato para lhe fornecer o suporte necessário na abertura de seua embaixada.</p>}
                         <form className="row" id={"register-interessed"} onSubmit={(e) => this.handleSubmitRegister(e)} autoComplete={"off"}>
                             <input type="hidden" value="anything" />

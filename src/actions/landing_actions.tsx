@@ -107,6 +107,10 @@ export function getEmbassyByCity(city: string) {
                     dispatch({
                         type: 'ON_LIST_EMBASSY_BY_CITY',
                         payload: true})
+                } else {
+                    dispatch({
+                        type: 'ON_LIST_EMBASSY_BY_CITY',
+                        payload: false})
                 }
             })
             .catch(e => {
