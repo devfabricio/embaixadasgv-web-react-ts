@@ -371,7 +371,98 @@
     }
   }
 }
+.participate-page {
+  padding: 64px 0;
+  .form {
+    h4 {
+      color: $backgroundGrey;
+      font-family: $title-font;
+      font-weight: bold;
+      margin-bottom: 32px;
+      text-align: center;
+    }
 
+    p {
+      color: $backgroundGrey;
+      font-family: $text-font;
+      margin-top: 32px;
+      text-align: center;
+    }
+
+    a {
+      color: $colorAccent;
+    }
+
+    input[type="text"],  input[type="email"],  input[type="number"],  input[type="password"]{
+      border: none;
+      color: $backgroundGrey;
+      font-family: $text-font;
+      font-size: 16px;
+      border-radius: 0.15rem;
+      width: 100%;
+    }
+
+    .bt-option {
+      background: $backgroundGrey;
+      border: none;
+      color: $colorPrimary;
+      font-family: $text-font;
+      font-size: 14px;
+      font-weight: bold;
+      height: 45px;
+      text-transform: uppercase;
+      width: 100%;
+
+    }
+
+    .submit-code {
+      input[type="text"] {
+        font-size: 32px;
+        text-align: center;
+      }
+    }
+
+    .form-action {
+      margin-top: 16px;
+      text-align: center;
+      .MuiCircularProgress-root {
+        color: $colorAccent;
+      }
+    }
+
+    #bt-form {
+      background: $colorRed;
+      border-radius: 0.15rem;
+      border: none;
+      font-family: $title-font;
+      font-weight: bold;
+      margin-top: 24px;
+      height: 50px;
+      text-transform: uppercase;
+      width: 100%;
+    }
+
+    label.MuiInputLabel-formControl {
+      color: $backgroundGrey;
+    }
+
+    label.MuiFormLabel-root.Mui-focused {
+      color: $colorAccent;
+    }
+
+    .MuiInput-underline:hover:not(.Mui-disabled):before {
+      border-bottom: 1px solid $backgroundGrey;
+    }
+
+    .MuiInput-underline:after {
+      border-bottom: 1px solid $colorAccent;
+    }
+
+    .MuiInput-underline:before {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.42);
+    }
+  }
+}
 footer {
   background: $backgroundGreyStrong;
   border-top: 1px solid #e4e4e4;

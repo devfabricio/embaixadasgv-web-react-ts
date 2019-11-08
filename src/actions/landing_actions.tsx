@@ -96,6 +96,25 @@ export function listSponsors() {
     }
 }
 
+export function getEmbassyByCity(city: string) {
+    let list: Array<Embassy> = [];
+    let embassyRef = myFirebase.firestore().collection("embassy");
+    return (dispatch: Dispatch) => {
+        embassyRef.where("city", "==", city)
+            .get()
+            .then(querySnapshot => {
+                if(querySnapshot.docs.length > 0) {
+                    dispatch({
+                        type: 'ON_LIST_EMBASSY_BY_CITY',
+                        payload: true})
+                }
+            })
+            .catch(e => {
+                console.log(e.message)
+            })
+    };
+}
+
 export function getPolicyPrivacy() {
 
     return (dispatch: Dispatch) => {

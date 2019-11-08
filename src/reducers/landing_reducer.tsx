@@ -13,6 +13,7 @@ interface StoreState {
     embassyList?: Array<Embassy>
     policy_privacy?: firebase.firestore.DocumentData,
     sponsorsList?: Array<EmbassySponsor>
+    hasEmbassy?: boolean
 }
 
 export default function (state: StoreState = {}, action: Action) {
@@ -22,6 +23,8 @@ export default function (state: StoreState = {}, action: Action) {
             return {...state, embassyRegistered: action.payload};
         case 'ON_LIST':
             return {...state, embassyList: action.payload};
+        case 'ON_LIST_EMBASSY_BY_CITY':
+            return {...state, hasEmbassy: action.payload};
         case 'ON_GET_PRIVACY':
             return {...state, policy_privacy: action.payload};
         case 'ON_LIST_SPONSORS' :
