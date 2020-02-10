@@ -3,6 +3,7 @@ import LandingHeader from "./header";
 import LandingTop from "./top";
 import RegisterEmbassy from "./registerEmbassy";
 import LandingFooter from "./footer";
+
 import ReactGA from 'react-ga';
 
 const LandingPage = () => {

@@ -3,6 +3,7 @@ import {Dispatch} from "redux";
 import Embassy from "../models/Embassy";
 import {EmbassySponsor} from "../models/EmbassySponsor";
 import firebase from "firebase";
+import User from "../models/User";
 
 export function registerEmbassy(embassy: Embassy, callback: Function) {
     return (dispatch: Dispatch) => {
@@ -151,9 +152,11 @@ export function getPolicyPrivacy() {
             .doc("policy_privacy_ptbr")
             .get()
             .then(document => {
-                dispatch({
-                    type: 'ON_GET_PRIVACY',
-                    payload: document.data()})
+                if(!!document.data()) {
+                    dispatch({
+                        type: 'ON_GET_PRIVACY',
+                        payload: document.data()!.value})
+                }
             })
     };
 }

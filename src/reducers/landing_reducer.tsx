@@ -11,7 +11,7 @@ interface Action {
 interface StoreState {
     embassyRegistered?: boolean,
     embassyList?: Array<Embassy>
-    policy_privacy?: firebase.firestore.DocumentData,
+    policy_privacy?: string,
     sponsorsList?: Array<EmbassySponsor>
     hasEmbassy?: boolean
 }

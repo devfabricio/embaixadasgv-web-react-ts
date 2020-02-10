@@ -19,6 +19,7 @@ import User from "../../models/User";
 import FormField from "../Widgets/TextInput";
 import CropImage from "../Widgets/CropImage";
 import TransitionsModal from "../Widgets/TransitionModal";
+import uuid from "uuid/v4"
 
 type variants = "error" | "info" | "success" | "warning"
 
@@ -235,6 +236,8 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
     };
 
     render() {
+
+        console.log(uuid()+".jpg");
 
         let showProgress = false;
         let showButton = true;

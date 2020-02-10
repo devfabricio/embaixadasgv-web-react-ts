@@ -21225,6 +21225,13 @@ ul {
   display: inline-block;
   margin-top: 16px;
 }
+.landing .top .highlight-text .bt-getonas {
+  background: #FAFAFA;
+  border-radius: 10px;
+  display: inline-block;
+  margin-top: 16px;
+  margin-left: 16px;
+}
 .landing .top .highlight-text p {
   margin-bottom: 4px;
 }
@@ -21482,6 +21489,7 @@ ul {
   color: #4D4D4F;
   font-size: 1.5rem;
   font-weight: bold;
+  margin-top: 2rem;
 }
 .landing .policy-privacy h3 {
   color: #4D4D4F;
@@ -21493,6 +21501,12 @@ ul {
   font-size: 1rem;
   font-weight: bold;
   margin-top: 16px;
+}
+.landing .policy-privacy ul {
+  color: #4D4D4F;
+  list-style: inherit;
+  padding-left: 20px;
+  margin-bottom: 2rem;
 }
 
 .participate-page {

@@ -7,6 +7,22 @@ import User from "../models/User";
 
 export function listUsers(previewList: Array<User>, loadmore: boolean, lastDoc: firebase.firestore.DocumentData | null, callback?: (isOver: boolean) => void) {
 
+    /*myFirebase.firestore().collection("users")
+        .where("leader", "==", true)
+        .get()
+        .then(querySnapshot => {
+            querySnapshot.forEach((doc) => {
+                let user = new User();
+                user.toObject(doc.data());
+                myFirebase.firestore().collection("embassy")
+                    .doc(user.embassy_id!)
+                    .update("leader", user.toBasicMap())
+                    .then(querySnapshot => {
+                        console.log(user.name, "Embaixada Atualizada");
+                    });
+            });
+        });*/
+
     let embassyCollections = firebaseDatabase.collection(firebaseCollections.EMBASSY)
     let userCollections = firebaseDatabase.collection(firebaseCollections.USERS)
     let list: Array<User> = [];
