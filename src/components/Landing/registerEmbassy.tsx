@@ -81,6 +81,14 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
     setLocation = (resultPlace: google.maps.GeocoderResult) => {
         let self = this;
         resultPlace.address_components.forEach(function (value: google.maps.GeocoderAddressComponent, i: number) {
+
+            if(value.types[0] === "colloquial_area") {
+                self.setState({
+                    ...self.state,
+                    embassyCity : value.long_name
+                })
+            }
+
             if(value.types[0] === "locality" || value.types[0] === "administrative_area_level_2") {
                 self.setState({
                     ...self.state,
@@ -237,7 +245,7 @@ class RegisterEmbassy extends Component<RegisterEmbassyProps, RegisterEmbassySta
 
     render() {
 
-        console.log(uuid()+".jpg");
+        //console.log(uuid()+".jpg");
 
         let showProgress = false;
         let showButton = true;
